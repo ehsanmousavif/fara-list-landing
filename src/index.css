@@ -1,0 +1,270 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+/* تعریف فونت پیدا (Peyda) از فایل ارسالی */
+@font-face {
+  font-family: 'Peyda';
+  src: url('/assets/fonts/PEYDA-MEDIUM.TTF') format('truetype');
+  font-weight: 100 900;
+  font-style: normal;
+  font-display: swap;
+}
+
+@custom-variant dark (&:is(.dark *));
+
+@layer base {
+  :root {
+    --primary: #3525cd;
+    --primary-dark: #2719a0;
+    --secondary: #eae9fb;
+    --background: #000000;
+    --foreground: #ffffff;
+    --font-sans: 'Peyda', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  * {
+    font-family: 'Peyda', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+    border-color: transparent;
+  }
+  body {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Peyda', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+  html {
+    background-color: #000000;
+    color: #ffffff;
+    font-family: 'Peyda', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+  }
+}
+
+/* ========================================================
+   Faralist Logo Loading Keyframes (4-Part Sequence)
+   Part 1: Ribbon Mark (0s -> 0.6s)
+   Part 2: Line 1 (0.6s -> 1.0s)
+   Part 3: Line 2 (1.0s -> 1.4s)
+   Part 4: Line 3 (1.4s -> 1.8s)
+   Hold & Glow: (1.8s -> 2.2s)
+   Reset: (2.2s -> 2.4s)
+======================================================== */
+
+/* Part 1: Purple Ribbon Entry Animation (Looping) */
+@keyframes faralist-ribbon-loop {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(14px) rotate(-4deg);
+    transform-origin: 200px 250px;
+  }
+  18% {
+    opacity: 1;
+    transform: scale(1.04) translateY(-2px) rotate(0.5deg);
+    transform-origin: 200px 250px;
+  }
+  24% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+    transform-origin: 200px 250px;
+  }
+  86% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+  }
+  96%, 100% {
+    opacity: 0;
+    transform: scale(0.85) translateY(6px);
+  }
+}
+
+/* Part 2: Line 1 Entry Animation (Looping) */
+@keyframes faralist-line1-loop {
+  0%, 22% {
+    opacity: 0;
+    transform: translateX(-30px) scaleX(0.4);
+    transform-origin: 238px 246px;
+  }
+  36% {
+    opacity: 1;
+    transform: translateX(2px) scaleX(1.02);
+    transform-origin: 238px 246px;
+  }
+  42% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+    transform-origin: 238px 246px;
+  }
+  86% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+  }
+  96%, 100% {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+/* Part 3: Line 2 Entry Animation (Looping) */
+@keyframes faralist-line2-loop {
+  0%, 38% {
+    opacity: 0;
+    transform: translateX(-30px) scaleX(0.4);
+    transform-origin: 221px 294px;
+  }
+  52% {
+    opacity: 1;
+    transform: translateX(2px) scaleX(1.02);
+    transform-origin: 221px 294px;
+  }
+  58% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+    transform-origin: 221px 294px;
+  }
+  86% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+  }
+  96%, 100% {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+/* Part 4: Line 3 Entry Animation (Looping) */
+@keyframes faralist-line3-loop {
+  0%, 54% {
+    opacity: 0;
+    transform: translateX(-30px) scale(0.6);
+    transform-origin: 238px 343px;
+  }
+  68% {
+    opacity: 1;
+    transform: translateX(2px) scale(1.03);
+    transform-origin: 238px 343px;
+  }
+  74% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+    transform-origin: 238px 343px;
+  }
+  86% {
+    opacity: 1;
+    transform: translateX(0) scale(1);
+  }
+  96%, 100% {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+}
+
+/* --- One-Shot (Non-looping) Animations --- */
+@keyframes faralist-ribbon-once {
+  0% {
+    opacity: 0;
+    transform: scale(0.7) translateY(14px) rotate(-4deg);
+    transform-origin: 200px 250px;
+  }
+  70% {
+    opacity: 1;
+    transform: scale(1.04) translateY(-2px) rotate(0.5deg);
+    transform-origin: 200px 250px;
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+    transform-origin: 200px 250px;
+  }
+}
+
+@keyframes faralist-line-once {
+  0% {
+    opacity: 0;
+    transform: translateX(-30px) scaleX(0.4);
+  }
+  70% {
+    opacity: 1;
+    transform: translateX(2px) scaleX(1.02);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0) scaleX(1);
+  }
+}
+
+/* Subtle Shimmer/Pulse for whole logo */
+@keyframes faralist-pulse-gentle {
+  0%, 100% {
+    filter: drop-shadow(0 0 0 rgba(98, 89, 250, 0));
+  }
+  50% {
+    filter: drop-shadow(0 6px 20px rgba(98, 89, 250, 0.28));
+  }
+}
+
+.animate-pulse-gentle {
+  animation: faralist-pulse-gentle 3s ease-in-out infinite;
+}
+
+@theme inline {
+  --font-heading: 'Peyda', system-ui, sans-serif;
+  --font-sans: 'Peyda', system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+:root {
+  --background: oklch(0.08 0.02 280);
+  --foreground: oklch(0.985 0 0);
+  --card: oklch(0.12 0.03 280);
+  --card-foreground: oklch(0.985 0 0);
+  --popover: oklch(0.12 0.03 280);
+  --popover-foreground: oklch(0.985 0 0);
+  --primary: oklch(0.55 0.22 280);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.2 0.05 280);
+  --secondary-foreground: oklch(0.985 0 0);
+  --muted: oklch(0.2 0.03 280);
+  --muted-foreground: oklch(0.7 0 0);
+  --accent: oklch(0.25 0.06 280);
+  --accent-foreground: oklch(0.985 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(1 1 1 / 10%);
+  --input: oklch(1 1 1 / 15%);
+  --ring: oklch(0.55 0.22 280);
+  --radius: 0.75rem;
+}
