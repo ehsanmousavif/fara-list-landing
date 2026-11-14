@@ -10,21 +10,22 @@ import { LiveDemoSection } from "@/components/sections/LiveDemoSection";
 import { PricingSection } from "@/components/sections/PricingSection";
 import { ComparisonSection } from "@/components/sections/ComparisonSection";
 import { StatsSection } from "@/components/sections/StatsSection";
+import { CatalogPreviewSection } from "@/components/sections/CatalogPreviewSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaSection } from "@/components/sections/CtaSection";
 import { ScrollRevealSection } from "@/components/sections/ScrollRevealSection";
 
-export default function App() {
+export default function Page() {
   const [isLoading, setIsLoading] = useState(true);
 
   return (
-    <div className="min-h-screen flex flex-col gap-10 bg-black text-white selection:bg-[#030430] selection:text-white font-sans antialiased overflow-x-hidden">
+    <div className="min-h-screen flex flex-col gap-10 bg-white text-black selection:bg-[#3525cd] selection:text-white antialiased overflow-x-hidden">
       {/* لودینگ انیمیشنی لوگو در ابتدای ورود */}
-      <LoadingScreen
+      {/* <LoadingScreen
         isLoading={isLoading}
         onFinish={() => setIsLoading(false)}
         durationMs={2200}
-      />
+      /> */}
 
       {/* نوار ناوبری */}
       {/* <Navbar onTriggerLoading={() => setIsLoading(true)} /> */}
@@ -33,12 +34,14 @@ export default function App() {
       <HeroSection />
 
       {/* ۲. سکشن کارت اسکرچ تخفیف ۱۰ درصدی (Spectrum UI ScratchCard) */}
-      <ScratchCardSection />
 
-      {/* ۳. آمار کلیدی */}
+      {/* ۳. بررسی مشکل روش سنتی */}
       <StatsSection />
 
-      {/* ۴. ویژگی‌های کلیدی فرالیست */}
+      {/* ۴. نمایش ماکت کاتالوگ موبایل و معرفی محصول */}
+      <CatalogPreviewSection />
+
+      {/* ۵. ویژگی‌های کلیدی فرالیست */}
       <FeaturesSection />
 
       {/* ۵. بخش نمایش متنی متحرک */}
@@ -62,7 +65,8 @@ export default function App() {
       {/* ۱۱. اقدام به عمل و دانلود */}
       <CtaSection />
 
-      {/* ۱۲. پاورقی */}
+      <ScratchCardSection />
+
       <Footer />
     </div>
   );

@@ -1,40 +1,42 @@
 import React from 'react';
 import AnimatedContent from '@/components/AnimatedContent';
-import { Card, Badge } from '@/components/ui';
-import { XCircle, CheckCircle2 } from 'lucide-react';
+import { Card } from '@/components/ui';
+import { HeaderSections } from '@/components/common/header-sections';
+import { XCircle, CheckCircle2, Store } from 'lucide-react';
 
 export const ComparisonSection: React.FC = () => {
-  const comparisonItems = [
+  const storeComparison = [
     {
-      label: 'سرعت به‌روزرسانی قیمت‌ها',
-      traditional: 'ساعت‌ها کار با اکسل، ویرایش دستی و بی‌اطلاعی خریداران',
-      faralist: 'تغییر درصدی و آنی صدها کالا در کمتر از ۳ ثانیه',
+      label: 'هدف اصلی پلتفرم',
+      traditional: 'سیستم پیچیده سبد خرید، اتصال به درگاه بانکی و حسابداری سنگین',
+      faralist: 'نمایش حرفه‌ای، سریع و همیشه‌بروز محصولات و قیمت‌ها در یک لینک ساده',
     },
     {
-      label: 'شیوه اطلاع‌رسانی به خریداران',
-      traditional: 'ارسال مجدد فایل‌های سنگین PDF در واتساپ و تلگرام',
-      faralist: 'لینک دائمی و کد QR؛ مشتری همیشه جدیدترین نرخ را می‌بیند',
+      label: 'زمان و فرآیند راه‌اندازی',
+      traditional: 'هفته‌ها انتظار برای طراحی سایت، دریافت نماد اعتماد و مجوزهای بانکی',
+      faralist: 'راه‌اندازی در کمتر از ۳ دقیقه بدون نیاز به درگاه یا مدارک پیچیده',
     },
     {
-      label: 'تماس‌های تکراری استعلام قیمت',
-      traditional: 'ده‌ها تماس در روز: «این جنس هنوز همون قیمته؟ موجود دارید؟»',
-      faralist: 'مشاهده لحظه‌ای موجودی و نرخ واقعی بدون نیاز به تماس',
+      label: 'نحوه سفارش مشتری',
+      traditional: 'ثبت‌نام اجباری، فرم‌های طولانی آدرس و درگاه پرداخت که مشتری را منصرف می‌کند',
+      faralist: 'مشاهده سریع کاتالوگ و تماس یا پیام مستقیم در واتساپ و تلگرام با یک کلیک',
     },
     {
-      label: 'هزینه چاپ و نگهداری کاتالوگ',
-      traditional: 'میلیون‌ها تومان هزینه ماهانه چاپ کاتالوگ‌های بلااستفاده',
-      faralist: 'کاتالوگ دیجیتال ۱۰۰٪ پایدار با هزینه ماهانه بسیار ناچیز',
+      label: 'کاربرد در نوسان بازار',
+      traditional: 'تغییر قیمت دستی و کند در پنل‌های پیچیده فروشگاهی',
+      faralist: 'به‌روزرسانی درصدی و آنی صدها کالا هم‌زمان با تغییرات بازار',
     },
     {
-      label: 'حریم خصوصی قیمت همکار',
-      traditional: 'خطر لو رفتن قیمت خرید یا عمده در بین مشتریان خرد',
-      faralist: 'تفکیک دسترسی همکار با رمز عبور اختصاصی',
+      label: 'فروش همکار و عمده',
+      traditional: 'پیچیدگی در تفکیک دسترسی همکار از قیمت‌های عادی مصرف‌کننده',
+      faralist: 'امکان ساخت کاتالوگ‌های اختصاصی و جداگانه برای عمده‌فروشان و همکاران',
     },
   ];
 
   return (
-    <section id="comparison" className="py-20 md:py-28 bg-black text-white">
+    <section id="comparison" className="py-20 md:py-28 bg-white text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
+        {/* هدر بخش منطبق با بخش ۷ سند محتوا */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -42,17 +44,13 @@ export const ComparisonSection: React.FC = () => {
           staggerFrom="end"
           duration={1}
           stagger={0.05}
-          className="text-center space-y-4 max-w-2xl mx-auto"
+          className="text-center"
         >
-          <div className="inline-flex items-center gap-2">
-            <Badge variant="primary">مقایسه کارایی</Badge>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
-            فرالیست در برابر روش سنتی
-          </h2>
-          <p className="text-white/70 text-base md:text-lg">
-            تفاوت اصلی فرالیست در سرعت، سهولت و حذف خطای انسانی است.
-          </p>
+          <HeaderSections
+            icon={<Store className="w-5 h-5" />}
+            title="فرالیست جای فروشگاه اینترنتی رو نمی‌گیره، جای فایل قیمت رو می‌گیره"
+            subtitle="اگه دنبال یه سیستم کامل فروشگاه‌سازی با سبد خرید و درگاه پرداخت هستید، فرالیست اون نیست. کار فرالیست ساده‌تر و مشخص‌تره: نمایش حرفه‌ای، سریع و همیشه‌بروز محصولات و قیمت‌هات در یک لینک قابل اشتراک. همون قدمی که همین الان با فایل و عکس و پیام انجامش می‌دی، فقط بهتر و بدون سردرگمی."
+          />
         </AnimatedContent>
 
         <AnimatedContent
@@ -62,31 +60,31 @@ export const ComparisonSection: React.FC = () => {
           staggerFrom="end"
           duration={1}
           stagger={0.08}
-          className="grid grid-cols-1 lg:grid-cols-2 gap-8"
+          className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-right"
         >
-          {/* ستون روش سنتی */}
+          {/* ستون فروشگاه‌سازهای سنتی و پیچیده */}
           <Card
             variant="surface"
-            className="bg-[#030430]/50 p-8 space-y-6"
+            className="bg-[#f4f4f7] p-8 space-y-6 border-none shadow-none"
           >
             <div className="flex items-center justify-between pb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-white/10 text-white/70 flex items-center justify-center">
+                <div className="w-8 h-8 rounded-xl bg-black/10 text-black/70 flex items-center justify-center">
                   <XCircle className="w-5 h-5" />
                 </div>
-                <h3 className="text-xl font-bold text-white">روش‌های قدیمی و دستی</h3>
+                <h3 className="text-xl font-bold text-black">فروشگاه‌سازهای پیچیده</h3>
               </div>
-              <Badge variant="surface" className="text-xs">
-                پرهزینه و کند
-              </Badge>
+              <span className="text-xs font-semibold px-3 py-1 rounded-full bg-black/10 text-black/70">
+                پیچیده و کند
+              </span>
             </div>
 
             <div className="space-y-4">
-              {comparisonItems.map((item, i) => (
-                <div key={i} className="p-4 rounded-xl bg-white/[0.03] space-y-1">
-                  <span className="text-xs font-semibold text-white/50 block">{item.label}</span>
-                  <div className="flex items-start gap-2 pt-1 text-sm text-white/80">
-                    <XCircle className="w-4 h-4 text-white/60 shrink-0 mt-0.5" />
+              {storeComparison.map((item, i) => (
+                <div key={i} className="p-4 rounded-xl bg-white/70 space-y-1">
+                  <span className="text-xs font-semibold text-black/50 block">{item.label}</span>
+                  <div className="flex items-start gap-2 pt-1 text-sm text-black/80">
+                    <XCircle className="w-4 h-4 text-rose-500 shrink-0 mt-0.5" />
                     <span>{item.traditional}</span>
                   </div>
                 </div>
@@ -97,26 +95,26 @@ export const ComparisonSection: React.FC = () => {
           {/* ستون فرالیست */}
           <Card
             variant="surface"
-            className="bg-[#030430] p-8 space-y-6"
+            className="bg-[#eae9fb] p-8 space-y-6 border-none shadow-none"
           >
             <div className="flex items-center justify-between pb-4">
               <div className="flex items-center gap-2.5">
-                <div className="w-8 h-8 rounded-xl bg-white text-[#030430] flex items-center justify-center font-bold">
-                  <CheckCircle2 className="w-5 h-5 text-[#030430]" />
+                <div className="w-8 h-8 rounded-xl bg-[#3525cd] text-white flex items-center justify-center font-bold">
+                  <CheckCircle2 className="w-5 h-5 text-white" />
                 </div>
-                <h3 className="text-xl font-bold text-white">پلتفرم هوشمند فرالیست</h3>
+                <h3 className="text-xl font-bold text-black">فرالیست (لینک کاتالوگ زنده)</h3>
               </div>
-              <Badge variant="inverted" className="text-xs">
-                فوق‌سریع و پایدار
-              </Badge>
+              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#3525cd] text-white">
+                سبک، سریع و مستقیم
+              </span>
             </div>
 
             <div className="space-y-4">
-              {comparisonItems.map((item, i) => (
-                <div key={i} className="p-4 rounded-xl bg-white/[0.06] space-y-1">
-                  <span className="text-xs font-semibold text-white/70 block">{item.label}</span>
-                  <div className="flex items-start gap-2 pt-1 text-sm text-white font-medium">
-                    <CheckCircle2 className="w-4 h-4 text-white shrink-0 mt-0.5" />
+              {storeComparison.map((item, i) => (
+                <div key={i} className="p-4 rounded-xl bg-white/90 space-y-1">
+                  <span className="text-xs font-semibold text-[#3525cd] block">{item.label}</span>
+                  <div className="flex items-start gap-2 pt-1 text-sm text-black font-semibold">
+                    <CheckCircle2 className="w-4 h-4 text-[#3525cd] shrink-0 mt-0.5" />
                     <span>{item.faralist}</span>
                   </div>
                 </div>

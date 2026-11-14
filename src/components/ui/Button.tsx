@@ -8,8 +8,8 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 
 /**
  * دکمه تخت (Flat Design System)
- * مبتنی بر دو رنگ #030430 و سفید #ffffff بر روی زمینه مشکی
- * بدون بوردر، بدون سایه
+ * بدون هیچ‌گونه بوردر و بدون سایه
+ * مبتنی بر رنگ‌های اصلی: Primary (#3525cd)، Secondary (#eae9fb)، پس‌زمینه مشکی و متن‌های سفید
  */
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
@@ -29,17 +29,17 @@ export const Button: React.FC<ButtonProps> = ({
 
   const variantStyles = {
     primary:
-      'bg-white text-[#030430] font-bold hover:bg-white/90 active:bg-white/80',
+      'bg-[#3525cd] text-white font-bold hover:bg-[#2d1fb5] active:bg-[#26199e]',
     secondary:
-      'bg-[#030430] text-white hover:bg-[#030430]/80 active:bg-[#030430]/70',
+      'bg-[#eae9fb] text-[#3525cd] font-bold hover:bg-[#dedcf9] active:bg-[#d1cefa]',
     surface:
-      'bg-[#030430]/60 text-white hover:bg-[#030430]/90 active:bg-[#030430]',
+      'bg-[#f4f3fb] text-black hover:bg-[#eae9fb] active:bg-[#dedcf9]',
     ghost:
-      'bg-transparent text-white/80 hover:bg-[#030430]/40 active:bg-[#030430]/60',
+      'bg-transparent text-black hover:bg-black/5 active:bg-black/10',
     inverted:
-      'bg-black text-white hover:bg-black/90 active:bg-black/80',
+      'bg-[#3525cd] text-white font-bold hover:bg-[#2d1fb5] active:bg-[#26199e]',
     outline:
-      'bg-white/5 border border-white/20 text-white hover:bg-white/10 active:bg-white/15',
+      'bg-black/5 text-black hover:bg-black/10 active:bg-black/15',
   };
 
   return (

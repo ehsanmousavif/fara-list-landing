@@ -8,7 +8,7 @@ export interface CardProps extends React.HTMLAttributes<HTMLDivElement> {
 
 /**
  * کارت تخت (Flat Design System)
- * زمینه سایت مشکی و کارت‌ها بر پایه رنگ برند #030430
+ * زمینه سایت سفید و کارت‌ها بر پایه رنگ‌های ملایم سازگار با پس‌زمینه سفید، متن‌ها کاملاً مشکی
  * بدون بوردر، بدون سایه
  */
 export const Card: React.FC<CardProps> = ({
@@ -18,10 +18,10 @@ export const Card: React.FC<CardProps> = ({
   ...props
 }) => {
   const variantStyles = {
-    default: 'bg-[#030430]/70 text-white',
-    surface: 'bg-[#030430] text-white',
-    elevated: 'bg-[#030430] text-white',
-    inverted: 'bg-white text-[#030430]',
+    default: 'bg-[#f8f7fc] text-black',
+    surface: 'bg-[#f4f3fb] text-black',
+    elevated: 'bg-[#eeedfa] text-black',
+    inverted: 'bg-[#3525cd] text-white',
   };
 
   return (

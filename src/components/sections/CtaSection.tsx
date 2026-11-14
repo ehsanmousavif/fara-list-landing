@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AnimatedContent from '@/components/AnimatedContent';
-import { Card, Button, Badge } from '@/components/ui';
+import { Card, Button } from '@/components/ui';
+import { HeaderSections } from '@/components/common/header-sections';
 import { ArrowLeft, Sparkles, CheckCircle2 } from 'lucide-react';
 
 export const CtaSection: React.FC = () => {
@@ -15,7 +16,7 @@ export const CtaSection: React.FC = () => {
   };
 
   return (
-    <section id="cta" className="py-20 md:py-28 bg-black text-white">
+    <section id="cta" className="py-20 md:py-28 bg-white text-black">
       <div className="max-w-5xl mx-auto px-4">
         <AnimatedContent
           distance={150}
@@ -27,25 +28,19 @@ export const CtaSection: React.FC = () => {
         >
           <Card
             variant="surface"
-            className="bg-[#030430] p-8 sm:p-12 md:p-16 text-center flex flex-col items-center space-y-6 relative overflow-hidden"
+            className="bg-[#f5f4fd] p-8 sm:p-12 md:p-16 text-center flex flex-col items-center space-y-6 relative overflow-hidden border-none shadow-none"
           >
-            <Badge variant="primary" className="bg-white/15 text-white">
-              <Sparkles className="w-3.5 h-3.5 ml-1.5 inline" />
-              همین امروز شروع کنید
-            </Badge>
-
-            <h2 className="text-3xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-tight max-w-2xl">
-              لیست قیمت کسب‌وکار خود را در ۲ دقیقه آنلاین کنید!
-            </h2>
-
-            <p className="max-w-xl text-white/80 text-sm sm:text-base md:text-lg leading-relaxed">
-              بدون نیاز به کارت بانکی، در فرالیست ثبت‌نام کنید و اولین لیست قیمت هوشمند خود را با لینک و کیوآرکد اختصاصی بسازید.
-            </p>
+            {/* عنوان و زیرعنوان منطبق با بخش ۱۰ سند محتوا */}
+            <HeaderSections
+              icon={<Sparkles className="w-5 h-5" />}
+              title="دیگه لازم نیست برای هر تغییر قیمت، یه فایل جدید بسازی"
+              subtitle="همین الان کاتالوگ خودت رو بساز و یک لینک ثابت برای همیشه داشته باش."
+            />
 
             {submitted ? (
-              <div className="p-4 rounded-xl bg-white/10 text-white flex items-center gap-2 text-sm font-semibold">
-                <CheckCircle2 className="w-5 h-5 text-white" />
-                <span>درخواست شما ثبت شد! همکاران فرالیست به زودی با شما تماس می‌گیرند.</span>
+              <div className="p-4 rounded-xl bg-[#eae9fb] text-[#3525cd] flex items-center gap-2 text-sm font-semibold border-none">
+                <CheckCircle2 className="w-5 h-5 text-[#3525cd]" />
+                <span>درخواست شما ثبت شد! کاتالوگ اختصاصی شما در حال آماده‌سازی است.</span>
               </div>
             ) : (
               <form
@@ -58,7 +53,7 @@ export const CtaSection: React.FC = () => {
                   onChange={(e) => setPhoneOrEmail(e.target.value)}
                   placeholder="شماره موبایل یا ایمیل شما..."
                   required
-                  className="flex-1 h-12 px-4 rounded-xl bg-white/10 text-white placeholder:text-white/40 text-sm outline-none border-none focus:bg-white/15"
+                  className="flex-1 h-12 px-4 rounded-xl bg-white text-black placeholder:text-black/40 text-sm outline-none border-none focus:bg-white"
                 />
                 <Button
                   type="submit"
@@ -66,16 +61,16 @@ export const CtaSection: React.FC = () => {
                   size="md"
                   className="h-12 px-6"
                 >
-                  <span>ثبت‌نام رایگان</span>
+                  <span>ساخت کاتالوگ من</span>
                   <ArrowLeft className="w-4 h-4 mr-1" />
                 </Button>
               </form>
             )}
 
-            <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-white/60">
-              <span>✓ پلن رایگان بدون محدودیت زمانی</span>
+            <div className="pt-4 flex flex-wrap items-center justify-center gap-6 text-xs text-black/70">
+              <span>✓ پلن رایگان برای شروع</span>
               <span>✓ ورود سریع با شماره موبایل</span>
-              <span>✓ پشتیبانی آنلاین فارسی</span>
+              <span>✓ بدون نیاز به نصب اپلیکیشن برای مشتری‌هات</span>
             </div>
           </Card>
         </AnimatedContent>

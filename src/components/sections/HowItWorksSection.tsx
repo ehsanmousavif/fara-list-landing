@@ -1,13 +1,15 @@
 import React from 'react';
 import AnimatedContent from '@/components/AnimatedContent';
-import { Card, Badge } from '@/components/ui';
+import { Card } from '@/components/ui';
 import { HOW_IT_WORKS_STEPS } from '@/data/landingData';
-import { ArrowLeft } from 'lucide-react';
+import { HeaderSections } from '@/components/common/header-sections';
+import { Layers } from 'lucide-react';
 
 export const HowItWorksSection: React.FC = () => {
   return (
-    <section id="how-it-works" className="py-20 md:py-28 bg-black text-white">
+    <section id="how-it-works" className="py-20 md:py-28 bg-white text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
+        {/* هدر بخش با IconStack */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -15,17 +17,13 @@ export const HowItWorksSection: React.FC = () => {
           staggerFrom="end"
           duration={1}
           stagger={0.05}
-          className="text-center space-y-4 max-w-2xl mx-auto"
+          className="text-center"
         >
-          <div className="inline-flex items-center gap-2">
-            <Badge variant="primary">مراحل راه‌اندازی سریع</Badge>
-          </div>
-          <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-white">
-            فرالیست چطور کار می‌کند؟
-          </h2>
-          <p className="text-white/70 text-base md:text-lg">
-            در کمتر از ۳ دقیقه کاتالوگ آنلاین خود را بسازید و برای مشتریانتان ارسال کنید.
-          </p>
+          <HeaderSections
+            icon={<Layers className="w-5 h-5" />}
+            title="ساختنش سه دقیقه طول می‌کشه"
+            subtitle="فرآیند ۴ قدمی ساده بدون پیچیدگی فنی؛ از تعریف اولین کالا تا تحویل لینک به مشتریان"
+          />
         </AnimatedContent>
 
         <AnimatedContent
@@ -35,39 +33,32 @@ export const HowItWorksSection: React.FC = () => {
           staggerFrom="end"
           duration={1}
           stagger={0.08}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 relative"
+          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 relative"
         >
-          {HOW_IT_WORKS_STEPS.map((step, index) => (
+          {HOW_IT_WORKS_STEPS.map((step) => (
             <Card
               key={step.step}
               variant="surface"
-              className="bg-[#030430] p-8 flex flex-col justify-between relative overflow-hidden"
+              className="bg-[#f5f4fd] p-7 flex flex-col justify-between relative overflow-hidden border-none shadow-none text-right"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-4xl font-black text-white font-mono tracking-tighter">
+                  <span className="text-4xl font-black text-[#3525cd]/30 font-mono tracking-tighter">
                     {step.step}
                   </span>
-                  <Badge variant="surface" className="text-xs">
+                  <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#eae9fb] text-[#3525cd]">
                     {step.badge}
-                  </Badge>
+                  </span>
                 </div>
 
-                <h3 className="text-xl font-bold text-white pt-2">
+                <h3 className="text-lg font-bold text-black pt-2">
                   {step.title}
                 </h3>
 
-                <p className="text-white/70 text-sm leading-relaxed">
+                <p className="text-black/70 text-sm leading-relaxed font-normal">
                   {step.desc}
                 </p>
               </div>
-
-              {index < 2 && (
-                <div className="hidden md:flex items-center gap-2 text-white/80 text-xs font-semibold mt-6 pt-4">
-                  <span>مرحله بعد</span>
-                  <ArrowLeft className="w-4 h-4" />
-                </div>
-              )}
             </Card>
           ))}
         </AnimatedContent>
