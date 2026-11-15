@@ -6,10 +6,7 @@ function IconStack({ className, children, style, ...props }: IconStackProps) {
   return (
     <div
       data-slot="icon-stack"
-      className={cn(
-        "text-[#3525cd] relative h-20 w-18",
-        className,
-      )}
+      className={cn("text-[#3525cd] relative h-20 w-18", className)}
       style={
         {
           "--icon-stack-content-x": "71%",
@@ -67,13 +64,12 @@ function IconStackLayer({
     <g opacity={opacity} transform={`translate(${x} ${y})`}>
       <path
         data-slot="icon-stack-layer"
-        className="fill-[#0e0d22]"
+        className="fill-[#ffffff]"
         d="M42.2538 2.046C41.4408 1.6325 40.3965 1.6677 39.2612 2.2424L7.9616 18.1934C5.3895 19.5039 3.301 23.1064 3.301 26.2322V64.3226C3.301 66.0677 3.9458 67.2943 4.962 67.8199L1.8363 66.229C0.8201 65.7104 0.1753 64.4771 0.1753 62.732V24.6412C0.1753 21.5085 2.2638 17.913 4.8359 16.6024L36.1355 0.6515C37.2778 0.0698 38.322 0.0416 39.128 0.4551L42.2538 2.046Z"
         stroke="currentColor"
         strokeOpacity={active ? "0.5" : "0.3"}
         strokeWidth="0.8"
         strokeLinecap="round"
-        strokeLinejoin="round"
       />
       <path
         data-slot="icon-stack-layer"

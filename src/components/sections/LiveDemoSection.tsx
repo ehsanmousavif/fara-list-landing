@@ -18,7 +18,6 @@ import {
 
 export const LiveDemoSection: React.FC = () => {
   const [products, setProducts] = useState<ProductMock[]>(INITIAL_DEMO_PRODUCTS);
-  const [customPercent, setCustomPercent] = useState<string>('8');
   const [lastAction, setLastAction] = useState<string>('قیمت‌های پایه فعال است');
   const [copiedLink, setCopiedLink] = useState(false);
   const [showQrModal, setShowQrModal] = useState(false);
@@ -57,7 +56,7 @@ export const LiveDemoSection: React.FC = () => {
   };
 
   return (
-    <section id="demo" className="py-20 md:py-28 bg-white text-black">
+    <section id="demo" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-12">
         {/* هدر سکشن با IconStack */}
         <AnimatedContent
@@ -88,7 +87,7 @@ export const LiveDemoSection: React.FC = () => {
           className="space-y-6"
         >
           {/* نوار ابزار تغییر قیمت و اعمال سریع */}
-          <div className="bg-[#f5f4fd] rounded-2xl p-5 sm:p-6 space-y-4 border-none shadow-none">
+          <div className="bg-[#f5f4fd] p-5 sm:p-6 space-y-4 border-none shadow-none rounded-none">
             <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
               <div className="flex items-center gap-3">
                 <div className="w-10 h-10 rounded-xl bg-[#3525cd] text-white flex items-center justify-center">
@@ -156,25 +155,6 @@ export const LiveDemoSection: React.FC = () => {
                 <span>-۵٪ تخفیف حراج</span>
               </Button>
 
-              {/* ورودی درصد دلخواه */}
-              <div className="flex items-center bg-[#eae9fb] rounded-xl px-3 py-1 gap-2">
-                <span className="text-xs text-[#3525cd] font-medium">درصد دلخواه:</span>
-                <input
-                  type="number"
-                  value={customPercent}
-                  onChange={(e) => setCustomPercent(e.target.value)}
-                  className="w-14 bg-transparent text-sm text-center font-bold text-black outline-none"
-                  placeholder="%"
-                />
-                <button
-                  type="button"
-                  onClick={() => applyPercentage(Number(customPercent) || 0, 'درصد سفارشی')}
-                  className="text-xs font-bold bg-[#3525cd] text-white hover:bg-[#2d1fb5] px-2.5 py-1 rounded-lg transition-colors cursor-pointer border-none"
-                >
-                  اعمال
-                </button>
-              </div>
-
               <Button
                 variant="ghost"
                 size="sm"
@@ -187,14 +167,13 @@ export const LiveDemoSection: React.FC = () => {
             </div>
           </div>
 
-          {/* جدول محصولات تخت */}
-          <div className="bg-[#f5f4fd] rounded-2xl overflow-hidden p-2 border-none shadow-none">
+          {/* جدول محصولات تخت - بدون radius در بخش‌های بدنه و ردیف‌ها */}
+          <div className="bg-[#f5f4fd] overflow-hidden p-2 border-none shadow-none rounded-none">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-sm">
                 <thead>
                   <tr className="bg-[#eae9fb] text-black/75 text-xs font-semibold">
                     <th className="py-3 px-4 rounded-r-xl">نام محصول</th>
-                    <th className="py-3 px-4">دسته‌بندی</th>
                     <th className="py-3 px-4">وضعیت انبار</th>
                     <th className="py-3 px-4">قیمت جاری</th>
                     <th className="py-3 px-4 rounded-l-xl">آخرین به‌روزرسانی</th>
@@ -208,25 +187,20 @@ export const LiveDemoSection: React.FC = () => {
                     return (
                       <tr
                         key={p.id}
-                        className={`transition-colors duration-200 ${
+                        className={`transition-colors duration-200 rounded-none ${
                           isEven ? 'bg-white/60' : 'bg-transparent'
                         } hover:bg-[#eae9fb]/50`}
                       >
-                        <td className="py-4 px-4 font-bold text-black flex items-center gap-2">
+                        <td className="py-4 px-4 font-bold text-black flex items-center gap-2 rounded-none">
                           <span className="w-2 h-2 rounded-full bg-[#3525cd]" />
                           <span>{p.name}</span>
                         </td>
-                        <td className="py-4 px-4">
-                          <span className="text-xs bg-[#eae9fb] text-[#3525cd] px-2.5 py-1 rounded-lg font-medium">
-                            {p.category}
-                          </span>
-                        </td>
-                        <td className="py-4 px-4">
-                          <span className="text-xs px-2.5 py-1 rounded-lg font-medium bg-[#eae9fb] text-[#3525cd]">
+                        <td className="py-4 px-4 rounded-none">
+                          <span className="text-xs px-2.5 py-1 font-medium bg-[#eae9fb] text-[#3525cd] rounded-none">
                             {p.stock}
                           </span>
                         </td>
-                        <td className="py-4 px-4">
+                        <td className="py-4 px-4 rounded-none">
                           <div className="flex flex-col">
                             <span
                               className={`text-base font-black transition-all text-black ${
@@ -243,7 +217,7 @@ export const LiveDemoSection: React.FC = () => {
                             )}
                           </div>
                         </td>
-                        <td className="py-4 px-4 text-xs text-black/60">
+                        <td className="py-4 px-4 text-xs text-black/60 rounded-none">
                           <span className="inline-flex items-center gap-1">
                             <Sparkles className="w-3 h-3 text-[#3525cd]" />
                             {p.lastUpdated}
@@ -257,7 +231,7 @@ export const LiveDemoSection: React.FC = () => {
             </div>
 
             {/* فوتر اطلاعات لایو دمو */}
-            <div className="p-4 bg-white/80 rounded-xl mt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-black/70 gap-2">
+            <div className="p-4 bg-white/80 mt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-black/70 gap-2 rounded-none">
               <span>💡 این جدول مستقیماً شبیه‌ساز پنل مدیریت شما در فرالیست است.</span>
               <span className="text-black font-semibold">سرعت پردازش و پخش تغییرات: ~ ۰.۰۳ ثانیه</span>
             </div>
@@ -295,7 +269,7 @@ export const LiveDemoSection: React.FC = () => {
               </svg>
             </div>
 
-            <div className="bg-[#eae9fb] p-2.5 rounded-xl text-xs font-mono text-[#3525cd] select-all">
+            <div className="bg-[#eae9fb] p-2.5 rounded-xl text-xs text-[#3525cd] select-all">
               https://faralist.ir/store/tehran-tech
             </div>
 

@@ -44,9 +44,9 @@ export const HeroSection: React.FC = () => {
         />
       </div>
 
-      {/* محتوای اصلی هیرو بر اساس سند متن فرالیست (انیمیشن ورود موقتاً کامنت شد) */}
+      {/* محتوای اصلی هیرو با انیمیشن ورود بسیار نرم */}
       <div className="relative z-20 max-w-5xl mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-        <div className="w-full flex flex-col items-center space-y-6 md:space-y-8">
+        <div className="w-full flex flex-col items-center space-y-6 md:space-y-8 animate-hero-text">
           {/* نشان بالای هیرو */}
           <div className="inline-flex items-center gap-2">
             <span className="text-xs sm:text-sm py-1.5 px-4 rounded-full bg-[#eae9fb] text-[#3525cd] font-semibold flex items-center border-none shadow-none">

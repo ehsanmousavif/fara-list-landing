@@ -33,15 +33,12 @@ export function HeaderSections({
     <div
       className={cn(
         "flex flex-col items-center justify-center text-center space-y-4 max-w-3xl mx-auto mb-10 select-none",
-        className
+        className,
       )}
     >
       {/* فقط آیکون استک در بالاترین نقطه هدر هر سکشن */}
-      <div className="flex items-center justify-center mb-1">
-        <IconStack
-          aria-hidden="true"
-          className="text-[#3525cd] h-20 w-18"
-        >
+      <div className="flex items-center justify-center mb-1 text-white bg-white">
+        <IconStack aria-hidden="true" className="text-[#3525cd] h-20 w-18">
           <div className="bg-[#3525cd] text-white flex size-8 items-center justify-center rounded-xl border-none shadow-none">
             {icon}
           </div>

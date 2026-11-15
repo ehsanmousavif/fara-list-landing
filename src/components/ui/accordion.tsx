@@ -64,16 +64,19 @@ function AccordionContent({
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
-      className="overflow-hidden text-sm sm:text-base text-black/80 leading-relaxed font-normal transition-all"
+      className={cn(
+        "overflow-hidden text-sm sm:text-base text-black/80 leading-relaxed font-normal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] data-[open]:animate-accordion-open",
+        className
+      )}
       {...props}
     >
       <div
         className={cn(
-          "px-6 pb-6 pt-0 text-black/80",
+          "px-6 pb-6 pt-0 text-black/80 transition-all duration-300",
           className
         )}
       >
-        <div className="p-4 rounded-xl bg-white/90 text-black/85 leading-relaxed">
+        <div className="p-4 rounded-xl bg-white/90 text-black/85 leading-relaxed transition-all">
           {children}
         </div>
       </div>

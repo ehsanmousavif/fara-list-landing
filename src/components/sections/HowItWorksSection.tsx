@@ -7,7 +7,7 @@ import { Layers } from 'lucide-react';
 
 export const HowItWorksSection: React.FC = () => {
   return (
-    <section id="how-it-works" className="py-20 md:py-28 bg-white text-black">
+    <section id="how-it-works" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* هدر بخش با IconStack */}
         <AnimatedContent
@@ -43,7 +43,7 @@ export const HowItWorksSection: React.FC = () => {
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-4xl font-black text-[#3525cd]/30 font-mono tracking-tighter">
+                  <span className="text-4xl font-black text-[#3525cd]/30 tracking-tighter">
                     {step.step}
                   </span>
                   <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#eae9fb] text-[#3525cd]">

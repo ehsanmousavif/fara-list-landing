@@ -13,7 +13,7 @@ const PROBLEM_ICONS: Record<string, React.ElementType> = {
 
 export const StatsSection: React.FC = () => {
   return (
-    <section className="py-16 md:py-24 bg-white text-black">
+    <section className="py-16 md:py-24 bg-transparent text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* سربرگ بخش مشکل با IconStack */}
         <AnimatedContent

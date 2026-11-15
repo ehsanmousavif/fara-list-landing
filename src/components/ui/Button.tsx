@@ -1,7 +1,8 @@
 import React from 'react';
+import { cn } from '@/lib/utils';
 
 export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: 'primary' | 'secondary' | 'surface' | 'ghost' | 'inverted' | 'outline';
+  variant?: 'primary' | 'secondary' | 'surface' | 'ghost' | 'inverted' | 'outline' | 'white';
   size?: 'sm' | 'md' | 'lg';
   children: React.ReactNode;
 }
@@ -9,7 +10,7 @@ export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElemen
 /**
  * دکمه تخت (Flat Design System)
  * بدون هیچ‌گونه بوردر و بدون سایه
- * مبتنی بر رنگ‌های اصلی: Primary (#3525cd)، Secondary (#eae9fb)، پس‌زمینه مشکی و متن‌های سفید
+ * مبتنی بر رنگ‌های اصلی: Primary (#3525cd)، Secondary (#eae9fb)
  */
 export const Button: React.FC<ButtonProps> = ({
   variant = 'primary',
@@ -40,11 +41,13 @@ export const Button: React.FC<ButtonProps> = ({
       'bg-[#3525cd] text-white font-bold hover:bg-[#2d1fb5] active:bg-[#26199e]',
     outline:
       'bg-black/5 text-black hover:bg-black/10 active:bg-black/15',
+    white:
+      'bg-white text-black font-bold hover:bg-white/90 active:bg-white/80',
   };
 
   return (
     <button
-      className={`${baseStyles} ${sizeStyles[size]} ${variantStyles[variant]} ${className}`}
+      className={cn(baseStyles, sizeStyles[size], variantStyles[variant], className)}
       {...props}
     >
       {children}

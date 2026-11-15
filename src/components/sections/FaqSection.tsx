@@ -12,7 +12,7 @@ import { HelpCircle } from 'lucide-react';
 
 export const FaqSection: React.FC = () => {
   return (
-    <section id="faq" className="py-20 md:py-28 bg-white text-black">
+    <section id="faq" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-4xl mx-auto px-4 space-y-16">
         {/* هدر بخش با IconStack */}
         <AnimatedContent

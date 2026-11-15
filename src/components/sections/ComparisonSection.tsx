@@ -34,7 +34,7 @@ export const ComparisonSection: React.FC = () => {
   ];
 
   return (
-    <section id="comparison" className="py-20 md:py-28 bg-white text-black">
+    <section id="comparison" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* هدر بخش منطبق با بخش ۷ سند محتوا */}
         <AnimatedContent

@@ -25,6 +25,15 @@
   * {
     font-family: 'Peyda', system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
     border-color: transparent;
+    corner-shape: squircle;
+  }
+  [class*="rounded"] {
+    corner-shape: squircle;
+  }
+  @supports (corner-shape: superellipse(1.5)) {
+    *, [class*="rounded"] {
+      corner-shape: superellipse(1.5);
+    }
   }
   body {
     background-color: #ffffff;
@@ -220,6 +229,51 @@
 
 .animate-gradient-soft {
   animation: hero-gradient-soft-entrance 2.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* انیمیشن ورود بسیار نرم متن هیرو */
+@keyframes hero-text-soft-entrance {
+  0% {
+    opacity: 0;
+    transform: translateY(22px) scale(0.98);
+    filter: blur(6px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+    filter: blur(0px);
+  }
+}
+
+.animate-hero-text {
+  animation: hero-text-soft-entrance 1.6s cubic-bezier(0.16, 1, 0.3, 1) 0.15s both;
+}
+
+/* انیمیشن باز شدن نرم آکاردئون پرسش‌های متداول */
+@keyframes accordion-open-soft {
+  0% {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-accordion-open {
+  animation: accordion-open-soft 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+[data-slot="accordion-content"] {
+  height: var(--accordion-panel-height);
+  transition: height 0.35s cubic-bezier(0.16, 1, 0.3, 1), opacity 0.35s ease;
+}
+
+[data-slot="accordion-content"][data-ending-style],
+[data-slot="accordion-content"][data-starting-style] {
+  height: 0;
+  opacity: 0;
 }
 
 /* حرکت ملایم و شناور بازتاب نوری */

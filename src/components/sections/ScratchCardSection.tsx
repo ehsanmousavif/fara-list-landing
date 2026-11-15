@@ -24,7 +24,7 @@ export const ScratchCardSection: React.FC = () => {
   return (
     <section
       id="discount"
-      className="w-full py-16 md:py-24 flex flex-col items-center justify-center bg-white text-black"
+      className="w-full py-16 md:py-24 flex flex-col items-center justify-center bg-transparent text-black"
     >
       <div className="max-w-4xl mx-auto px-4 w-full flex flex-col items-center">
         {/* هدر بخش با آیکون استک و عنوان بر اساس کانتکست معرفی */}
@@ -65,7 +65,7 @@ export const ScratchCardSection: React.FC = () => {
               <button
                 type="button"
                 onClick={handleCopy}
-                className="mt-1 flex items-center gap-2 rounded-xl bg-[#eae9fb] px-4 py-2 font-mono text-sm text-[#3525cd] font-bold transition-colors hover:bg-[#dedcf9] cursor-pointer border-none shadow-none"
+                className="mt-1 flex items-center gap-2 rounded-xl bg-[#eae9fb] px-4 py-2 text-sm text-[#3525cd] font-bold transition-colors hover:bg-[#dedcf9] cursor-pointer border-none shadow-none"
               >
                 FARALIST10
                 {isCopied ? (

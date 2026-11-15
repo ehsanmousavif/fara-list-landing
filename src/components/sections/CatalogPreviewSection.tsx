@@ -14,7 +14,7 @@ import {
 
 export const CatalogPreviewSection: React.FC = () => {
   return (
-    <section id="catalog-preview" className="py-20 md:py-28 bg-white text-black relative overflow-hidden">
+    <section id="catalog-preview" className="py-20 md:py-28 bg-transparent text-black relative overflow-hidden">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* هدر بخش با آیکون استک */}
         <AnimatedContent
@@ -55,7 +55,7 @@ export const CatalogPreviewSection: React.FC = () => {
               />
 
               {/* چیپ شناور نشانی اینترنتی زنده */}
-              <div className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-[#eae9fb] text-[#3525cd] text-xs font-mono select-all">
+              <div className="mt-4 flex items-center gap-2 px-4 py-2 rounded-xl bg-[#eae9fb] text-[#3525cd] text-xs font-medium select-all">
                 <span className="w-2 h-2 rounded-full bg-[#3525cd] animate-pulse" />
                 <span>faralist.com/tordak/products</span>
               </div>

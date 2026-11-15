@@ -1,73 +1,95 @@
-import React, { useState } from "react";
-import { Navbar } from "@/components/layout/Navbar";
+import React from "react";
 import { Footer } from "@/components/layout/Footer";
-import { LoadingScreen } from "@/components/common/LoadingScreen";
 import { HeroSection } from "@/components/sections/HeroSection";
-import { ScratchCardSection } from "@/components/sections/ScratchCardSection";
-import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { StatsSection } from "@/components/sections/StatsSection";
+import { ScrollRevealSection } from "@/components/sections/ScrollRevealSection";
+import { CatalogPreviewSection } from "@/components/sections/CatalogPreviewSection";
 import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
+import { FeaturesSection } from "@/components/sections/FeaturesSection";
+import { AudienceSection } from "@/components/sections/AudienceSection";
+import { ComparisonSection } from "@/components/sections/ComparisonSection";
+import { SocialProofSection } from "@/components/sections/SocialProofSection";
 import { LiveDemoSection } from "@/components/sections/LiveDemoSection";
 import { PricingSection } from "@/components/sections/PricingSection";
-import { ComparisonSection } from "@/components/sections/ComparisonSection";
-import { StatsSection } from "@/components/sections/StatsSection";
-import { CatalogPreviewSection } from "@/components/sections/CatalogPreviewSection";
 import { FaqSection } from "@/components/sections/FaqSection";
 import { CtaSection } from "@/components/sections/CtaSection";
-import { ScrollRevealSection } from "@/components/sections/ScrollRevealSection";
+import { ScratchCardSection } from "@/components/sections/ScratchCardSection";
+import Particles from "@/components/ui/Particles";
 
 export default function Page() {
-  const [isLoading, setIsLoading] = useState(true);
-
   return (
-    <div className="min-h-screen flex flex-col gap-10 bg-white text-black selection:bg-[#3525cd] selection:text-white antialiased overflow-x-hidden">
-      {/* لودینگ انیمیشنی لوگو در ابتدای ورود */}
-      {/* <LoadingScreen
-        isLoading={isLoading}
-        onFinish={() => setIsLoading(false)}
-        durationMs={2200}
-      /> */}
+    <div className="min-h-screen flex flex-col gap-10 bg-white text-black selection:bg-[#3525cd] selection:text-white antialiased overflow-x-hidden relative">
+      {/* ۱. Hero: لیست قیمت و کاتالوگ محصولاتت رو یک بار بساز، دیگه هیچ‌وقت از اول نساز */}
+      <div className="relative z-20 bg-white">
+        <HeroSection />
+      </div>
 
-      {/* نوار ناوبری */}
-      {/* <Navbar onTriggerLoading={() => setIsLoading(true)} /> */}
+      {/* پس‌زمینه ذرات ری‌اکت‌بیتز (ReactBits Particles) برای کل وب‌سایت به جز Hero */}
+      <div
+        aria-hidden="true"
+        className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+      >
+        <Particles
+          particleColors={["#3525cd", "#6858ee", "#a498fd"]}
+          particleCount={100}
+          particleSpread={12}
+          speed={0.12}
+          particleBaseSize={85}
+          sizeRandomness={0.7}
+          moveParticlesOnHover={true}
+          particleHoverFactor={0.8}
+          alphaParticles={true}
+          disableRotation={false}
+          lightMode={true}
+          opacity={0.35}
+          className="w-full h-full"
+        />
+      </div>
 
-      {/* ۱. بخش هیرو با پس‌زمینه AeroShards */}
-      <HeroSection />
+      {/* سایر بخش‌های سایت با محتوای نسبی روی پس‌زمینه ذرات */}
+      <div className="relative z-10 flex flex-col gap-10">
+        {/* ۲. مشکل: هر بار قیمت عوض می‌شه، باید دوباره یه فایل جدید بفرستی */}
+        <StatsSection />
 
-      {/* ۲. سکشن کارت اسکرچ تخفیف ۱۰ درصدی (Spectrum UI ScratchCard) */}
+        {/* ۳. راه‌حل: مکالمه دو نفره در فریم موبایل در راستای افقی با متن فرالیست */}
+        <ScrollRevealSection />
 
-      {/* ۳. بررسی مشکل روش سنتی */}
-      <StatsSection />
+        {/* ۳ (مکمل). ماکت کاتالوگ واقعی روی موبایل و معرفی پیوند زنده */}
+        <CatalogPreviewSection />
 
-      {/* ۴. نمایش ماکت کاتالوگ موبایل و معرفی محصول */}
-      <CatalogPreviewSection />
+        {/* دموی تعاملی سرعت تغییر قیمت در فرالیست */}
+        <LiveDemoSection />
 
-      {/* ۵. ویژگی‌های کلیدی فرالیست */}
-      <FeaturesSection />
+        {/* ۴. روش کار: ساختنش سه دقیقه طول می‌کشه (۴ قدم ساده) */}
+        <HowItWorksSection />
 
-      {/* ۵. بخش نمایش متنی متحرک */}
-      <ScrollRevealSection />
+        {/* ۵. امکانات: تایم‌لاین چپ و راست با فیزیک Spring و کنترل همگام اوپاسیتی */}
+        <FeaturesSection />
 
-      {/* ۶. دموی تعاملی لیست قیمت زنده */}
-      <LiveDemoSection />
+        {/* ۶. برای چه کسب‌وکارهایی مناسبه */}
+        <AudienceSection />
 
-      {/* ۷. نحوه کارکرد */}
-      <HowItWorksSection />
+        {/* ۷. چرا فرالیست فروشگاه‌ساز نیست */}
+        <ComparisonSection />
 
-      {/* ۸. جدول مقایسه روش سنتی با فرالیست */}
-      <ComparisonSection />
+        {/* ۸. اعتماد و اثبات اجتماعی */}
+        <SocialProofSection />
 
-      {/* ۹. تعرفه‌ها و پلن‌ها */}
-      <PricingSection />
+        {/* تعرفه‌ها و پلن‌های فرالیست */}
+        <PricingSection />
 
-      {/* ۱۰. سوالات متداول */}
-      <FaqSection />
+        {/* ۹. سوالات متداول (FAQ) */}
+        <FaqSection />
 
-      {/* ۱۱. اقدام به عمل و دانلود */}
-      <CtaSection />
+        {/* ۱۰. CTA پایانی با اسکنر اختصاصی */}
+        <CtaSection />
 
-      <ScratchCardSection />
+        {/* کارت تخفیف ویژه ۱۰ درصدی */}
+        <ScratchCardSection />
 
-      <Footer />
+        {/* فوتر مینیمال با متن بزرگ FaraList */}
+        <Footer />
+      </div>
     </div>
   );
 }
