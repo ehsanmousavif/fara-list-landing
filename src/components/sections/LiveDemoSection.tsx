@@ -1,64 +1,28 @@
-import React, { useState } from 'react';
-import AnimatedContent from '@/components/AnimatedContent';
-import { Button, Badge } from '@/components/ui';
-import { INITIAL_DEMO_PRODUCTS } from '@/data/landingData';
-import { ProductMock } from '@/types/landing';
-import { HeaderSections } from '@/components/common/header-sections';
-import {
-  TrendingUp,
-  Percent,
-  RotateCcw,
-  QrCode,
-  Copy,
-  Check,
-  Zap,
-  Clock,
-  Sparkles,
-} from 'lucide-react';
+import React, { useState } from "react";
+import AnimatedContent from "@/components/AnimatedContent";
+import { Button } from "@/components/ui";
+import { RockerSwitch } from "@/components/ui/RockerSwitch";
+import { INITIAL_DEMO_PRODUCTS } from "@/data/landingData";
+import { ProductMock } from "@/types/landing";
+import { HeaderSections } from "@/components/common/header-sections";
+import { Zap, Clock, Copy, Check } from "lucide-react";
 
 export const LiveDemoSection: React.FC = () => {
-  const [products, setProducts] = useState<ProductMock[]>(INITIAL_DEMO_PRODUCTS);
-  const [lastAction, setLastAction] = useState<string>('قیمت‌های پایه فعال است');
-  const [copiedLink, setCopiedLink] = useState(false);
-  const [showQrModal, setShowQrModal] = useState(false);
+  const [isUpdated, setIsUpdated] = useState<boolean>(false);
+  const [products, setProducts] = useState<ProductMock[]>(
+    INITIAL_DEMO_PRODUCTS,
+  );
   const [isUpdating, setIsUpdating] = useState(false);
 
-  const applyPercentage = (percent: number, label: string) => {
+  const handleToggle = (checked: boolean) => {
     setIsUpdating(true);
-    const factor = 1 + percent / 100;
-
-    setTimeout(() => {
-      setProducts((prev) =>
-        prev.map((item) => ({
-          ...item,
-          currentPrice: Math.round((item.currentPrice * factor) / 1000) * 1000,
-          lastUpdated: 'همین لحظه (آنلاین)',
-        }))
-      );
-      setLastAction(`تغییر ${percent > 0 ? `+${percent}%` : `${percent}%`} (${label})`);
-      setIsUpdating(false);
-    }, 120);
-  };
-
-  const resetPrices = () => {
-    setIsUpdating(true);
-    setTimeout(() => {
-      setProducts(INITIAL_DEMO_PRODUCTS);
-      setLastAction('قیمت‌ها به حالت اولیه بازنشانی شدند');
-      setIsUpdating(false);
-    }, 100);
-  };
-
-  const handleCopyLink = () => {
-    navigator.clipboard?.writeText?.('https://faralist.ir/demo-store');
-    setCopiedLink(true);
-    setTimeout(() => setCopiedLink(false), 2000);
+    setIsUpdated(checked);
   };
 
   return (
     <section id="demo" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-12">
-        {/* هدر سکشن با IconStack */}
+        {/* هدر سکشن با تایتل درخواستی کاربر */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -69,13 +33,13 @@ export const LiveDemoSection: React.FC = () => {
           className="text-center"
         >
           <HeaderSections
-            icon={<Sparkles className="w-5 h-5" />}
-            title="سرعت فرالیست را همین الان امتحان کنید!"
-            subtitle="روی یکی از دکمه‌های زیر کلیک کنید تا ببینید قیمت صدها محصول چطور در کسری از ثانیه به‌روزرسانی و در لینک مشتریان اعمال می‌شود."
+            icon={<Zap className="w-5 h-5 text-[#3525cd]" />}
+            title="اپدیت کلی قیمتا فقط با کلیک روی یک دکمه"
+            subtitle="با تغییر وضعیت کلید زیر، تمام قیمت‌های کاتالوگ فروشگاه به صورت آنی و خودکار تغییر می‌کنند."
           />
         </AnimatedContent>
 
-        {/* پنل ابزار و جدول محصولات */}
+        {/* پنل کلید سه بعدی و جدول محصولات */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -86,89 +50,47 @@ export const LiveDemoSection: React.FC = () => {
           delay={0.1}
           className="space-y-6"
         >
-          {/* نوار ابزار تغییر قیمت و اعمال سریع */}
-          <div className="bg-[#f5f4fd] p-5 sm:p-6 space-y-4 border-none shadow-none rounded-none">
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
-              <div className="flex items-center gap-3">
-                <div className="w-10 h-10 rounded-xl bg-[#3525cd] text-white flex items-center justify-center">
-                  <Zap className="w-5 h-5" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-black text-base">ابزار تغییر سریع نرخ</h3>
-                  <p className="text-xs text-black/60 flex items-center gap-1.5 mt-0.5">
-                    <Clock className="w-3.5 h-3.5 text-[#3525cd]" />
-                    <span>وضعیت: {lastAction}</span>
-                  </p>
-                </div>
+          {/* باکس تعاملی کلید سه‌بعدی dry-rabbit-69 */}
+          <div className="bg-[#f5f4fd] p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-none shadow-none rounded-2xl">
+            {/* توضیحات و وضعیت کلید */}
+            <div className="flex items-center gap-4 text-right">
+              <div
+                className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                  isUpdated
+                    ? "bg-[#3525cd] text-white scale-105"
+                    : "bg-[#eae9fb] text-[#3525cd]"
+                }`}
+              >
+                <Clock className="w-6 h-6" />
               </div>
 
-              {/* اکشن‌های اشتراک‌گذاری */}
-              <div className="flex items-center gap-2 w-full sm:w-auto">
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={handleCopyLink}
-                  className="text-xs flex-1 sm:flex-initial"
-                >
-                  {copiedLink ? <Check className="w-4 h-4 ml-1" /> : <Copy className="w-4 h-4 ml-1" />}
-                  <span>{copiedLink ? 'کپی شد!' : 'کپی لینک کاتالوگ'}</span>
-                </Button>
-
-                <Button
-                  variant="secondary"
-                  size="sm"
-                  onClick={() => setShowQrModal(true)}
-                  className="text-xs"
-                >
-                  <QrCode className="w-4 h-4 ml-1" />
-                  <span>کیوآرکد</span>
-                </Button>
+              <div>
+                <div className="flex items-center gap-2">
+                  <h3 className="text-lg sm:text-xl font-bold text-black">
+                    آپدیت محصولات با یک کلیک!
+                  </h3>
+                </div>
+                <p className="text-xs sm:text-sm text-black/60 mt-1">
+                  در کمترین زمان و نمایش به صروت لیستی
+                </p>
               </div>
             </div>
 
-            {/* کلیدهای تغییر درصدی آماده */}
-            <div className="pt-2 flex flex-wrap items-center gap-2">
-              <Button
-                variant="primary"
-                size="sm"
-                onClick={() => applyPercentage(10, 'نوسان بازار')}
-              >
-                <TrendingUp className="w-4 h-4 ml-1" />
-                <span>+۱۰٪ افزایش کلی</span>
-              </Button>
-
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => applyPercentage(5, 'تورم هفتگی')}
-              >
-                <TrendingUp className="w-4 h-4 ml-1" />
-                <span>+۵٪ افزایش نرخ</span>
-              </Button>
-
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => applyPercentage(-5, 'تخفیف ویژه')}
-              >
-                <Percent className="w-4 h-4 ml-1" />
-                <span>-۵٪ تخفیف حراج</span>
-              </Button>
-
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={resetPrices}
-                className="text-black/60 hover:text-black mr-auto"
-              >
-                <RotateCcw className="w-3.5 h-3.5 ml-1" />
-                <span>بازنشانی</span>
-              </Button>
+            {/* کامپوننت کلید سه‌بعدی راکر و دکمه‌های کمکی */}
+            <div className="flex items-center gap-5 shrink-0">
+              <div className="hidden sm:flex flex-col items-center gap-4">
+                <RockerSwitch
+                  checked={isUpdated}
+                  onChange={handleToggle}
+                  leftLabel="اعمال"
+                  rightLabel="چپه"
+                />
+              </div>
             </div>
           </div>
 
-          {/* جدول محصولات تخت - بدون radius در بخش‌های بدنه و ردیف‌ها */}
-          <div className="bg-[#f5f4fd] overflow-hidden p-2 border-none shadow-none rounded-none">
+          {/* جدول محصولات تخت */}
+          <div className="bg-[#f5f4fd] overflow-hidden p-2 border-none shadow-none rounded-">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-sm">
                 <thead>
@@ -176,7 +98,6 @@ export const LiveDemoSection: React.FC = () => {
                     <th className="py-3 px-4 rounded-r-xl">نام محصول</th>
                     <th className="py-3 px-4">وضعیت انبار</th>
                     <th className="py-3 px-4">قیمت جاری</th>
-                    <th className="py-3 px-4 rounded-l-xl">آخرین به‌روزرسانی</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y-0">
@@ -187,41 +108,31 @@ export const LiveDemoSection: React.FC = () => {
                     return (
                       <tr
                         key={p.id}
-                        className={`transition-colors duration-200 rounded-none ${
-                          isEven ? 'bg-white/60' : 'bg-transparent'
+                        className={`transition-colors duration-200 rounded- ${
+                          isEven ? "bg-white/60" : "bg-transparent"
                         } hover:bg-[#eae9fb]/50`}
                       >
-                        <td className="py-4 px-4 font-bold text-black flex items-center gap-2 rounded-none">
+                        <td className="py-4 px-4 font-bold text-black flex items-center gap-2 rounded-">
                           <span className="w-2 h-2 rounded-full bg-[#3525cd]" />
                           <span>{p.name}</span>
                         </td>
-                        <td className="py-4 px-4 rounded-none">
-                          <span className="text-xs px-2.5 py-1 font-medium bg-[#eae9fb] text-[#3525cd] rounded-none">
+                        <td className="py-4 px-4 rounded-">
+                          <span className="text-xs px-2.5 py-1 font-medium bg-[#eae9fb] text-[#3525cd] rounded-">
                             {p.stock}
                           </span>
                         </td>
-                        <td className="py-4 px-4 rounded-none">
+                        <td className="py-4 px-4 rounded-">
                           <div className="flex flex-col">
                             <span
                               className={`text-base font-black transition-all text-black ${
-                                isUpdating ? 'opacity-50 scale-95' : 'opacity-100 scale-100'
-                              }`}
+                                isUpdating
+                                  ? "opacity-50 scale-95"
+                                  : "opacity-100 scale-100"
+                              } ${diff > 0 ? "text-[#3525cd]" : ""}`}
                             >
-                              {p.currentPrice.toLocaleString('fa-IR')} تومان
+                              {p.currentPrice.toLocaleString("fa-IR")} تومان
                             </span>
-                            {diff !== 0 && (
-                              <span className="text-[11px] text-[#3525cd] font-semibold mt-0.5">
-                                {diff > 0 ? '+' : ''}
-                                {diff.toLocaleString('fa-IR')} نسبت به پایه
-                              </span>
-                            )}
                           </div>
-                        </td>
-                        <td className="py-4 px-4 text-xs text-black/60 rounded-none">
-                          <span className="inline-flex items-center gap-1">
-                            <Sparkles className="w-3 h-3 text-[#3525cd]" />
-                            {p.lastUpdated}
-                          </span>
                         </td>
                       </tr>
                     );
@@ -231,59 +142,17 @@ export const LiveDemoSection: React.FC = () => {
             </div>
 
             {/* فوتر اطلاعات لایو دمو */}
-            <div className="p-4 bg-white/80 mt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-black/70 gap-2 rounded-none">
-              <span>💡 این جدول مستقیماً شبیه‌ساز پنل مدیریت شما در فرالیست است.</span>
-              <span className="text-black font-semibold">سرعت پردازش و پخش تغییرات: ~ ۰.۰۳ ثانیه</span>
+            <div className="p-4 bg-white/80 mt-2 flex flex-col sm:flex-row items-center justify-between text-xs text-black/70 gap-2 rounded-">
+              <span>
+                💡 این جدول مستقیماً شبیه‌ساز پنل مدیریت شما در فرالیست است.
+              </span>
+              <span className="text-black font-semibold">
+                سرعت پردازش و پخش تغییرات: ~ ۰.۰۳ ثانیه
+              </span>
             </div>
           </div>
         </AnimatedContent>
       </div>
-
-      {/* مدال کیوآرکد نمایشی */}
-      {showQrModal && (
-        <div
-          className="fixed inset-0 z-50 flex items-center justify-center bg-black/60 backdrop-blur-xs p-4"
-          onClick={() => setShowQrModal(false)}
-        >
-          <div
-            className="bg-white rounded-3xl p-6 sm:p-8 max-w-sm w-full text-center space-y-4 border-none shadow-none text-black"
-            onClick={(e) => e.stopPropagation()}
-          >
-            <h3 className="text-lg font-bold text-black">کیوآرکد کاتالوگ شما</h3>
-            <p className="text-xs text-black/70">
-              این کد را پرینت کنید و روی پیشخوان فروشگاه یا کاتالوگ قرار دهید تا مشتریان فوراً قیمت‌های لحظه‌ای را اسکن کنند.
-            </p>
-
-            <div className="bg-[#f5f4fd] p-6 rounded-2xl flex items-center justify-center mx-auto w-48 h-48">
-              <svg viewBox="0 0 100 100" className="w-full h-full text-black fill-current">
-                <rect width="100" height="100" fill="#f5f4fd" />
-                <path d="M10,10 h30 v30 h-30 z M15,15 v20 h20 v-20 z M20,20 h10 v10 h-10 z" />
-                <path d="M60,10 h30 v30 h-30 z M65,15 v20 h20 v-20 z M70,20 h10 v10 h-10 z" />
-                <path d="M10,60 h30 v30 h-30 z M15,65 v20 h20 v-20 z M20,70 h10 v10 h-10 z" />
-                <rect x="45" y="10" width="8" height="25" />
-                <rect x="10" y="45" width="25" height="8" />
-                <rect x="45" y="45" width="10" height="10" />
-                <rect x="65" y="55" width="15" height="8" />
-                <rect x="55" y="70" width="35" height="10" />
-                <rect x="75" y="45" width="15" height="8" />
-              </svg>
-            </div>
-
-            <div className="bg-[#eae9fb] p-2.5 rounded-xl text-xs text-[#3525cd] select-all">
-              https://faralist.ir/store/tehran-tech
-            </div>
-
-            <Button
-              variant="primary"
-              size="sm"
-              onClick={() => setShowQrModal(false)}
-              className="w-full"
-            >
-              بستن
-            </Button>
-          </div>
-        </div>
-      )}
     </section>
   );
 };

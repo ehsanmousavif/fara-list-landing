@@ -1,0 +1,122 @@
+/* The switch - the box around the slider */
+.rocker-switch {
+  font-size: 19px;
+  position: relative;
+  display: inline-block;
+  width: 5.6em;
+  height: 2.8em;
+  user-select: none;
+  cursor: pointer;
+}
+
+/* Hide default HTML checkbox */
+.rocker-switch .rocker-cb {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  position: absolute;
+  pointer-events: none;
+}
+
+/* The slider */
+.rocker-toggle {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background-color: #3525cd;
+  border-radius: 0.15em;
+  transition: 0.4s;
+  text-transform: uppercase;
+  font-weight: 700;
+  overflow: hidden;
+  box-shadow:
+    -0.3em 0 0 0 #3525cd,
+    -0.3em 0.3em 0 0 #3525cd,
+    0.3em 0 0 0 #3525cd,
+    0.3em 0.3em 0 0 #3525cd,
+    0 0.3em 0 0 #3525cd;
+}
+
+.rocker-toggle > .rocker-left {
+  position: absolute;
+  display: flex;
+  width: 50%;
+  height: 88%;
+  background-color: #f3f3f3;
+  color: #373737;
+  left: 0;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  transform-origin: right;
+  transform: rotateX(10deg);
+  transform-style: preserve-3d;
+  transition: all 150ms ease-out;
+}
+
+.rocker-left::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgb(206, 206, 206);
+  transform-origin: center left;
+  transform: rotateY(90deg);
+}
+
+.rocker-left::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgb(112, 112, 112);
+  transform-origin: center bottom;
+  transform: rotateX(90deg);
+}
+
+.rocker-toggle > .rocker-right {
+  position: absolute;
+  display: flex;
+  width: 50%;
+  height: 88%;
+  background-color: #f3f3f3;
+  color: rgb(206, 206, 206);
+  right: 1px;
+  bottom: 0;
+  align-items: center;
+  justify-content: center;
+  transform-origin: left;
+  transform: rotateX(10deg) rotateY(-45deg);
+  transform-style: preserve-3d;
+  transition: all 150ms ease-out;
+}
+
+.rocker-right::before {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgb(206, 206, 206);
+  transform-origin: center right;
+  transform: rotateY(-90deg);
+}
+
+.rocker-right::after {
+  position: absolute;
+  content: "";
+  width: 100%;
+  height: 100%;
+  background-color: rgb(112, 112, 112);
+  transform-origin: center bottom;
+  transform: rotateX(90deg);
+}
+
+.rocker-switch input:checked + .rocker-toggle > .rocker-left {
+  transform: rotateX(10deg) rotateY(45deg);
+  color: rgb(206, 206, 206);
+}
+
+.rocker-switch input:checked + .rocker-toggle > .rocker-right {
+  transform: rotateX(10deg) rotateY(0deg);
+  color: #3525cd;
+}

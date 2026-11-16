@@ -1,63 +1,86 @@
 import React from "react";
-import { Button } from "@/components/ui";
-import { ArrowLeft, Sparkles, CheckCircle2, Eye } from "lucide-react";
+import GhostFibers from "@/components/GhostFibers";
+import GradientWaves from "@/components/GradientWaves";
+import { Button } from "@/components/ui/Button";
+import { ArrowLeft, Eye, Sparkles, CheckCircle2 } from "lucide-react";
+import Threads from "../Threads";
 
+/**
+ * بخش Hero فول‌اسکرین سفید فرالیست (Full Screen White Hero)
+ * سمت چپ: لاین‌های نوری GhostFibers با ارتفاع کامل از بالا تا پایین + تیتر اصلی و دکمه‌های اقدام به عمل
+ * سمت راست: کامپوننت GradientWaves با امواج بنفش و جدول ماکت پرسپکتیو ۳بعدی (1400x900) شناور روی آن
+ * پایین وسط: آیکون اسکرول ماوس بنفش
+ */
 export const HeroSection: React.FC = () => {
   return (
-    <section className="relative min-h-[96vh] flex items-center justify-center overflow-hidden bg-white text-black">
-      {/* گرادیان خطی اختصاصی پررنگ‌تر تلفیقی از Primary (#3525cd) و Secondary (#eae9fb) - با ماسک محوشوندگی تدریجی بدون خط کات */}
-      <div
-        aria-hidden="true"
-        className="absolute top-0 inset-x-0 h-[68%] pointer-events-none select-none overflow-hidden z-0 animate-gradient-soft"
-        style={{
-          WebkitMaskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
-          maskImage:
-            "linear-gradient(to bottom, rgba(0,0,0,1) 0%, rgba(0,0,0,1) 42%, rgba(0,0,0,0.5) 70%, rgba(0,0,0,0) 100%)",
-        }}
-      >
-        {/* لایه اصلی گرادیان خطی غنی‌تر با زاویه متمایل به بالا-چپ */}
-        <div
-          className="w-full h-full"
-          style={{
-            background:
-              "linear-gradient(150deg, rgba(53, 37, 205, 0.42) 0%, rgba(85, 70, 222, 0.32) 28%, rgba(234, 233, 251, 0.9) 55%, rgba(234, 233, 251, 0.4) 80%, rgba(255, 255, 255, 0) 100%)",
-          }}
+    <section className="w-full min-h-[98vh] justify-between relative lg:min-h-screen bg-white text-black overflow-hidden flex flex-col select-none">
+      <div className="w-full h-screen relative">
+        <Threads
+          color={"#8c8efc" as any}
+          lineCount={84}
+          thickness={0.2}
+          softness={3}
+          amplitude={1.8}
+          distance={0.4}
+          waves={0.75}
+          speed={0.1}
+          split={0.07}
+          fray={0.75}
+          angle={25}
+          taper={0.85}
+          brightness={2}
+          parting={0.25}
+          fade={0}
+          opacity={1}
+          seed={0}
         />
-
-        {/* لایه نوری پررنگ‌تر و نرم متمرکز بر سمت بالا-چپ */}
-        <div
-          className="absolute -top-16 -left-12 w-[75vw] max-w-4xl h-96 rounded-full blur-[100px] pointer-events-none opacity-90 animate-ambient-drift"
-          style={{
-            background:
-              "linear-gradient(320deg, rgba(255, 255, 255, 0) 0%, rgba(234, 233, 251, 0.75) 35%, rgba(53, 37, 205, 0.48) 100%)",
-          }}
-        />
-
-        {/* لایه اطمینان از محوشوندگی نرم از پایین به بالا برای رفع هرگونه خط کات */}
-        <div
-          className="absolute inset-x-0 bottom-0 h-40 pointer-events-none"
-          style={{
-            background:
-              "linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.8) 45%, rgba(255, 255, 255, 0) 100%)",
-          }}
+      </div>
+      <div className="w-3/4 h-screen absolute -left-10 bottom-30 rotate-90">
+        <Threads
+          color={"#8c8efc" as any}
+          lineCount={84}
+          thickness={0.2}
+          softness={3}
+          amplitude={1.8}
+          distance={0.1}
+          waves={0.4}
+          speed={0.1}
+          split={0.07}
+          fray={0.75}
+          angle={25}
+          taper={0.85}
+          brightness={2}
+          parting={0.25}
+          fade={10}
+          opacity={1}
+          seed={0}
         />
       </div>
 
-      {/* محتوای اصلی هیرو با انیمیشن ورود بسیار نرم */}
-      <div className="relative z-20 max-w-5xl mx-auto px-4 py-24 md:py-32 text-center flex flex-col items-center">
-        <div className="w-full flex flex-col items-center space-y-6 md:space-y-8 animate-hero-text">
+      {/* لایه محوکننده و سایه گرادیان سفید در پایین هیرو برای حذف کامل خط کات */}
+      <div
+        aria-hidden="true"
+        className="absolute inset-x-0 bottom-0 h-48 sm:h-64 md:h-80 pointer-events-none z-10"
+        style={{
+          background:
+            "linear-gradient(to top, #ffffff 0%, rgba(255, 255, 255, 0.98) 20%, rgba(255, 255, 255, 0.7) 55%, rgba(255, 255, 255, 0) 100%)",
+        }}
+      />
+
+      {/* محتوای متنی و دکمه‌های هیرو روی پس‌زمینه Threads */}
+      <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        <div className="max-w-5xl mx-auto px-4 py-20 text-center flex flex-col items-center space-y-6 md:space-y-8 animate-hero-text">
           {/* نشان بالای هیرو */}
-          <div className="inline-flex items-center gap-2">
+          <div className="inline-flex items-center gap-2 pointer-events-auto">
             <span className="text-xs sm:text-sm py-1.5 px-4 rounded-full bg-[#eae9fb] text-[#3525cd] font-semibold flex items-center border-none shadow-none">
               <Sparkles className="w-3.5 h-3.5 ml-1.5 inline text-[#3525cd]" />
               جایگزین دائمی PDF و اکسل‌های قدیمی قیمت
             </span>
           </div>
 
-          {/* چشم عنوان (H1) اصلی و متقاعدکننده */}
+          {/* چشم عنوان اصلی */}
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black tracking-tight leading-[1.2] max-w-4xl">
-            لیست قیمت و کاتالوگ محصولاتت رو یک بار بساز،{" "}
+            لیست قیمت و کاتالوگ محصولاتت رو یک بار بساز،{' '}
             <span className="text-[#3525cd]">دیگه هیچ‌وقت از اول نساز</span>
           </h1>
 
@@ -70,14 +93,14 @@ export const HeroSection: React.FC = () => {
           </p>
 
           {/* دکمه‌های اقدام به عمل (CTA) */}
-          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3 w-full sm:w-auto">
+          <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-3 w-full sm:w-auto pointer-events-auto">
             <Button
               variant="primary"
               size="lg"
               className="w-full sm:w-auto text-base px-8 h-13"
               onClick={() => {
-                const el = document.getElementById("cta");
-                el?.scrollIntoView({ behavior: "smooth" });
+                const el = document.getElementById('cta');
+                el?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               <span>ساخت کاتالوگ من</span>
@@ -89,8 +112,8 @@ export const HeroSection: React.FC = () => {
               size="lg"
               className="w-full sm:w-auto text-base px-7 h-13"
               onClick={() => {
-                const el = document.getElementById("demo");
-                el?.scrollIntoView({ behavior: "smooth" });
+                const el = document.getElementById('demo');
+                el?.scrollIntoView({ behavior: 'smooth' });
               }}
             >
               <Eye className="w-5 h-5 ml-1" />
@@ -99,7 +122,7 @@ export const HeroSection: React.FC = () => {
           </div>
 
           {/* خط اعتمادساز زیر دکمه‌ها */}
-          <div className="pt-2 flex items-center justify-center gap-2 text-xs sm:text-sm text-black/60 font-medium">
+          <div className="pt-2 flex items-center justify-center gap-2 text-xs sm:text-sm text-black/60 font-medium pointer-events-auto">
             <CheckCircle2 className="w-4 h-4 text-[#3525cd]" />
             <span>بدون نیاز به نصب اپلیکیشن برای مشتری‌هات</span>
           </div>

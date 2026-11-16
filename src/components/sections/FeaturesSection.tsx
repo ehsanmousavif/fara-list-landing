@@ -75,7 +75,6 @@ export const FeaturesSection: React.FC = () => {
   const thresholdsRef = useRef<number[]>([]);
   const [activeItems, setActiveItems] = useState<number[]>([]);
 
-  // استفاده از فریم‌موشن با تنظیمات اسپرینگ بهینه‌سازی‌شده برای حذف تاخیر و دنبال‌کردن آنی اسکرول
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start 65%", "end 75%"],
@@ -90,7 +89,6 @@ export const FeaturesSection: React.FC = () => {
 
   const beamScaleY = useTransform(springProgress, [0, 1], [0, 1]);
 
-  // محاسبه آستانه فیزیکی دقیق هر آیتم نسبت به خط تایم‌لاین
   const calculateThresholds = () => {
     const isDesktop = window.innerWidth >= 768;
     const currentLine = isDesktop ? lineRef.current : mobileLineRef.current;
@@ -105,7 +103,7 @@ export const FeaturesSection: React.FC = () => {
       const iconEl = el.querySelector<HTMLElement>("[data-timeline-icon]");
       const target = iconEl || el;
       const targetRect = target.getBoundingClientRect();
-      const targetCenter = targetRect.top + targetRect.height / 2;
+      const targetCenter = targetRect.top + targetRect.height / 2.5;
       const ratio = (targetCenter - lineRect.top) / lineHeight;
       return Math.max(0, Math.min(1, ratio));
     });
@@ -122,9 +120,11 @@ export const FeaturesSection: React.FC = () => {
     };
 
     window.addEventListener("resize", handleResize, { passive: true });
-    window.addEventListener("scroll", handleResize, { passive: true, once: true });
+    window.addEventListener("scroll", handleResize, {
+      passive: true,
+      once: true,
+    });
 
-    // گوش دادن مستقیم به مقدار فریم به فریم اسپرینگ
     const unsubscribe = springProgress.on("change", (latestProgress) => {
       if (thresholdsRef.current.length === 0) {
         calculateThresholds();
@@ -133,7 +133,7 @@ export const FeaturesSection: React.FC = () => {
       const reached: number[] = [];
       thresholdsRef.current.forEach((threshold, index) => {
         // دقیقاً زمانی که نوک خط به محدوده آیکون و محتوا برسد فعال می‌شود
-        if (latestProgress >= threshold - 0.02) {
+        if (latestProgress >= threshold - 0.01) {
           reached.push(index);
         }
       });
@@ -184,7 +184,8 @@ export const FeaturesSection: React.FC = () => {
             style={{
               scaleY: beamScaleY,
               height: "calc(100% - 3rem)",
-              background: "linear-gradient(to bottom, #3525cd 0%, #3525cd 85%, #5a4ee3 100%)",
+              background:
+                "linear-gradient(to bottom, #3525cd 0%, #3525cd 85%, #5a4ee3 100%)",
             }}
           />
 
@@ -195,7 +196,8 @@ export const FeaturesSection: React.FC = () => {
             style={{
               scaleY: beamScaleY,
               height: "calc(100% - 3rem)",
-              background: "linear-gradient(to bottom, #3525cd 0%, #3525cd 85%, #5a4ee3 100%)",
+              background:
+                "linear-gradient(to bottom, #3525cd 0%, #3525cd 85%, #5a4ee3 100%)",
             }}
           />
 
@@ -220,7 +222,7 @@ export const FeaturesSection: React.FC = () => {
                     className={`absolute z-10 flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 rounded-2xl transition-all duration-300 select-none border-none shadow-none right-0.5 md:right-auto md:left-1/2 md:-translate-x-1/2 ${
                       isReached
                         ? "bg-[#3525cd] text-white scale-110 shadow-md"
-                        : "bg-[#eae9fb] text-[#3525cd]/40 scale-95 opacity-40"
+                        : "bg-[#eae9fb] text-[#3525cd]/40 scale-95"
                     }`}
                   >
                     <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -270,12 +272,18 @@ export const FeaturesSection: React.FC = () => {
                         </div>
 
                         {/* اسپیسر ستون چپ در دسکتاپ برای حفظ تقارن خط وسط */}
-                        <div aria-hidden="true" className="hidden md:block md:w-1/2" />
+                        <div
+                          aria-hidden="true"
+                          className="hidden md:block md:w-1/2"
+                        />
                       </>
                     ) : (
                       <>
                         {/* اسپیسر ستون راست در دسکتاپ برای قرارگیری محتوا در سمت چپ */}
-                        <div aria-hidden="true" className="hidden md:block md:w-1/2" />
+                        <div
+                          aria-hidden="true"
+                          className="hidden md:block md:w-1/2"
+                        />
 
                         {/* ستون چپ (محتوای آیتم‌های فرد) */}
                         <div

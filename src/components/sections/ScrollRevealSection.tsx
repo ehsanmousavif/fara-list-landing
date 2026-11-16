@@ -1,6 +1,15 @@
 import React from "react";
 import AnimatedContent from "@/components/AnimatedContent";
-import { Sparkles, CheckCircle2, ArrowLeft, MessageSquare, Phone, MoreVertical, Send, CheckCheck } from "lucide-react";
+import {
+  Sparkles,
+  CheckCircle2,
+  ArrowLeft,
+  MessageSquare,
+  Phone,
+  MoreVertical,
+  Send,
+  CheckCheck,
+} from "lucide-react";
 import { Button } from "@/components/ui";
 
 export const ScrollRevealSection: React.FC = () => {
@@ -9,15 +18,9 @@ export const ScrollRevealSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4">
         {/* چیدمان افقی دسکتاپ: فریم موبایل چت در یک سمت، متن توضیحی در سمت دیگر */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          
           {/* ستون راست (در چیدمان راست‌چین): متن توضیحی راهکار فرالیست */}
           <div className="lg:col-span-7 space-y-6 text-right order-2 lg:order-1">
-            <AnimatedContent
-              distance={60}
-              blur={8}
-              wipe="none"
-              duration={0.8}
-            >
+            <AnimatedContent distance={60} blur={8} wipe="none" duration={0.8}>
               <div className="space-y-5">
                 {/* نشان بالا */}
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eae9fb] text-[#3525cd] text-xs font-bold">
@@ -32,11 +35,17 @@ export const ScrollRevealSection: React.FC = () => {
 
                 {/* متن پاراگراف منطبق با بخش ۳ سند محتوا */}
                 <p className="text-black/75 text-base sm:text-lg leading-relaxed font-normal">
-                  با فرالیست، محصولات، قیمت، موجودی و دسته‌بندی‌هات رو یک‌بار وارد می‌کنی و از روی همون اطلاعات، یک یا چند کاتالوگ آنلاین می‌سازی. هر کاتالوگ یک لینک مخصوص خودش داره که می‌تونی توی واتساپ، تلگرام، اینستاگرام، پیامک یا حتی روی یک QR Code بذاریش.
+                  با فرالیست، محصولات، قیمت، موجودی و دسته‌بندی‌هات رو یک‌بار
+                  وارد می‌کنی و از روی همون اطلاعات، یک یا چند کاتالوگ آنلاین
+                  می‌سازی. هر کاتالوگ یک لینک مخصوص خودش داره که می‌تونی توی
+                  واتساپ، تلگرام، اینستاگرام، پیامک یا حتی روی یک QR Code
+                  بذاریش.
                 </p>
 
                 <p className="text-black/75 text-base sm:text-lg leading-relaxed font-normal">
-                  از اون به بعد، هر تغییری که توی فرالیست بدی — قیمت، موجودی، عکس، محصول جدید — همون لحظه روی همون لینک قبلی هم دیده می‌شه. مشتری هیچ‌وقت فایل کهنه دستش نمی‌مونه.
+                  از اون به بعد، هر تغییری که توی فرالیست بدی — قیمت، موجودی،
+                  عکس، محصول جدید — همون لحظه روی همون لینک قبلی هم دیده می‌شه.
+                  مشتری هیچ‌وقت فایل کهنه دستش نمی‌مونه.
                 </p>
 
                 {/* مزایای برجسته */}
@@ -46,7 +55,7 @@ export const ScrollRevealSection: React.FC = () => {
                       <Sparkles className="w-4 h-4" />
                     </div>
                     <div className="text-xs sm:text-sm font-bold text-black">
-                      آپدیت ۱۰۰ محصول فقط در ۱۵ دقیقه
+                      آپدیت محصولات در کمترین زمان !{" "}
                     </div>
                   </div>
 
@@ -55,7 +64,7 @@ export const ScrollRevealSection: React.FC = () => {
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
                     <div className="text-xs sm:text-sm font-bold text-black">
-                      بدون ارسال حتی یک فایل PDF جدید
+                      بدون نیاز به به انجام عملیات های تکراری
                     </div>
                   </div>
                 </div>
@@ -92,10 +101,8 @@ export const ScrollRevealSection: React.FC = () => {
 
             {/* ماکت فریم گوشی موبایل */}
             <div className="relative w-[300px] sm:w-[320px] aspect-[444/880] select-none">
-              
               {/* صفحه نمایش داخلی گوشی */}
               <div className="absolute top-[2.2%] bottom-[2.5%] left-[5.5%] right-[5.5%] rounded-[36px] bg-[#f8f7ff] overflow-hidden flex flex-col justify-between shadow-inner">
-                
                 {/* نوار وضعیت بالای گوشی و داینامیک آیلند */}
                 <div className="pt-2 px-5 pb-1 flex items-center justify-between text-[11px] font-bold text-black/80 shrink-0 select-none z-10">
                   <span>9:41</span>
@@ -120,7 +127,6 @@ export const ScrollRevealSection: React.FC = () => {
                         <span>مدیر فروشگاه</span>
                         <span className="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse" />
                       </div>
-                      <div className="text-[10px] text-black/50 font-normal">گفتگوی داخلی فوری</div>
                     </div>
                   </div>
                   <div className="flex items-center gap-2 text-black/50">
@@ -131,7 +137,6 @@ export const ScrollRevealSection: React.FC = () => {
 
                 {/* بدنه چت دو نفره */}
                 <div className="flex-1 p-3 space-y-3 overflow-y-auto text-right text-xs leading-relaxed flex flex-col justify-center">
-                  
                   {/* تاریخ گفتگو */}
                   <div className="text-center my-0.5">
                     <span className="px-2.5 py-0.5 rounded-full bg-black/5 text-[10px] text-black/60 font-medium">
@@ -141,39 +146,39 @@ export const ScrollRevealSection: React.FC = () => {
 
                   {/* پیام اول مدیر */}
                   <div className="flex flex-col items-start gap-1 max-w-[88%] self-start">
-                    <div className="text-[10px] font-bold text-black/60 px-1">مدیر فروش • ۱۰:۱۵</div>
+                    <div className="text-[10px] font-bold text-black/60 px-1">
+                      • ۱۰:۱۵
+                    </div>
                     <div className="p-2.5 rounded-2xl rounded-tl-sm bg-white text-black shadow-xs text-[11px] sm:text-xs">
-                      سلام، نرخ ارز بالا رفته؛ باید قیمت ۱۰۰ تا محصول رو سریعاً توی لیست قیمت آپدیت کنی.
+                      سلام، نرخ ارز بالا رفته؛ باید قیمت ۱۰۰ تا محصول رو سریعاً
+                      توی لیست قیمت آپدیت کنی.
                     </div>
                   </div>
 
                   {/* پیام دوم مدیر (عجله و فوریت) */}
                   <div className="flex flex-col items-start gap-1 max-w-[85%] self-start">
                     <div className="p-2.5 rounded-2xl rounded-tl-sm bg-white text-black shadow-xs text-[11px] sm:text-xs">
-                      خیلی فوریه و عجله دارم، مشتری‌ها و نمایندگی‌ها منتظر کاتالوگ جدیدن!
+                      خیلی فوریه و عجله دارم، مشتری‌ها و نمایندگی‌ها منتظر
+                      کاتالوگ جدیدن!
                     </div>
                     <div className="text-[9px] text-black/40 px-1">۱۰:۱۶</div>
                   </div>
 
-                  {/* نشان گذر زمان ۱۵ دقیقه */}
-                  <div className="text-center my-1">
-                    <span className="px-2 py-0.5 rounded-full bg-[#eae9fb] text-[9px] font-bold text-[#3525cd]">
-                      ⏱ ۱۵ دقیقه بعد در پنل فرالیست
-                    </span>
-                  </div>
-
                   {/* پاسخ ادمین فرالیست */}
                   <div className="flex flex-col items-end gap-1 max-w-[90%] self-end">
-                    <div className="text-[10px] font-bold text-[#3525cd] px-1">ادمین فرالیست • ۱۰:۳۱</div>
+                    <div className="text-[10px] font-bold text-[#3525cd] px-1">
+                      ادمین فرالیست • ۱۰:۳۱
+                    </div>
                     <div className="p-2.5 rounded-2xl rounded-tr-sm bg-[#3525cd] text-white shadow-xs text-[11px] sm:text-xs leading-relaxed">
-                      سلام، انجام شد! تمام ۱۰۰ تا محصول یکجا در فرالیست آپدیت شدند و همون لینکی که دست مشتری‌هاست خودکار بروز شد؛ نیازی به ساخت و ارسال فایل جدید نیست.
+                      سلام، انجام شد! تمام ۱۰۰ تا محصول یکجا در فرالیست آپدیت
+                      شدند و همون لینکی که دست مشتری‌هاست خودکار بروز شد؛ نیازی
+                      به ساخت و ارسال فایل جدید نیست.
                     </div>
                     <div className="text-[9px] text-black/50 px-1 flex items-center gap-1">
                       <span>خوانده شد ۱۰:۳۱</span>
                       <CheckCheck className="w-3 h-3 text-[#3525cd]" />
                     </div>
                   </div>
-
                 </div>
 
                 {/* نوار اینپوت چت در پایین گوشی */}
@@ -202,7 +207,6 @@ export const ScrollRevealSection: React.FC = () => {
               />
             </div>
           </div>
-
         </div>
       </div>
     </section>
