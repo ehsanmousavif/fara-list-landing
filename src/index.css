@@ -11,6 +11,23 @@
   font-display: swap;
 }
 
+/* تعریف فونت Changa One */
+@font-face {
+  font-family: 'Changa One';
+  src: url('/assets/fonts/ChangaOne-Regular.ttf') format('truetype');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Changa One';
+  src: url('/assets/fonts/ChangaOne-Italic.ttf') format('truetype');
+  font-weight: 400;
+  font-style: italic;
+  font-display: swap;
+}
+
 @custom-variant dark (&:is(.dark *));
 
 @layer base {
@@ -291,6 +308,7 @@
 }
 
 @theme inline {
+  --font-changa: 'Changa One', cursive, sans-serif;
   --font-heading: 'Peyda', system-ui, sans-serif;
   --font-sans: 'Peyda', system-ui, sans-serif;
   --color-sidebar-ring: var(--sidebar-ring);
@@ -353,4 +371,8 @@
   --input: #f4f3fb;
   --ring: #3525cd;
   --radius: 0.75rem;
+}
+
+.font-changa {
+  font-family: 'Changa One', cursive, sans-serif !important;
 }
