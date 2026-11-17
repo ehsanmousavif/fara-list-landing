@@ -2,8 +2,7 @@ import React from "react";
 
 export const Footer: React.FC = () => {
   return (
-    <footer className="w-full relative overflow-hidden bg-transparent pt-10 pb-10 flex flex-col items-center justify-end select-none">
-      {/* هاله نوری ملایم از رنگ برند */}
+    <footer className="w-full relative overflow-hidden bg-transparent pt-10 pb- flex flex-col items-center justify-end select-none">
       <div
         aria-hidden="true"
         className="absolute bottom-0 left-1/2 -translate-x-100  bg-[#3525cd]/10 blur-[120px] pointer-events-none rounded-full"
