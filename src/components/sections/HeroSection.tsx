@@ -70,18 +70,10 @@ export const HeroSection: React.FC = () => {
       {/* محتوای متنی و دکمه‌های هیرو روی پس‌زمینه Threads */}
       <div className="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
         <div className="max-w-5xl mx-auto px-4 py-20 text-center flex flex-col items-center space-y-6 md:space-y-8 animate-hero-text">
-          {/* نشان بالای هیرو */}
-          <div className="inline-flex items-center gap-2 pointer-events-auto">
-            <span className="text-xs sm:text-sm py-1.5 px-4 rounded-full bg-[#eae9fb] text-[#3525cd] font-semibold flex items-center border-none shadow-none">
-              <Sparkles className="w-3.5 h-3.5 ml-1.5 inline text-[#3525cd]" />
-              جایگزین دائمی PDF و اکسل‌های قدیمی قیمت
-            </span>
-          </div>
-
           {/* چشم عنوان اصلی */}
           <h1 className="text-3xl sm:text-5xl md:text-6xl lg:text-7xl font-black text-black tracking-tight leading-[1.2] max-w-4xl">
-            لیست قیمت و کاتالوگ محصولاتت رو یک بار بساز،{' '}
-            <span className="text-[#3525cd]">دیگه هیچ‌وقت از اول نساز</span>
+            <span className="text-[#3525cd] font-black">فرالیست </span>
+            محصولاتت رو فقط یکبار بساز{" "}
           </h1>
 
           {/* زیرعنوان توضیحی هیرو */}
@@ -99,8 +91,8 @@ export const HeroSection: React.FC = () => {
               size="lg"
               className="w-full sm:w-auto text-base px-8 h-13"
               onClick={() => {
-                const el = document.getElementById('cta');
-                el?.scrollIntoView({ behavior: 'smooth' });
+                const el = document.getElementById("cta");
+                el?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <span>ساخت کاتالوگ من</span>
@@ -112,8 +104,8 @@ export const HeroSection: React.FC = () => {
               size="lg"
               className="w-full sm:w-auto text-base px-7 h-13"
               onClick={() => {
-                const el = document.getElementById('demo');
-                el?.scrollIntoView({ behavior: 'smooth' });
+                const el = document.getElementById("demo");
+                el?.scrollIntoView({ behavior: "smooth" });
               }}
             >
               <Eye className="w-5 h-5 ml-1" />

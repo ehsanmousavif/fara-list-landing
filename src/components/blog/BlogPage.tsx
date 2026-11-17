@@ -1,33 +1,40 @@
+'use client';
+
 import React, { useState, useMemo } from 'react';
+import { useRouter } from 'next/navigation';
 import { BLOG_POSTS, BLOG_CATEGORIES, BlogPost } from '@/data/blogData';
 import { BlogCard } from './BlogCard';
 import { Button } from '@/components/ui';
-import { FaralistLogo } from '@/components/logo';
-import { Footer } from '@/components/layout/Footer';
 import {
   Search,
   ArrowRight,
   BookOpen,
   Calendar,
   Clock,
-  Share2,
   Tag,
-  CheckCircle2,
   Sparkles,
 } from 'lucide-react';
 
 interface BlogPageProps {
-  onBackToHome: () => void;
-  onNavigateSection: (sectionId: string) => void;
+  onBackToHome?: () => void;
+  onNavigateSection?: (sectionId: string) => void;
 }
 
 export const BlogPage: React.FC<BlogPageProps> = ({
   onBackToHome,
-  onNavigateSection,
 }) => {
+  const router = useRouter();
   const [selectedCategory, setSelectedCategory] = useState<string>('همه مقالات');
   const [searchQuery, setSearchQuery] = useState<string>('');
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
+
+  const handleBackToLanding = () => {
+    if (onBackToHome) {
+      onBackToHome();
+    } else {
+      router.push('/');
+    }
+  };
 
   // فیلتر مقالات بر اساس دسته‌بندی و عبارت جستجو
   const filteredPosts = useMemo(() => {
@@ -62,318 +69,242 @@ export const BlogPage: React.FC<BlogPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen flex flex-col bg-white text-black selection:bg-[#3525cd] selection:text-white">
-      {/* هدر اختصاصی صفحه وبلاگ - شناور و مات بدون بوردر */}
-      <header className="fixed top-3 sm:top-4 lg:top-5 inset-x-3 sm:inset-x-6 lg:inset-x-8 max-w-6xl mx-auto z-40 transition-all pointer-events-none">
-        <div className="w-full h-16 sm:h-18 px-4 sm:px-6 rounded-2xl sm:rounded-3xl bg-white/85 backdrop-blur-2xl backdrop-saturate-180 border-none shadow-none flex items-center justify-between gap-4 pointer-events-auto">
-          {/* لوگو و بازگشت به خانه */}
-          <div className="flex items-center gap-4">
-            <button
-              onClick={onBackToHome}
-              className="flex items-center gap-3 group focus:outline-none cursor-pointer border-none bg-transparent"
-              aria-label="بازگشت به صفحه اصلی فرالیست"
-            >
-              <div className="w-9 h-9 sm:w-10 sm:h-10 flex items-center justify-center bg-[#f5f4fd] rounded-xl overflow-hidden shrink-0">
-                <FaralistLogo size={32} animate={false} />
-              </div>
-              <div className="flex flex-col text-right">
-                <span className="text-base sm:text-lg font-black tracking-tight text-black group-hover:text-[#3525cd] transition-colors leading-tight">
-                  فرالیست
-                </span>
-                <span className="text-[10px] text-black/50 tracking-wider uppercase font-semibold">
-                  Fara List
-                </span>
-              </div>
-            </button>
-
-            <span className="hidden sm:inline-block w-px h-6 bg-black/10 mx-1" />
-
-            <div className="hidden sm:flex items-center gap-2">
-              <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#eae9fb] text-[#3525cd]">
-                وبلاگ اختصاصی
-              </span>
-            </div>
-          </div>
-
-          {/* لینک‌های ناوبری به سکشن‌های صفحه اصلی */}
-          <nav className="hidden md:flex items-center gap-1 lg:gap-2">
-            <button
-              onClick={onBackToHome}
-              className="text-sm font-medium px-3.5 py-2 rounded-xl text-black/70 hover:text-black hover:bg-[#f5f4fd] transition-colors border-none bg-transparent cursor-pointer"
-            >
-              صفحه اصلی
-            </button>
-            <button
-              onClick={() => onNavigateSection('features')}
-              className="text-sm font-medium px-3.5 py-2 rounded-xl text-black/70 hover:text-black hover:bg-[#f5f4fd] transition-colors border-none bg-transparent cursor-pointer"
-            >
-              ویژگی‌ها
-            </button>
-            <button
-              onClick={() => onNavigateSection('demo')}
-              className="text-sm font-medium px-3.5 py-2 rounded-xl text-black/70 hover:text-black hover:bg-[#f5f4fd] transition-colors border-none bg-transparent cursor-pointer"
-            >
-              دموی زنده
-            </button>
-            <button
-              onClick={() => onNavigateSection('pricing')}
-              className="text-sm font-medium px-3.5 py-2 rounded-xl text-black/70 hover:text-black hover:bg-[#f5f4fd] transition-colors border-none bg-transparent cursor-pointer"
-            >
-              تعرفه‌ها
-            </button>
-            <button
-              onClick={() => onNavigateSection('faq')}
-              className="text-sm font-medium px-3.5 py-2 rounded-xl text-black/70 hover:text-black hover:bg-[#f5f4fd] transition-colors border-none bg-transparent cursor-pointer"
-            >
-              سوالات متداول
-            </button>
-          </nav>
-
-          {/* دکمه بازگشت */}
-          <div className="flex items-center gap-2">
-            <Button
-              variant="secondary"
-              size="sm"
-              onClick={onBackToHome}
-              className="flex items-center gap-2"
-            >
-              <ArrowRight className="w-4 h-4" />
-              <span>بازگشت به لندینگ</span>
-            </Button>
-          </div>
-        </div>
-      </header>
-
+    <div className="w-full bg-white text-black selection:bg-[#3525cd] selection:text-white pt-24 sm:pt-28 md:pt-32 pb-16">
       {/* نمایش جزئیات پست در صورت انتخاب یک مقاله */}
       {activePost ? (
-        <main className="flex-1 max-w-4xl mx-auto px-4 pt-28 pb-12 sm:pt-32 w-full">
+        <div className="max-w-4xl mx-auto px-4 pb-12 w-full">
           {/* دکمه بازگشت به لیست مقالات */}
-          <div className="mb-8">
+          <div className="flex items-center justify-between mb-8">
             <button
               onClick={() => setActivePost(null)}
-              className="inline-flex items-center gap-2 px-4 py-2 rounded-xl bg-[#f5f4fd] text-[#3525cd] hover:bg-[#eae9fb] font-bold text-sm transition-colors cursor-pointer border-none"
+              className="inline-flex items-center gap-2 text-sm font-bold text-[#3525cd] hover:underline cursor-pointer border-none bg-transparent"
             >
               <ArrowRight className="w-4 h-4" />
-              <span>بازگشت به تمام مقالات</span>
+              <span>بازگشت به مقالات وبلاگ</span>
+            </button>
+
+            <button
+              onClick={handleBackToLanding}
+              className="inline-flex items-center gap-1.5 text-xs text-black/60 hover:text-black cursor-pointer border-none bg-transparent"
+            >
+              <span>صفحه اصلی فرالیست</span>
             </button>
           </div>
 
-          <article className="space-y-8">
-            {/* عنوان و متادیتا */}
-            <div className="space-y-4">
-              <div className="flex items-center gap-2">
-                <span className="text-xs font-bold px-3 py-1 rounded-full bg-[#eae9fb] text-[#3525cd]">
-                  {activePost.category}
-                </span>
-                <span className="text-xs text-black/50 flex items-center gap-1">
-                  <Clock className="w-3.5 h-3.5" />
-                  {activePost.readingTime} مطالعه
-                </span>
-                <span className="text-black/30">•</span>
-                <span className="text-xs text-black/50 flex items-center gap-1">
-                  <Calendar className="w-3.5 h-3.5" />
-                  {activePost.publishedAt}
-                </span>
-              </div>
-
-              <h1 className="text-2xl sm:text-4xl lg:text-5xl font-black text-black leading-tight">
-                {activePost.title}
-              </h1>
-
-              {/* مشخصات نویسنده */}
-              <div className="flex items-center justify-between py-4 border-y border-black/5">
-                <div className="flex items-center gap-3">
-                  <img
-                    src={activePost.author.avatar}
-                    alt={activePost.author.name}
-                    className="w-12 h-12 rounded-full object-cover"
-                  />
-                  <div>
-                    <h4 className="text-sm font-bold text-black">
-                      {activePost.author.name}
-                    </h4>
-                    <p className="text-xs text-black/60">{activePost.author.role}</p>
-                  </div>
-                </div>
-
-                <Button
-                  variant="surface"
-                  size="sm"
-                  onClick={() => {
-                    navigator.clipboard?.writeText(window.location.href);
-                    alert('لینک مقاله در حافظه کپی شد!');
-                  }}
-                  className="flex items-center gap-1.5"
-                >
-                  <Share2 className="w-3.5 h-3.5" />
-                  <span>اشتراک‌گذاری</span>
-                </Button>
-              </div>
-            </div>
-
-            {/* تصویر شاخص */}
-            <div className="relative w-full h-[320px] sm:h-[450px] rounded-3xl overflow-hidden bg-black/5">
-              <img
-                src={activePost.imageUrl}
-                alt={activePost.title}
-                className="w-full h-full object-cover"
-              />
-            </div>
-
-            {/* خلاصه برجسته */}
-            <div className="p-6 rounded-2xl bg-[#f5f4fd] text-[#3525cd] font-semibold text-base sm:text-lg leading-relaxed">
-              {activePost.excerpt}
-            </div>
-
-            {/* متن اصلی مقاله */}
-            <div className="space-y-6 text-base sm:text-lg text-black/85 leading-loose">
-              {activePost.content.map((paragraph, idx) => (
-                <p key={idx} className="font-normal">
-                  {paragraph}
-                </p>
-              ))}
-            </div>
-
-            {/* تگ‌های مقاله */}
-            <div className="pt-6 flex flex-wrap items-center gap-2">
-              <Tag className="w-4 h-4 text-black/40 ml-1" />
-              {activePost.tags.map((tag, idx) => (
-                <span
-                  key={idx}
-                  className="text-xs px-3 py-1.5 rounded-xl bg-[#f5f4fd] text-black/80 font-medium"
-                >
-                  #{tag}
-                </span>
-              ))}
-            </div>
-
-            {/* کارت دعوت به اقدام در انتهای مقاله */}
-            <div className="p-8 sm:p-10 rounded-3xl bg-[#eae9fb] text-black text-center space-y-4 my-12">
-              <div className="w-12 h-12 rounded-2xl bg-[#3525cd] text-white mx-auto flex items-center justify-center">
-                <Sparkles className="w-6 h-6" />
-              </div>
-              <h3 className="text-xl sm:text-2xl font-black">
-                همین حالا کاتالوگ دیجیتال اختصاصی خودت رو بساز
-              </h3>
-              <p className="text-sm text-black/70 max-w-lg mx-auto">
-                بدون نیاز به طراح یا اپلیکیشن، در کمتر از ۳ دقیقه تمام محصولاتت رو به یک
-                لینک هوشمند و همیشه به‌روز تبدیل کن.
-              </p>
-              <div className="pt-2 flex justify-center gap-3">
-                <Button
-                  variant="primary"
-                  size="md"
-                  onClick={() => {
-                    onBackToHome();
-                    setTimeout(() => {
-                      const el = document.getElementById('demo');
-                      el?.scrollIntoView({ behavior: 'smooth' });
-                    }, 100);
-                  }}
-                >
-                  تست رایگان فرالیست
-                </Button>
-                <Button
-                  variant="surface"
-                  size="md"
-                  onClick={() => setActivePost(null)}
-                >
-                  سایر مقالات
-                </Button>
-              </div>
-            </div>
-          </article>
-        </main>
-      ) : (
-        /* لیست اصلی مقالات وبلاگ */
-        <main className="flex-1 max-w-7xl mx-auto px-4 pt-28 pb-12 sm:pt-32 md:pb-16 w-full space-y-12">
-          {/* هدر وبلاگ */}
-          <div className="text-center max-w-3xl mx-auto space-y-4">
-            <div className="inline-flex items-center gap-2">
-              <span className="text-xs sm:text-sm py-1.5 px-4 rounded-full bg-[#eae9fb] text-[#3525cd] font-semibold flex items-center">
-                <BookOpen className="w-4 h-4 ml-1.5 inline" />
-                دانستنی‌ها و آموزش‌های فرالیست
+          {/* سربرگ مقاله */}
+          <div className="space-y-4 text-right mb-8">
+            <div className="flex items-center gap-3">
+              <span className="px-3.5 py-1 rounded-full text-xs font-bold bg-[#eae9fb] text-[#3525cd]">
+                {activePost.category}
+              </span>
+              <span className="text-xs text-black/50 flex items-center gap-1">
+                <Clock className="w-3.5 h-3.5" />
+                <span>زمان مطالعه: {activePost.readingTime}</span>
+              </span>
+              <span className="text-xs text-black/50 flex items-center gap-1">
+                <Calendar className="w-3.5 h-3.5" />
+                <span>{activePost.publishedAt}</span>
               </span>
             </div>
-            <h1 className="text-3xl sm:text-5xl font-black tracking-tight text-black">
-              وبلاگ تخصصی لیست قیمت و کاتالوگ آنلاین
+
+            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-black leading-tight tracking-tight">
+              {activePost.title}
             </h1>
-            <p className="text-sm sm:text-base text-black/70 leading-relaxed font-normal">
-              راهنماها، تحلیل‌ها و روش‌های مدرن فروش برای کسب‌وکارهایی که می‌خواهند از شر
-              فایل‌های قدیمی و پراکنده خلاص شوند.
+
+            <p className="text-base sm:text-lg text-black/70 leading-relaxed font-normal">
+              {activePost.excerpt}
             </p>
           </div>
 
-          {/* نوار جستجو و فیلتر دسته‌بندی */}
-          <div className="space-y-6 max-w-4xl mx-auto">
-            {/* اینپوت جستجو بدون بوردر و سایه (تخت) */}
-            <div className="relative">
-              <Search className="absolute right-4 top-1/2 -translate-y-1/2 w-5 h-5 text-black/40 pointer-events-none" />
+          {/* کاور مقاله */}
+          <div className="rounded-3xl overflow-hidden aspect-video w-full mb-10 bg-[#f5f4fd]">
+            <img
+              src={activePost.imageUrl}
+              alt={activePost.title}
+              className="w-full h-full object-cover"
+            />
+          </div>
+
+          {/* محتوای مقاله */}
+          <div className="prose prose-lg max-w-none text-right space-y-6 text-black/80 leading-relaxed">
+            {activePost.content.map((paragraph, idx) => (
+              <p key={idx} className="text-base sm:text-lg leading-loose">
+                {paragraph}
+              </p>
+            ))}
+          </div>
+
+          {/* نویسنده و برچسب‌ها */}
+          <div className="mt-12 pt-8 border-t border-black/10 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6">
+            <div className="flex items-center gap-3 text-right">
+              <div className="w-12 h-12 rounded-full overflow-hidden bg-[#eae9fb] shrink-0">
+                <img
+                  src={activePost.author.avatar}
+                  alt={activePost.author.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+              <div>
+                <p className="text-sm font-bold text-black">{activePost.author.name}</p>
+                <p className="text-xs text-black/60">{activePost.author.role}</p>
+              </div>
+            </div>
+
+            <div className="flex flex-wrap gap-2">
+              {activePost.tags.map((tag) => (
+                <span
+                  key={tag}
+                  className="inline-flex items-center gap-1 text-xs px-3 py-1 rounded-full bg-[#f5f4fd] text-black/70 font-medium"
+                >
+                  <Tag className="w-3 h-3 text-[#3525cd]" />
+                  <span>{tag}</span>
+                </span>
+              ))}
+            </div>
+          </div>
+
+          {/* باکس فراخوان عمل انتهایی مقاله */}
+          <div className="mt-12 p-8 rounded-3xl bg-[#070712] text-white text-center space-y-4">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-white/10 text-xs font-semibold">
+              <Sparkles className="w-3.5 h-3.5 text-[#8f84fc]" />
+              <span>فرالیست؛ دستیار هوشمند کاتالوگ شما</span>
+            </div>
+            <h3 className="text-xl sm:text-2xl font-black">
+              می‌خواهید محصولات خود را به این شیوه مدرن نمایش دهید؟
+            </h3>
+            <p className="text-sm text-white/70 max-w-md mx-auto">
+              همین الان کاتالوگ آنلاین خود را بسازید و لینک اختصاصی آن را در شبکه‌های اجتماعی به اشتراک بگذارید.
+            </p>
+            <div className="pt-2 flex justify-center">
+              <Button
+                variant="white"
+                size="md"
+                onClick={handleBackToLanding}
+                className="font-bold px-8 cursor-pointer"
+              >
+                شروع رایگان فرالیست
+              </Button>
+            </div>
+          </div>
+        </div>
+      ) : (
+        /* لیست مقالات */
+        <div className="max-w-6xl mx-auto px-4 space-y-12 w-full">
+          {/* عنوان و مقدمه وبلاگ */}
+          <div className="text-center max-w-3xl mx-auto space-y-4">
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eae9fb] text-[#3525cd] text-xs font-bold">
+              <BookOpen className="w-4 h-4" />
+              <span>دانستنی‌ها، آموزش‌ها و اخبار فرالیست</span>
+            </div>
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-black text-black tracking-tight leading-tight">
+              وبلاگ تخصصی فرالیست
+            </h1>
+            <p className="text-sm sm:text-base text-black/70 leading-relaxed font-normal">
+              راهنماها، ترفندهای افزایش فروش و جدیدترین راهکارهای دیجیتال‌سازی کاتالوگ و لیست قیمت برای کسب‌وکارهای مدرن.
+            </p>
+          </div>
+
+          {/* نوار جستجو و فیلتر دسته‌بندی‌ها */}
+          <div className="space-y-4">
+            <div className="relative max-w-md mx-auto">
               <input
                 type="text"
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
-                placeholder="جستجو در بین مقالات، آموزش‌ها، ترفندها..."
-                className="w-full pr-12 pl-4 py-3.5 rounded-2xl bg-[#f5f4fd] text-black placeholder:text-black/40 text-sm focus:outline-none focus:bg-[#eae9fb] transition-colors border-none"
+                placeholder="جستجو در بین مقالات و موضوعات..."
+                className="w-full h-12 pr-11 pl-4 rounded-2xl bg-[#f5f4fd] text-sm text-black placeholder:text-black/40 outline-none border-none focus:bg-[#eae9fb]/70 transition-colors"
               />
-              {searchQuery && (
-                <button
-                  onClick={() => setSearchQuery('')}
-                  className="absolute left-4 top-1/2 -translate-y-1/2 text-xs text-black/40 hover:text-black bg-transparent border-none cursor-pointer"
-                >
-                  پاک کردن
-                </button>
-              )}
+              <Search className="w-4 h-4 text-black/40 absolute right-4 top-1/2 -translate-y-1/2" />
             </div>
 
             {/* چیپ‌های دسته‌بندی */}
-            <div className="flex items-center gap-2 overflow-x-auto pb-2 scrollbar-none">
-              {BLOG_CATEGORIES.map((category) => (
+            <div className="flex items-center justify-center flex-wrap gap-2 pt-2">
+              {BLOG_CATEGORIES.map((cat) => (
                 <button
-                  key={category}
-                  onClick={() => setSelectedCategory(category)}
-                  className={`text-xs sm:text-sm font-semibold px-4 py-2 rounded-xl transition-all whitespace-nowrap border-none cursor-pointer select-none ${
-                    selectedCategory === category
+                  key={cat}
+                  onClick={() => setSelectedCategory(cat)}
+                  className={`text-xs font-bold px-4 py-2 rounded-xl transition-all border-none cursor-pointer ${
+                    selectedCategory === cat
                       ? 'bg-[#3525cd] text-white'
-                      : 'bg-[#f5f4fd] text-black/70 hover:bg-[#eae9fb] hover:text-black'
+                      : 'bg-[#f5f4fd] text-black/70 hover:bg-[#eae9fb]'
                   }`}
                 >
-                  {category}
+                  {cat}
                 </button>
               ))}
             </div>
           </div>
 
-          {/* مقاله ویژه (تنها وقتی فیلتری اعمال نشده باشد) */}
+          {/* مقاله برگزیده ویژه */}
           {selectedCategory === 'همه مقالات' && searchQuery.trim() === '' && featuredPost && (
-            <div className="space-y-4">
-              <div className="flex items-center justify-between">
-                <h2 className="text-lg font-bold text-black flex items-center gap-2">
-                  <span className="w-2.5 h-2.5 rounded-full bg-[#3525cd]" />
-                  مقاله ویژه هفته
-                </h2>
+            <div
+              onClick={() => handlePostClick(featuredPost)}
+              className="cursor-pointer group rounded-3xl overflow-hidden bg-[#f5f4fd] transition-all hover:bg-[#eae9fb]/70"
+            >
+              <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-center p-6 sm:p-8 md:p-10">
+                <div className="lg:col-span-5 rounded-2xl overflow-hidden aspect-video lg:aspect-square bg-white">
+                  <img
+                    src={featuredPost.imageUrl}
+                    alt={featuredPost.title}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                </div>
+
+                <div className="lg:col-span-7 space-y-4 text-right">
+                  <div className="flex items-center gap-3">
+                    <span className="px-3 py-1 rounded-full text-xs font-bold bg-[#3525cd] text-white">
+                      مقاله ویژه
+                    </span>
+                    <span className="text-xs text-black/60">{featuredPost.category}</span>
+                    <span className="text-xs text-black/40">•</span>
+                    <span className="text-xs text-black/60">{featuredPost.readingTime} مطالعه</span>
+                  </div>
+
+                  <h2 className="text-xl sm:text-2xl md:text-3xl font-black text-black leading-tight group-hover:text-[#3525cd] transition-colors">
+                    {featuredPost.title}
+                  </h2>
+
+                  <p className="text-sm sm:text-base text-black/70 leading-relaxed font-normal">
+                    {featuredPost.excerpt}
+                  </p>
+
+                  <div className="pt-2 flex items-center justify-between">
+                    <div className="flex items-center gap-2.5">
+                      <div className="w-8 h-8 rounded-full overflow-hidden bg-white">
+                        <img
+                          src={featuredPost.author.avatar}
+                          alt={featuredPost.author.name}
+                          className="w-full h-full object-cover"
+                        />
+                      </div>
+                      <span className="text-xs font-semibold text-black">
+                        {featuredPost.author.name}
+                      </span>
+                    </div>
+
+                    <span className="text-xs font-bold text-[#3525cd] flex items-center gap-1 group-hover:translate-x-[-4px] transition-transform">
+                      <span>مطالعه کامل مقاله</span>
+                      <ArrowRight className="w-3.5 h-3.5" />
+                    </span>
+                  </div>
+                </div>
               </div>
-              <BlogCard
-                post={featuredPost}
-                onClick={handlePostClick}
-                isFeatured={true}
-              />
             </div>
           )}
 
-          {/* گرید مقالات بر پایه کامپوننت @reui/c-card-8 */}
+          {/* لیست مقالات عادی */}
           <div className="space-y-6">
-            <div className="flex items-center justify-between">
-              <h2 className="text-xl font-bold text-black">
-                {selectedCategory === 'همه مقالات' ? 'جدیدترین مقالات' : selectedCategory}
-                <span className="text-xs font-normal text-black/50 mr-2">
-                  ({regularPosts.length} مقاله)
-                </span>
-              </h2>
+            <div className="flex items-center justify-between border-b border-black/5 pb-3">
+              <h3 className="text-lg font-bold text-black">
+                {selectedCategory === 'همه مقالات' ? 'تازه‌ترین مقالات' : selectedCategory}
+              </h3>
+              <span className="text-xs text-black/50">
+                {regularPosts.length} مقاله موجود است
+              </span>
             </div>
 
             {regularPosts.length > 0 ? (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {regularPosts.map((post) => (
                   <BlogCard
                     key={post.id}
@@ -401,11 +332,10 @@ export const BlogPage: React.FC<BlogPageProps> = ({
               </div>
             )}
           </div>
-        </main>
+        </div>
       )}
-
-      {/* فوتر وبلاگ */}
-      <Footer />
     </div>
   );
 };
+
+export default BlogPage;

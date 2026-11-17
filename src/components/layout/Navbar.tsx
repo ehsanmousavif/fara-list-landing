@@ -1,12 +1,16 @@
+'use client';
+
 import React, { useState } from 'react';
+import Link from 'next/link';
+import { usePathname, useRouter } from 'next/navigation';
 import { FaralistLogo } from '@/components/logo';
 import { Button } from '@/components/ui';
-import { Menu, X, PlayCircle, BookOpen, Sparkles } from 'lucide-react';
+import { Menu, X, PlayCircle, BookOpen } from 'lucide-react';
 
 interface NavbarProps {
   onTriggerLoading?: () => void;
-  onOpenBlog: () => void;
-  onNavigateSection: (sectionId: string) => void;
+  onOpenBlog?: () => void;
+  onNavigateSection?: (sectionId: string) => void;
   isBlogPage?: boolean;
 }
 
@@ -14,9 +18,13 @@ export const Navbar: React.FC<NavbarProps> = ({
   onTriggerLoading,
   onOpenBlog,
   onNavigateSection,
-  isBlogPage = false,
+  isBlogPage: propIsBlogPage,
 }) => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
+
+  const isBlogPage = propIsBlogPage ?? pathname.startsWith('/blog');
 
   const navLinks = [
     { label: 'ویژگی‌ها', id: 'features' },
@@ -28,12 +36,43 @@ export const Navbar: React.FC<NavbarProps> = ({
 
   const handleLinkClick = (id: string) => {
     setMobileMenuOpen(false);
-    onNavigateSection(id);
+    if (onNavigateSection) {
+      onNavigateSection(id);
+      return;
+    }
+
+    if (pathname !== '/') {
+      router.push(`/#${id}`);
+      setTimeout(() => {
+        const el = document.getElementById(id);
+        el?.scrollIntoView({ behavior: 'smooth' });
+      }, 120);
+    } else {
+      const el = document.getElementById(id);
+      if (el) {
+        el.scrollIntoView({ behavior: 'smooth' });
+      } else {
+        window.history.pushState(null, '', `/#${id}`);
+      }
+    }
+  };
+
+  const handleLogoClick = () => {
+    setMobileMenuOpen(false);
+    if (pathname !== '/') {
+      router.push('/');
+    } else {
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
   };
 
   const handleBlogClick = () => {
     setMobileMenuOpen(false);
-    onOpenBlog();
+    if (onOpenBlog) {
+      onOpenBlog();
+    } else {
+      router.push('/blog');
+    }
   };
 
   return (
@@ -41,13 +80,8 @@ export const Navbar: React.FC<NavbarProps> = ({
       <div className="w-full h-16 sm:h-18 px-4 sm:px-6 rounded-2xl sm:rounded-3xl bg-white/85 backdrop-blur-2xl backdrop-saturate-180 border-none shadow-none flex items-center justify-between gap-4 pointer-events-auto">
         {/* برند و لوگوی فرالیست */}
         <button
-          onClick={() => {
-            if (isBlogPage) {
-              handleLinkClick('');
-            } else {
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }
-          }}
+          type="button"
+          onClick={handleLogoClick}
           className="flex items-center gap-3 group focus:outline-none cursor-pointer border-none bg-transparent shrink-0"
           aria-label="صفحه اصلی فرالیست"
         >
@@ -69,6 +103,7 @@ export const Navbar: React.FC<NavbarProps> = ({
           {navLinks.map((link) => (
             <button
               key={link.id}
+              type="button"
               onClick={() => handleLinkClick(link.id)}
               className="text-sm font-medium px-3.5 py-2 rounded-xl text-black/70 hover:text-black hover:bg-[#f5f4fd] transition-colors border-none bg-transparent cursor-pointer whitespace-nowrap"
             >
@@ -78,6 +113,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           {/* پیوند دمو به صفحه جداگانه وبلاگ */}
           <button
+            type="button"
             onClick={handleBlogClick}
             className={`text-sm font-bold px-3.5 py-2 rounded-xl transition-all border-none cursor-pointer flex items-center gap-1.5 whitespace-nowrap ${
               isBlogPage
@@ -87,7 +123,11 @@ export const Navbar: React.FC<NavbarProps> = ({
           >
             <BookOpen className="w-4 h-4" />
             <span>وبلاگ</span>
-            <span className="text-[10px] bg-[#3525cd] text-white px-1.5 py-0.5 rounded-full font-bold leading-none">
+            <span
+              className={`text-[10px] px-1.5 py-0.5 rounded-full font-bold leading-none ${
+                isBlogPage ? 'bg-white text-[#3525cd]' : 'bg-[#3525cd] text-white'
+              }`}
+            >
               جدید
             </span>
           </button>
@@ -122,6 +162,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-2 lg:hidden">
           {/* دکمه سریع وبلاگ در هدر موبایل */}
           <button
+            type="button"
             onClick={handleBlogClick}
             className={`text-xs font-bold px-2.5 py-2 rounded-xl flex items-center gap-1 border-none cursor-pointer whitespace-nowrap ${
               isBlogPage
@@ -145,13 +186,14 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* دراور / منوی کشویی بازشونده موبایل با افکت مات شیشه‌ای شناور بدون بوردر */}
+      {/* منوی کشویی بازشونده موبایل */}
       {mobileMenuOpen && (
         <div className="mt-2 w-full rounded-2xl bg-white/95 backdrop-blur-2xl px-4 py-4 border-none shadow-none space-y-2 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto">
           <nav className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <button
                 key={link.id}
+                type="button"
                 onClick={() => handleLinkClick(link.id)}
                 className="text-sm font-medium px-4 py-3 rounded-xl text-black hover:text-[#3525cd] bg-[#f5f4fd] active:bg-[#eae9fb] transition-colors text-right border-none cursor-pointer"
               >
@@ -161,6 +203,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
             {/* لینک وبلاگ در موبایل */}
             <button
+              type="button"
               onClick={handleBlogClick}
               className="text-sm font-bold px-4 py-3 rounded-xl bg-[#eae9fb] text-[#3525cd] active:bg-[#dedcf9] transition-colors text-right border-none cursor-pointer flex items-center justify-between"
             >
@@ -207,3 +250,5 @@ export const Navbar: React.FC<NavbarProps> = ({
     </header>
   );
 };
+
+export default Navbar;

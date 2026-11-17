@@ -1,6 +1,9 @@
+'use client';
+
 import React, { useState, useEffect } from 'react';
 import AnimatedContent from '@/components/AnimatedContent';
-import { Card, Button } from '@/components/ui';
+import { Button } from '@/components/ui';
+import { PixelCard } from '@/components/ui/PixelCard';
 import { PRICING_PLANS } from '@/data/landingData';
 import { HeaderSections } from '@/components/common/header-sections';
 import { Check, CreditCard } from 'lucide-react';
@@ -14,13 +17,21 @@ import {
 } from '@/components/ui/carousel';
 
 /**
- * کامپوننت کارت پلن قیمت (مشترک بین نمای دسکتاپ و کاروسل موبایل)
- * طراحی کاملاً تخت بدون بوردر و بدون سایه (Flat Design System)
+ * کامپوننت کارت تعرفه با افکت PixelCard (ReactBits با سرعت speed=39)
+ * طراحی کاملاً تخت بدون بوردر و بدون سایه طبق Flat Design System فرالیست
  */
 const PricingCard: React.FC<{ plan: (typeof PRICING_PLANS)[number] }> = ({ plan }) => (
-  <Card
-    variant="surface"
-    className={`p-6 sm:p-8 flex flex-col justify-between h-full relative border-none shadow-none rounded-2xl select-none ${
+  <PixelCard
+    speed={39}
+    colors={
+      plan.isPopular
+        ? ['#3525cd', '#6858ee', '#a498fd']
+        : ['#3525cd', '#8f84fc', '#d6d2fc']
+    }
+    glowColor="#3525cd"
+    theme="light"
+    radius={24}
+    className={`p-6 sm:p-8 flex flex-col justify-between h-full relative border-none shadow-none rounded-3xl select-none text-right transition-all duration-300 hover:-translate-y-1 ${
       plan.isPopular ? 'bg-[#eae9fb]' : 'bg-[#f5f4fd]'
     }`}
   >
@@ -64,7 +75,7 @@ const PricingCard: React.FC<{ plan: (typeof PRICING_PLANS)[number] }> = ({ plan 
       <Button
         variant={plan.isPopular ? 'primary' : 'secondary'}
         size="md"
-        className="w-full"
+        className="w-full cursor-pointer"
         onClick={() => {
           const el = document.getElementById('cta');
           el?.scrollIntoView({ behavior: 'smooth' });
@@ -73,7 +84,7 @@ const PricingCard: React.FC<{ plan: (typeof PRICING_PLANS)[number] }> = ({ plan 
         {plan.ctaText}
       </Button>
     </div>
-  </Card>
+  </PixelCard>
 );
 
 export const PricingSection: React.FC = () => {
@@ -95,7 +106,7 @@ export const PricingSection: React.FC = () => {
   return (
     <section id="pricing" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-12">
-        {/* هدر بخش تعرفه‌ها */}
+        {/* هدر بخش تعرفه‌ها: پلن مناسب خودتو بساز */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -106,13 +117,13 @@ export const PricingSection: React.FC = () => {
           className="text-center"
         >
           <HeaderSections
-            icon={<CreditCard className="w-5 h-5" />}
-            title="پلن مناسب خودت رو انتخاب کن"
+            icon={<CreditCard className="w-5 h-5 text-[#3525cd]" />}
+            title="پلن مناسب خودتو بساز"
             subtitle="بدون هزینه مخفی؛ با پلن رایگان شروع کن و هر زمان نیاز داشتی ارتقا بده"
           />
         </AnimatedContent>
 
-        {/* ۱. نمای دسکتاپ: گرید ۳ ستونه (hidden در موبایل) */}
+        {/* ۱. نمای دسکتاپ: گرید ۳ ستونه با کارت‌های پیکسلی */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -172,3 +183,5 @@ export const PricingSection: React.FC = () => {
     </section>
   );
 };
+
+export default PricingSection;
