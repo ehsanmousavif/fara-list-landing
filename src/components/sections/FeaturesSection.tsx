@@ -73,7 +73,7 @@ export const FeaturesSection: React.FC = () => {
   const iconRefs = useRef<(HTMLDivElement | null)[]>([]);
   const bgPathRef = useRef<SVGPathElement>(null);
 
-  const [isDesktop, setIsDesktop] = useState(true);
+  const [isDesktop, setIsDesktop] = useState(false);
   const [pathData, setPathData] = useState<string>("");
   const [svgSize, setSvgSize] = useState<{ width: number; height: number }>({
     width: 0,
@@ -100,17 +100,7 @@ export const FeaturesSection: React.FC = () => {
     restDelta: 0.0005,
   });
 
-  // بررسی وضعیت دسکتاپ یا موبایل
-  useEffect(() => {
-    const checkIsDesktop = () => {
-      setIsDesktop(window.innerWidth >= 768);
-    };
-    checkIsDesktop();
-    window.addEventListener("resize", checkIsDesktop, { passive: true });
-    return () => window.removeEventListener("resize", checkIsDesktop);
-  }, []);
-
-  // محاسبه و ساخت مسیر مواج S شکل: دقیقاً از اولین آیکون تا آخرین آیکون (بدون بیرون‌زدگی)
+  // محاسبه مسیر تایم‌لاین: در موبایل خط مستقیم دقیق از وسط آیکون‌ها، در دسکتاپ مسیر مواج S شکل
   const updateWavePath = useCallback(() => {
     const wrapper = timelineWrapperRef.current;
     if (!wrapper) return;
@@ -135,10 +125,21 @@ export const FeaturesSection: React.FC = () => {
 
     if (points.length < 2) return;
 
-    // مسیر دقیقاً از مرکز اولین آیکون شروع می‌شود (بدون بیرون‌زدگی بالا)
-    let d = `M ${points[0].x} ${points[0].y}`;
+    const isMobileView = window.innerWidth < 768;
 
-    // ساخت منحنی‌های نرم S شکل بین آیکون‌های متناوب
+    if (isMobileView) {
+      // در نمای موبایل: خط کاملاً مستقیم، عمودی و یکدست که دقیقاً از مرکز تمامی آیکون‌ها می‌گذرد
+      const fixedX = points[0].x;
+      let d = `M ${fixedX} ${points[0].y}`;
+      for (let i = 1; i < points.length; i++) {
+        d += ` L ${fixedX} ${points[i].y}`;
+      }
+      setPathData(d);
+      return;
+    }
+
+    // در نمای دسکتاپ: منحنی مواج نرم S شکل بین آیکون‌های چپ و راست متناوب
+    let d = `M ${points[0].x} ${points[0].y}`;
     for (let i = 0; i < points.length - 1; i++) {
       const p1 = points[i];
       const p2 = points[i + 1];
@@ -152,9 +153,43 @@ export const FeaturesSection: React.FC = () => {
       d += ` C ${cp1x} ${cp1y}, ${cp2x} ${cp2y}, ${p2.x} ${p2.y}`;
     }
 
-    // مسیر دقیقاً در مرکز آخرین آیکون به پایان می‌رسد (بدون بیرون‌زدگی پایین)
     setPathData(d);
   }, []);
+
+  // بررسی وضعیت دسکتاپ/موبایل و همگام‌سازی ابعاد
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 768);
+      requestAnimationFrame(() => {
+        updateWavePath();
+      });
+    };
+
+    handleResize();
+    window.addEventListener("resize", handleResize, { passive: true });
+
+    const wrapper = timelineWrapperRef.current;
+    let observer: ResizeObserver | null = null;
+    if (wrapper) {
+      observer = new ResizeObserver(() => {
+        requestAnimationFrame(() => {
+          updateWavePath();
+        });
+      });
+      observer.observe(wrapper);
+    }
+
+    // تاخیرهای کوتاه برای ثبات کامل بعد از لود فونت‌ها و رندرهای اولیه
+    const t1 = setTimeout(handleResize, 60);
+    const t2 = setTimeout(handleResize, 250);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      observer?.disconnect();
+      clearTimeout(t1);
+      clearTimeout(t2);
+    };
+  }, [updateWavePath]);
 
   // محاسبه آستانه‌های فعال‌سازی آیتم‌ها بر روی طول دقیق مسیر SVG
   useEffect(() => {
@@ -231,26 +266,6 @@ export const FeaturesSection: React.FC = () => {
     return () => unsubscribe();
   }, [springProgress, thresholds]);
 
-  // به‌روزرسانی مداوم هندسه مسیر با ریسایز
-  useEffect(() => {
-    updateWavePath();
-
-    const wrapper = timelineWrapperRef.current;
-    if (!wrapper) return;
-
-    const observer = new ResizeObserver(() => {
-      updateWavePath();
-    });
-    observer.observe(wrapper);
-
-    window.addEventListener("resize", updateWavePath, { passive: true });
-
-    return () => {
-      observer.disconnect();
-      window.removeEventListener("resize", updateWavePath);
-    };
-  }, [updateWavePath, isDesktop]);
-
   return (
     <section
       id="features"
@@ -270,13 +285,12 @@ export const FeaturesSection: React.FC = () => {
           ref={timelineWrapperRef}
           className="relative mt-16 sm:mt-24 pb-4"
         >
-          {/* لایه برداری SVG مسیر مواج S شکل: دقیقاً بین آیکون اول و آخر */}
+          {/* لایه برداری SVG مسیر تایم‌لاین: در موبایل خط مستقیم دقیق، در دسکتاپ مسیر مواج S */}
           {svgSize.width > 0 && pathData && (
             <svg
               aria-hidden="true"
               className="absolute inset-0 w-full h-full pointer-events-none z-0"
               viewBox={`0 0 ${svgSize.width} ${svgSize.height}`}
-              preserveAspectRatio="none"
             >
               <defs>
                 <linearGradient
@@ -292,13 +306,13 @@ export const FeaturesSection: React.FC = () => {
                 </linearGradient>
               </defs>
 
-              {/* ۱. خط راهنمای پس‌زمینه با فرم مواج S بدون بیرون‌زدگی */}
+              {/* ۱. خط راهنمای پس‌زمینه */}
               <path
                 ref={bgPathRef}
                 d={pathData}
                 fill="none"
                 stroke="#eae9fb"
-                strokeWidth={3.5}
+                strokeWidth={3}
                 strokeLinecap="round"
                 strokeLinejoin="round"
               />
@@ -308,7 +322,7 @@ export const FeaturesSection: React.FC = () => {
                 d={pathData}
                 fill="none"
                 stroke="url(#features-wave-gradient)"
-                strokeWidth={4}
+                strokeWidth={3.5}
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 style={{
@@ -316,16 +330,16 @@ export const FeaturesSection: React.FC = () => {
                 }}
               />
 
-              {/* ۳. نوک نورانی متحرک روی مسیر؛ در حالت شروع یا پایان کامل پنهان می‌شود تا بیرون نزند */}
+              {/* ۳. نوک نورانی متحرک روی مسیر که از مرکز آیکون‌ها عبور می‌کند */}
               {headPos && progressVal > 0.02 && progressVal < 0.98 && (
                 <g transform={`translate(${headPos.x}, ${headPos.y})`}>
-                  <circle r={14} fill="#3525cd" opacity={0.16} />
-                  <circle r={8} fill="#3525cd" opacity={0.35} />
+                  <circle r={12} fill="#3525cd" opacity={0.16} />
+                  <circle r={7} fill="#3525cd" opacity={0.35} />
                   <circle
-                    r={4}
+                    r={3.5}
                     fill="#ffffff"
                     stroke="#3525cd"
-                    strokeWidth={2.5}
+                    strokeWidth={2}
                   />
                 </g>
               )}
@@ -344,7 +358,7 @@ export const FeaturesSection: React.FC = () => {
                   key={item.id}
                   className="relative flex items-center w-full"
                 >
-                  {/* آیکون نقطه عطف قرارگرفته دقیقاً روی قله موج S شکل */}
+                  {/* آیکون نقطه عطف: در موبایل کاملاً در یک راستای عمودی، در دسکتاپ مواج */}
                   <div
                     ref={(el) => {
                       iconRefs.current[index] = el;
@@ -360,8 +374,7 @@ export const FeaturesSection: React.FC = () => {
                             }))`,
                           }
                         : {
-                            // در موبایل موج تقویت‌شده (انحراف بیشتر بین ۲۸ پیکسل و ۴ پیکسل)
-                            right: isEven ? "28px" : "4px",
+                            right: "12px",
                             left: "auto",
                             transform: "none",
                           }

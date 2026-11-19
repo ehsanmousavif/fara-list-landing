@@ -2,7 +2,7 @@ import React from 'react';
 import AnimatedContent from '@/components/AnimatedContent';
 import { Card } from '@/components/ui';
 import { HeaderSections } from '@/components/common/header-sections';
-import { ShieldCheck, Quote, CheckCircle2 } from 'lucide-react';
+import { ShieldCheck, Quote } from 'lucide-react';
 
 export const SocialProofSection: React.FC = () => {
   const testimonials = [
@@ -36,9 +36,9 @@ export const SocialProofSection: React.FC = () => {
   ];
 
   return (
-    <section id="trust" className="py-20 md:py-28 bg-transparent text-black">
+    <section id="trust" className="py-20 md:py-28 bg-[#0d0751] text-white">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
-        {/* سربرگ بخش ۸ بر اساس سند متنی فرالیست */}
+        {/* سربرگ بخش اعتماد و اثبات اجتماعی با استایل معکوس */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -52,10 +52,11 @@ export const SocialProofSection: React.FC = () => {
             icon={<ShieldCheck className="w-5 h-5" />}
             title="ساخته شده برای کسب‌وکارهایی که خسته‌ی فایل و پیام پراکنده‌ان"
             subtitle="فرالیست برای حل یک درد واقعی روزمره ساخته شده: صرفه‌جویی در ساعت‌ها وقت برای ارسال قیمت و کاتالوگ"
+            inverted
           />
         </AnimatedContent>
 
-        {/* سه شاخص کلیدی اعتماد */}
+        {/* سه شاخص کلیدی اعتماد در کارت‌های شیشه‌ای */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -68,12 +69,12 @@ export const SocialProofSection: React.FC = () => {
           {highlights.map((h, i) => (
             <div
               key={i}
-              className="p-6 rounded-2xl bg-[#f5f4fd] border-none shadow-none flex flex-col items-center justify-center space-y-1"
+              className="p-6 rounded-3xl bg-white/10 backdrop-blur-md border-none shadow-none flex flex-col items-center justify-center space-y-1"
             >
-              <span className="text-3xl sm:text-4xl font-black text-[#3525cd]">
+              <span className="text-3xl sm:text-4xl font-black text-white">
                 {h.value}
               </span>
-              <span className="text-sm font-semibold text-black/75">
+              <span className="text-sm font-semibold text-white/80">
                 {h.label}
               </span>
             </div>
@@ -94,28 +95,28 @@ export const SocialProofSection: React.FC = () => {
             <Card
               key={index}
               variant="surface"
-              className="bg-[#f5f4fd] p-7 space-y-5 border-none shadow-none flex flex-col justify-between"
+              className="bg-white/10 backdrop-blur-md p-7 space-y-5 border-none shadow-none flex flex-col justify-between rounded-3xl transition-all duration-300 hover:bg-white/15 hover:-translate-y-1"
             >
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <div className="w-9 h-9 rounded-xl bg-[#eae9fb] text-[#3525cd] flex items-center justify-center">
+                  <div className="w-9 h-9 rounded-xl bg-white text-[#0d0751] flex items-center justify-center">
                     <Quote className="w-4 h-4" />
                   </div>
-                  <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-[#eae9fb] text-[#3525cd]">
+                  <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm">
                     {t.tag}
                   </span>
                 </div>
 
-                <p className="text-sm sm:text-base text-black/80 leading-relaxed font-normal">
+                <p className="text-sm sm:text-base text-white/90 leading-relaxed font-normal">
                   «{t.quote}»
                 </p>
               </div>
 
               <div className="pt-2 flex items-center gap-2.5">
-                <div className="w-2 h-2 rounded-full bg-[#3525cd]" />
+                <div className="w-2 h-2 rounded-full bg-white" />
                 <div>
-                  <h4 className="font-bold text-black text-sm">{t.author}</h4>
-                  <p className="text-xs text-black/60">{t.role}</p>
+                  <h4 className="font-bold text-white text-sm">{t.author}</h4>
+                  <p className="text-xs text-white/70">{t.role}</p>
                 </div>
               </div>
             </Card>

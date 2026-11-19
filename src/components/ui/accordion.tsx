@@ -12,12 +12,20 @@ function Accordion({ className, ...props }: AccordionPrimitive.Root.Props) {
   );
 }
 
-function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
+interface AccordionItemProps extends AccordionPrimitive.Item.Props {
+  inverted?: boolean;
+}
+
+function AccordionItem({ className, inverted = false, ...props }: AccordionItemProps) {
   return (
     <AccordionPrimitive.Item
       data-slot="accordion-item"
+      data-inverted={inverted ? "true" : undefined}
       className={cn(
-        "rounded-2xl bg-[#f5f4fd] transition-colors overflow-hidden border-none shadow-none data-open:bg-[#eae9fb]",
+        "rounded-3xl transition-colors overflow-hidden border-none shadow-none",
+        inverted
+          ? "bg-white/10 data-open:bg-white/15"
+          : "bg-[#f5f4fd] data-open:bg-[#eae9fb]",
         className
       )}
       {...props}
@@ -25,23 +33,36 @@ function AccordionItem({ className, ...props }: AccordionPrimitive.Item.Props) {
   );
 }
 
+interface AccordionTriggerProps extends AccordionPrimitive.Trigger.Props {
+  inverted?: boolean;
+}
+
 function AccordionTrigger({
   className,
+  inverted = false,
   children,
   ...props
-}: AccordionPrimitive.Trigger.Props) {
+}: AccordionTriggerProps) {
   return (
     <AccordionPrimitive.Header className="flex w-full">
       <AccordionPrimitive.Trigger
         data-slot="accordion-trigger"
         className={cn(
-          "group/accordion-trigger relative flex flex-1 items-center justify-between p-6 text-right text-base sm:text-lg font-bold text-black transition-all outline-none cursor-pointer border-none shadow-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+          "group/accordion-trigger relative flex flex-1 items-center justify-between p-6 text-right text-base sm:text-lg font-bold transition-all outline-none cursor-pointer border-none shadow-none aria-disabled:pointer-events-none aria-disabled:opacity-50",
+          inverted ? "text-white hover:text-white/90" : "text-black",
           className
         )}
         {...props}
       >
         <span className="flex-1 text-right">{children}</span>
-        <div className="w-8 h-8 rounded-xl bg-[#3525cd] text-white flex items-center justify-center shrink-0 mr-4 transition-transform duration-300 group-aria-expanded/accordion-trigger:bg-[#3525cd] group-aria-expanded/accordion-trigger:text-white">
+        <div
+          className={cn(
+            "w-8 h-8 rounded-xl flex items-center justify-center shrink-0 mr-4 transition-transform duration-300",
+            inverted
+              ? "bg-white text-[#0d0751]"
+              : "bg-[#3525cd] text-white"
+          )}
+        >
           <ChevronDownIcon
             data-slot="accordion-trigger-icon"
             className="w-4 h-4 pointer-events-none shrink-0 group-aria-expanded/accordion-trigger:hidden"
@@ -56,27 +77,43 @@ function AccordionTrigger({
   );
 }
 
+interface AccordionContentProps extends AccordionPrimitive.Panel.Props {
+  innerClassName?: string;
+  inverted?: boolean;
+}
+
 function AccordionContent({
   className,
+  innerClassName,
+  inverted = false,
   children,
   ...props
-}: AccordionPrimitive.Panel.Props) {
+}: AccordionContentProps) {
   return (
     <AccordionPrimitive.Panel
       data-slot="accordion-content"
       className={cn(
-        "overflow-hidden text-sm sm:text-base text-black/80 leading-relaxed font-normal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] data-[open]:animate-accordion-open",
+        "overflow-hidden text-sm sm:text-base leading-relaxed font-normal transition-all duration-400 ease-[cubic-bezier(0.16,1,0.3,1)] data-[open]:animate-accordion-open",
+        inverted ? "text-white/90" : "text-black/80",
         className
       )}
       {...props}
     >
       <div
         className={cn(
-          "px-6 pb-6 pt-0 text-black/80 transition-all duration-300",
-          className
+          "px-6 pb-6 pt-0 transition-all duration-300",
+          inverted ? "text-white/90" : "text-black/80"
         )}
       >
-        <div className="p-4 rounded-xl bg-white/90 text-black/85 leading-relaxed transition-all">
+        <div
+          className={cn(
+            "p-4 rounded-2xl leading-relaxed transition-all",
+            inverted
+              ? "bg-white/10 text-white/95"
+              : "bg-white/90 text-black/85",
+            innerClassName
+          )}
+        >
           {children}
         </div>
       </div>

@@ -46,8 +46,7 @@ export const LandingPage: React.FC = () => {
         />
       </div>
 
-      {/* سایر بخش‌های لندینگ با محتوای نسبی */}
-      <div className="relative z-10 flex flex-col gap-10">
+      <div className="relative z-10 flex flex-col">
         {/* ۲. بخش مشکل و آمار */}
         <StatsSection />
 

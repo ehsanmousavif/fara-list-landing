@@ -653,10 +653,13 @@ export default function PixelCard({
     engineRef.current?.wake();
   });
 
+  const hasCustomBg = className && /\bbg-/.test(className);
+  const surfaceClass = hasCustomBg ? 'border-none shadow-none' : SURFACE[tone];
+
   return (
     <div
       ref={containerRef}
-      className={`${CARD} ${SURFACE[tone]} ${className}`.trim()}
+      className={`${CARD} ${surfaceClass} ${className || ''}`.trim()}
       data-theme={tone}
       data-active={active || undefined}
       style={{ '--pixel-card-radius': `${radius}px`, ...style } as CSSProperties}

@@ -14,9 +14,9 @@ const AUDIENCE_ICONS: Record<string, React.ElementType> = {
 
 export const AudienceSection: React.FC = () => {
   return (
-    <section id="audience" className="py-20 md:py-28 bg-transparent text-black">
+    <section id="audience" className="py-20 md:py-28 bg-[#0d0751] text-white">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
-        {/* سربرگ بخش ۶ سند متنی فرالیست */}
+        {/* سربرگ بخش مخاطبان با استایل معکوس سفید روی پرایمری */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -30,10 +30,11 @@ export const AudienceSection: React.FC = () => {
             icon={<Users2 className="w-5 h-5" />}
             title="اگه محصول می‌فروشی، فرالیست برای توئه"
             subtitle="برای هر کسب‌وکاری که با تنوع کالا، تغییر نرخ ارز یا به‌روزرسانی موجودی سر و کار دارد"
+            inverted
           />
         </AnimatedContent>
 
-        {/* ۴ گروه اصلی مخاطبان به تفکیک */}
+        {/* ۴ گروه اصلی مخاطبان به تفکیک در کارت‌های شیشه‌ای مدرن */}
         <AnimatedContent
           distance={150}
           blur={12}
@@ -50,23 +51,23 @@ export const AudienceSection: React.FC = () => {
               <Card
                 key={aud.id}
                 variant="surface"
-                className="bg-[#f5f4fd] p-7 space-y-4 border-none shadow-none flex flex-col justify-between"
+                className="bg-white/10 backdrop-blur-md p-7 space-y-4 border-none shadow-none flex flex-col justify-between rounded-3xl transition-all duration-300 hover:bg-white/15 hover:-translate-y-1"
               >
                 <div className="space-y-3">
                   <div className="flex items-center justify-between">
-                    <div className="w-11 h-11 rounded-2xl bg-[#3525cd] text-white flex items-center justify-center">
+                    <div className="w-11 h-11 rounded-2xl bg-white text-[#0d0751] flex items-center justify-center shrink-0">
                       <Icon className="w-5 h-5" />
                     </div>
-                    <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-[#eae9fb] text-[#3525cd]">
+                    <span className="text-[11px] font-bold px-3 py-1 rounded-full bg-white/20 text-white backdrop-blur-sm">
                       {aud.badge}
                     </span>
                   </div>
 
-                  <h3 className="text-lg font-bold text-black pt-1">
+                  <h3 className="text-lg font-bold text-white pt-1">
                     {aud.title}
                   </h3>
 
-                  <p className="text-sm text-black/70 leading-relaxed font-normal">
+                  <p className="text-sm text-white/80 leading-relaxed font-normal">
                     {aud.desc}
                   </p>
                 </div>

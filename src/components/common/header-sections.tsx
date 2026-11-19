@@ -10,6 +10,7 @@ export interface HeaderSectionsProps {
   description?: string;
   badge?: string;
   className?: string;
+  inverted?: boolean;
 }
 
 /**
@@ -25,6 +26,7 @@ export function HeaderSections({
   description,
   badge,
   className,
+  inverted = false,
 }: HeaderSectionsProps) {
   const mainTitle = text || title;
   const mainDescription = description || subtitle;
@@ -36,25 +38,51 @@ export function HeaderSections({
         className,
       )}
     >
-      {/* فقط آیکون استک در بالاترین نقطه هدر هر سکشن */}
-      <div className="flex items-center justify-center mb-1 text-white bg-white">
-        <IconStack aria-hidden="true" className="text-[#3525cd] h-20 w-18">
-          <div className="bg-[#3525cd] text-white flex size-8 items-center justify-center rounded-xl border-none shadow-none">
+      {/* آیکون استک در بالاترین نقطه هدر هر سکشن */}
+      <div
+        className={cn(
+          "flex items-center justify-center mb-1",
+          inverted ? "bg-transparent" : "bg-white",
+        )}
+      >
+        <IconStack
+          aria-hidden="true"
+          className={cn(
+            "h-20 w-18",
+            inverted ? "text-white" : "text-[#3525cd]",
+          )}
+        >
+          <div
+            className={cn(
+              "flex size-8 items-center justify-center rounded-xl border-none shadow-none",
+              inverted ? "bg-white text-[#0d0751]" : "bg-[#3525cd] text-white",
+            )}
+          >
             {icon}
           </div>
         </IconStack>
       </div>
 
-      {/* عنوان اصلی سکشن (مشکی خالص و برجسته) */}
+      {/* عنوان اصلی سکشن */}
       {mainTitle && (
-        <h2 className="text-3xl sm:text-4xl md:text-5xl font-black tracking-tight text-black leading-tight">
+        <h2
+          className={cn(
+            "text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight",
+            inverted ? "text-white" : "text-black",
+          )}
+        >
           {mainTitle}
         </h2>
       )}
 
-      {/* توضیحات تکمیلی (مشکی با شفافیت خوانا) */}
+      {/* توضیحات تکمیلی */}
       {mainDescription && (
-        <p className="text-black/70 text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal">
+        <p
+          className={cn(
+            "text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal",
+            inverted ? "text-white/85" : "text-black/70",
+          )}
+        >
           {mainDescription}
         </p>
       )}
