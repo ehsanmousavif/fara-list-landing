@@ -5,28 +5,26 @@ import AnimatedContent from "@/components/AnimatedContent";
 import { Button } from "@/components/ui";
 import { PRICING_PLANS } from "@/data/landingData";
 import { HeaderSections } from "@/components/common/header-sections";
-import { Check, CreditCard } from "lucide-react";
+import { Check, CreditCard, ChevronRight, ChevronLeft } from "lucide-react";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
   type CarouselApi,
 } from "@/components/ui/carousel";
 
 interface PricingCardProps {
   plan: (typeof PRICING_PLANS)[number];
-  mode: "gradient" | "white" | "secondary" | "idle";
+  mode: "gradient" | "white" | "secondary";
   onMouseEnter?: () => void;
   onMouseLeave?: () => void;
 }
 
 /**
- * کامپوننت کارت تعرفه با افکت تعاملی هاور و تغییر هوشمند استایل:
- * - پلن وسطی (حرفه‌ای): در حالت پیش‌فرض دارای پس‌زمینه گرادینت سرمه‌ای به بنفش پرایمری.
- * - دو پلن دیگر (شروع و تجاری): در حالت عادی بدون پس‌زمینه (idle).
- * - در صورت هاور روی هر کدام از دو پلن دیگر: کارت هاور شده رنگ secondary گرفته و پلن وسطی سفید می‌شود.
+ * کامپوننت کارت تعرفه با افکت تعاملی هوشمند و انیمیشن ترنزیشن نرم (Crossfade):
+ * - در حالت پیش‌فرض: کارت وسطی (حرفه‌ای) دارای گرادینت سرمه‌ای به بنفش، و دو کارت کناری دارای بک‌گراند secondary هستند.
+ * - در صورت هاور روی هر کدام از کارت‌های کناری: آن کارت به نرمی گرادینت پلن وسطی را گرفته و پلن وسطی سفید می‌شود.
+ * - هنگام خروج ماوس (Leave): انیمیشن ترنزیشن به نرمی بازمی‌گردد.
  */
 const PricingCard: React.FC<PricingCardProps> = ({
   plan,
@@ -35,23 +33,8 @@ const PricingCard: React.FC<PricingCardProps> = ({
   onMouseLeave,
 }) => {
   const isGradient = mode === "gradient";
-  const isSecondary = mode === "secondary";
   const isWhite = mode === "white";
-
-  // کلاس‌های کانتینر کارت
-  let containerClasses = "bg-transparent text-black border-none shadow-none";
-  if (isGradient) {
-    containerClasses =
-      "bg-gradient-to-br from-[#0d0751] via-[#1a1175] to-[#3525cd] text-white shadow-2xl shadow-[#0d0751]/20 -translate-y-1.5";
-  } else if (isSecondary) {
-    containerClasses =
-      "bg-[#eae9fb] text-black shadow-lg shadow-[#eae9fb]/60 -translate-y-1.5";
-  } else if (isWhite) {
-    containerClasses = "bg-white text-black shadow-sm";
-  } else {
-    // حالت idle برای دو پلن کناری
-    containerClasses = "bg-transparent text-black hover:bg-[#eae9fb]/70";
-  }
+  const isSecondary = mode === "secondary";
 
   // متون و تایپوگرافی
   const titleColor = isGradient ? "text-white" : "text-black";
@@ -62,111 +45,132 @@ const PricingCard: React.FC<PricingCardProps> = ({
   const featureItemColor = isGradient ? "text-white/95" : "text-black/90";
 
   // بج
-  let badgeClasses = "bg-[#eae9fb] text-[#0d0751]";
-  if (isGradient) {
-    badgeClasses = "bg-white text-[#0d0751]";
-  } else if (isSecondary) {
-    badgeClasses = "bg-[#0d0751] text-white";
+  let badgeClasses = "bg-white text-[#0d0751]";
+  if (isWhite) {
+    badgeClasses = "bg-[#eae9fb] text-[#0d0751]";
+  } else if (!isGradient) {
+    badgeClasses = "bg-white/90 text-[#0d0751]";
   }
 
   // آیکون تیک امکانات
-  let checkIconClasses = "bg-[#f5f4fd] text-[#0d0751]";
-  if (isGradient) {
-    checkIconClasses = "bg-white text-[#0d0751]";
-  } else if (isSecondary) {
-    checkIconClasses = "bg-[#0d0751] text-white";
-  } else if (isWhite) {
+  let checkIconClasses = "bg-white text-[#0d0751]";
+  if (isWhite) {
     checkIconClasses = "bg-[#eae9fb] text-[#0d0751]";
   }
 
   // دکمه اقدام CTA
   let buttonClasses =
-    "w-full cursor-pointer transition-all duration-300 font-bold border-none shadow-none ";
+    "w-full cursor-pointer font-bold border-none shadow-none transition-all duration-500 ease-out ";
   if (isGradient) {
     buttonClasses += "bg-white text-[#0d0751] hover:bg-white/90";
-  } else if (isSecondary) {
-    buttonClasses += "bg-[#0d0751] text-white hover:bg-[#1a1175]";
-  } else {
+  } else if (isWhite) {
     buttonClasses += "bg-[#f5f4fd] text-black hover:bg-[#eae9fb]";
+  } else {
+    buttonClasses += "bg-white text-[#0d0751] hover:bg-white/90";
   }
 
   return (
     <div
       onMouseEnter={onMouseEnter}
       onMouseLeave={onMouseLeave}
-      className={`p-6 sm:p-8 flex flex-col justify-between h-full relative border-none shadow-none rounded-3xl select-none text-right transition-all duration-400 ease-out cursor-pointer ${containerClasses}`}
+      className={`relative p-6 sm:p-8 flex flex-col justify-between h-full rounded-3xl select-none text-right cursor-pointer transition-transform duration-500 ease-out border-none shadow-none ${
+        isGradient ? "-translate-y-2" : "translate-y-0"
+      }`}
     >
-      <div className="space-y-6">
-        <div className="flex items-center justify-between">
-          <h3
-            className={`text-2xl font-bold transition-colors duration-300 ${titleColor}`}
-          >
-            {plan.name}
-          </h3>
-          {plan.badge && (
-            <span
-              className={`text-xs font-bold px-3 py-1 rounded-full transition-all duration-300 ${badgeClasses}`}
+      {/* لایه‌های پس‌زمینه مستقل برای ترنزیشن متقاطع (Crossfade) نرم و بدون پرش گرادینت */}
+      {/* ۱. لایه بک‌گراند ثانویه (Secondary) */}
+      <div
+        className={`absolute inset-0 bg-[#eae9fb] rounded-3xl pointer-events-none transition-opacity duration-500 ease-in-out ${
+          isSecondary ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
+      {/* ۲. لایه بک‌گراند سفید (White) */}
+      <div
+        className={`absolute inset-0 bg-white rounded-3xl shadow-sm pointer-events-none transition-opacity duration-500 ease-in-out ${
+          isWhite ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
+      {/* ۳. لایه گرادینت سرمه‌ای به بنفش پرایمری (Gradient) */}
+      <div
+        className={`absolute inset-0 bg-gradient-to-br from-[#0d0751] via-[#1a1175] to-[#3525cd] shadow-2xl shadow-[#0d0751]/20 rounded-3xl pointer-events-none transition-opacity duration-500 ease-in-out ${
+          isGradient ? "opacity-100" : "opacity-0"
+        }`}
+      />
+
+      {/* محتوای کارت روی لایه‌های پس‌زمینه با ترنزیشن رنگی هماهنگ */}
+      <div className="relative z-10 flex flex-col justify-between h-full space-y-6">
+        <div className="space-y-6">
+          <div className="flex items-center justify-between">
+            <h3
+              className={`text-2xl font-bold transition-colors duration-500 ease-out ${titleColor}`}
             >
-              {plan.badge}
-            </span>
-          )}
-        </div>
-
-        <p
-          className={`text-xs sm:text-sm leading-relaxed font-normal transition-colors duration-300 ${descColor}`}
-        >
-          {plan.description}
-        </p>
-
-        <div className="py-2 flex items-baseline gap-2">
-          <span
-            className={`text-3xl sm:text-4xl font-black transition-colors duration-300 ${priceColor}`}
-          >
-            {plan.price}
-          </span>
-          <span
-            className={`text-xs font-medium transition-colors duration-300 ${periodColor}`}
-          >
-            {plan.period}
-          </span>
-        </div>
-
-        <div className="space-y-3 pt-2">
-          <span
-            className={`text-xs font-semibold block transition-colors duration-300 ${featuresLabelColor}`}
-          >
-            امکانات شامل:
-          </span>
-          {plan.features.map((feature, i) => (
-            <div
-              key={i}
-              className={`flex items-start gap-2 text-sm transition-colors duration-300 ${featureItemColor}`}
-            >
-              <div
-                className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-300 ${checkIconClasses}`}
+              {plan.name}
+            </h3>
+            {plan.badge && (
+              <span
+                className={`text-xs font-bold px-3 py-1 rounded-full transition-all duration-500 ease-out ${badgeClasses}`}
               >
-                <Check className="w-3.5 h-3.5" />
-              </div>
-              <span>{feature}</span>
-            </div>
-          ))}
-        </div>
-      </div>
+                {plan.badge}
+              </span>
+            )}
+          </div>
 
-      <div className="pt-8">
-        <Button
-          variant={
-            isGradient ? "white" : isSecondary ? "primary" : "surface"
-          }
-          size="md"
-          className={buttonClasses}
-          onClick={() => {
-            const el = document.getElementById("cta");
-            el?.scrollIntoView({ behavior: "smooth" });
-          }}
-        >
-          {plan.ctaText}
-        </Button>
+          <p
+            className={`text-xs sm:text-sm leading-relaxed font-normal transition-colors duration-500 ease-out ${descColor}`}
+          >
+            {plan.description}
+          </p>
+
+          <div className="py-2 flex items-baseline gap-2">
+            <span
+              className={`text-3xl sm:text-4xl font-black transition-colors duration-500 ease-out ${priceColor}`}
+            >
+              {plan.price}
+            </span>
+            <span
+              className={`text-xs font-medium transition-colors duration-500 ease-out ${periodColor}`}
+            >
+              {plan.period}
+            </span>
+          </div>
+
+          <div className="space-y-3 pt-2">
+            <span
+              className={`text-xs font-semibold block transition-colors duration-500 ease-out ${featuresLabelColor}`}
+            >
+              امکانات شامل:
+            </span>
+            {plan.features.map((feature, i) => (
+              <div
+                key={i}
+                className={`flex items-start gap-2 text-sm transition-colors duration-500 ease-out ${featureItemColor}`}
+              >
+                <div
+                  className={`w-5 h-5 rounded-full flex items-center justify-center shrink-0 mt-0.5 transition-all duration-500 ease-out ${checkIconClasses}`}
+                >
+                  <Check className="w-3.5 h-3.5" />
+                </div>
+                <span>{feature}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div className="pt-8">
+          <Button
+            variant={isGradient ? "white" : isWhite ? "surface" : "white"}
+            size="md"
+            className={buttonClasses}
+            onClick={() => {
+              const el = document.getElementById("cta");
+              el?.scrollIntoView({ behavior: "smooth" });
+            }}
+          >
+            {plan.ctaText}
+          </Button>
+        </div>
       </div>
     </div>
   );
@@ -190,43 +194,35 @@ export const PricingSection: React.FC = () => {
   }, [api]);
 
   /**
-   * محاسبه حالت نمایش هر کارت در نمای دسکتاپ بر اساس هاور کاربر
+   * محاسبه حالت نمایش هر کارت در نمای دسکتاپ بر اساس هاور:
+   * هر کارتی که کاربر روی آن هاور کند، گرادینت پلن وسطی را می‌گیرد.
+   * اگر کارتی جز وسطی هاور شود، پلن وسطی سفید می‌شود.
    */
-  const getDesktopMode = (
-    idx: number
-  ): "gradient" | "white" | "secondary" | "idle" => {
-    if (idx === 1) {
-      // پلن وسطی: اگر کاربر روی هر یک از دو پلن کناری هاور کند، سفید می‌شود
-      if (hoveredIndex === 0 || hoveredIndex === 2) {
-        return "white";
-      }
+  const getDesktopMode = (idx: number): "gradient" | "white" | "secondary" => {
+    const activeGradientIdx = hoveredIndex !== null ? hoveredIndex : 1;
+
+    if (idx === activeGradientIdx) {
       return "gradient";
-    } else {
-      // دو پلن کناری: در صورت هاور شدن رنگ secondary می‌گیرند، در غیر این صورت بدون بک‌گراند (idle) هستند
-      if (hoveredIndex === idx) {
-        return "secondary";
-      }
-      return "idle";
     }
+    if (idx === 1) {
+      return "white";
+    }
+    return "secondary";
   };
 
   /**
    * محاسبه حالت نمایش هر کارت در نمای موبایل و تبلت بر اساس اسلاید فعال
    */
-  const getMobileMode = (
-    idx: number
-  ): "gradient" | "white" | "secondary" | "idle" => {
-    if (idx === 1) {
-      if (current === 0 || current === 2) {
-        return "white";
-      }
+  const getMobileMode = (idx: number): "gradient" | "white" | "secondary" => {
+    const activeGradientIdx = current;
+
+    if (idx === activeGradientIdx) {
       return "gradient";
-    } else {
-      if (current === idx) {
-        return "secondary";
-      }
-      return "idle";
     }
+    if (idx === 1) {
+      return "white";
+    }
+    return "secondary";
   };
 
   return (
@@ -234,12 +230,10 @@ export const PricingSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 space-y-12">
         {/* هدر بخش تعرفه‌ها: پلن مناسب خودتو بساز */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.05}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
           className="text-center"
         >
           <HeaderSections
@@ -249,14 +243,14 @@ export const PricingSection: React.FC = () => {
           />
         </AnimatedContent>
 
-        {/* ۱. نمای دسکتاپ: گرید ۳ ستونه تعاملی با تغییر رنگ هوشمند در هاور */}
+        {/* ۱. نمای دسکتاپ: گرید ۳ ستونه تعاملی با انتقال گرادینت در هاور */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.08}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          stagger={0.06}
+          staggerFrom="start"
+          ease="power2.out"
           className="hidden lg:block text-right"
         >
           <div
@@ -299,23 +293,37 @@ export const PricingSection: React.FC = () => {
               ))}
             </CarouselContent>
 
-            {/* کنترل‌های ناوبری کاروسل موبایل با دکمه‌های قبلی/بعدی و نقاط نشانگر */}
+            {/* کنترل‌های ناوبری کاروسل موبایل با دکمه‌های راست/چپ متناسب با جهت RTL و نقاط نشانگر */}
             <div className="flex items-center justify-center gap-4 mt-6">
-              <CarouselPrevious className="static inset-auto translate-y-0 w-9 h-9 rounded-xl bg-[#f5f4fd] hover:bg-[#eae9fb] text-black border-none" />
+              <button
+                type="button"
+                onClick={() => api?.scrollPrev()}
+                aria-label="پلن قبلی"
+                className="w-9 h-9 rounded-xl bg-[#f5f4fd] hover:bg-[#eae9fb] text-black flex items-center justify-center transition-colors cursor-pointer border-none shadow-none active:scale-95"
+              >
+                <ChevronRight className="w-4 h-4" />
+              </button>
               <div className="flex items-center gap-1.5">
                 {PRICING_PLANS.map((_, idx) => (
                   <button
                     key={idx}
                     type="button"
                     onClick={() => api?.scrollTo(idx)}
-                    className={`h-2 rounded-full transition-all duration-300 border-none p-0 cursor-pointer ${
+                    className={`h-2 rounded-full border-none p-0 cursor-pointer transition-all duration-300 ${
                       current === idx ? "w-6 bg-[#0d0751]" : "w-2 bg-black/20"
                     }`}
                     aria-label={`رفتن به پلن ${idx + 1}`}
                   />
                 ))}
               </div>
-              <CarouselNext className="static inset-auto translate-y-0 w-9 h-9 rounded-xl bg-[#f5f4fd] hover:bg-[#eae9fb] text-black border-none" />
+              <button
+                type="button"
+                onClick={() => api?.scrollNext()}
+                aria-label="پلن بعدی"
+                className="w-9 h-9 rounded-xl bg-[#f5f4fd] hover:bg-[#eae9fb] text-black flex items-center justify-center transition-colors cursor-pointer border-none shadow-none active:scale-95"
+              >
+                <ChevronLeft className="w-4 h-4" />
+              </button>
             </div>
           </Carousel>
         </div>

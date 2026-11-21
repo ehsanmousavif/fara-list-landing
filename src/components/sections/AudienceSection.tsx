@@ -18,12 +18,10 @@ export const AudienceSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* سربرگ بخش مخاطبان با استایل معکوس سفید روی پرایمری */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.05}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
           className="text-center"
         >
           <HeaderSections
@@ -36,12 +34,12 @@ export const AudienceSection: React.FC = () => {
 
         {/* ۴ گروه اصلی مخاطبان به تفکیک در کارت‌های شیشه‌ای مدرن */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.07}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          stagger={0.06}
+          staggerFrom="start"
+          ease="power2.out"
           className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-right"
         >
           {AUDIENCE_DATA.map((aud) => {

@@ -1,127 +1,170 @@
-import React from 'react';
-import AnimatedContent from '@/components/AnimatedContent';
-import { Card } from '@/components/ui';
-import { HeaderSections } from '@/components/common/header-sections';
-import { ShieldCheck, Quote } from 'lucide-react';
+import React from "react";
+import { HeaderSections } from "@/components/common/header-sections";
+import { Marquee } from "@/components/ui/marquee";
+import { Quote, Star } from "lucide-react";
+
+interface Testimonial {
+  quote: string;
+  author: string;
+  role: string;
+  tag: string;
+  rating: number;
+}
 
 export const SocialProofSection: React.FC = () => {
-  const testimonials = [
+  const testimonialsRow1: Testimonial[] = [
     {
       quote:
-        'دیگه هر هفته لیست قیمت جدید نمی‌فرستم، فقط لینکو دادم دست مشتری‌هام و خیالم راحته که قیمت‌ها همیشه‌بروزه.',
-      author: 'عمده‌فروشی پوشاک و منسوجات',
-      role: 'بنکدار بازار بزرگ',
-      tag: 'عمده‌فروش',
+        "دیگه هر هفته لیست قیمت جدید نمی‌فرستم، فقط لینکو دادم دست مشتری‌هام و خیالم راحته که قیمت‌ها همیشه‌بروزه.",
+      author: "عمده‌فروشی پوشاک و منسوجات",
+      role: "بنکدار بازار بزرگ تهران",
+      tag: "عمده‌فروش",
+      rating: 5,
     },
     {
       quote:
-        'مشتری‌ها وقتی وارد لینک می‌شن راحت بین دسته‌ها می‌گردن و با یک کلیک روی واتساپ سفارش می‌دن؛ فروش خیلی سریع‌تر شده.',
-      author: 'پخش لوازم جانبی دیجیتال',
-      role: 'فروشگاه و توزیع آنلاین',
-      tag: 'خرده‌فروشی',
+        "مشتری‌ها وقتی وارد لینک می‌شن راحت بین دسته‌ها می‌گردن و با یک کلیک روی واتساپ سفارش می‌دن؛ فروش خیلی سریع‌تر شده.",
+      author: "پخش لوازم جانبی دیجیتال",
+      role: "فروشگاه و توزیع آنلاین",
+      tag: "خرده‌فروشی",
+      rating: 5,
     },
     {
       quote:
-        'برای همکارام کاتالوگ جدا ساختم و برای مشتری‌های عادی کاتالوگ جدا، بدون اینکه دو بار مشخصات جنس‌ها رو وارد کنم.',
-      author: 'تولیدکننده قطعات و یراق‌آلات',
-      role: 'کارگاه تولیدی صنعتی',
-      tag: 'تولیدکننده',
+        "برای همکارام کاتالوگ جدا ساختم و برای مشتری‌های عادی کاتالوگ جدا، بدون اینکه دو بار مشخصات جنس‌ها رو وارد کنم.",
+      author: "تولیدکننده قطعات و یراق‌آلات",
+      role: "کارگاه تولیدی صنعتی",
+      tag: "تولیدکننده",
+      rating: 5,
+    },
+  ];
+
+  const testimonialsRow2: Testimonial[] = [
+    {
+      quote:
+        "نوسان قیمت‌ها هر روز دیوونه‌مون می‌کرد؛ الان تو ۳۰ ثانیه از توی ماشین با گوشی همه قیمت‌ها رو یکجا درصدی آپدیت می‌کنم.",
+      author: "بازرگانی مواد غذایی و پروتئین",
+      role: "پخش عمده استانی",
+      tag: "پخش عمده",
+      rating: 5,
+    },
+    {
+      quote:
+        "بیش از ۷۰۰ قلم کالا داریم. قبلاً پی‌دی‌اف ما ۵۰ مگابایت بود و هیچ‌کس دانلود نمی‌کرد، الان با یک لمس سبک باز میشه.",
+      author: "گالری تخصصی آرایشی ماهان",
+      role: "نمایندگی رسمی برند",
+      tag: "آرایشی و بهداشتی",
+      rating: 5,
+    },
+    {
+      quote:
+        "مشتریا بدون نیاز به نصب هیچ اپلیکیشنی روی آیفون و اندروید کاتالوگ رو باز می‌کنن و فاکتور نهایی رو توی واتساپ می‌فرستن.",
+      author: "تولیدی کفش و چرم تبریز",
+      role: "کارگاه و فروشگاه مرکزی",
+      tag: "تولیدی",
+      rating: 5,
     },
   ];
 
   const highlights = [
-    { value: '۳ دقیقه', label: 'میانگین ساخت اولین کاتالوگ' },
-    { value: '۱ لینک', label: 'یک نشانی ثابت برای همیشه' },
-    { value: '۰ نصب', label: 'بدون نیاز به نصب اپلیکیشن' },
+    { value: "۳ دقیقه", label: "میانگین ساخت اولین کاتالوگ" },
+    { value: "۱ لینک", label: "یک نشانی ثابت برای همیشه" },
+    { value: "۰ نصب", label: "بدون نیاز به نصب اپلیکیشن" },
   ];
 
+  const renderCard = (t: Testimonial, idx: number) => (
+    <div
+      key={idx}
+      dir="rtl"
+      className="w-[280px] sm:w-[350px] shrink-0 bg-white/10 hover:bg-white/15 backdrop-blur-md p-5 sm:p-6 rounded-3xl border-none shadow-none flex flex-col justify-between text-right transition-all duration-300 hover:scale-[1.02] cursor-pointer"
+    >
+      <div className="space-y-3.5">
+        <div className="flex items-center justify-between">
+          <div className="flex items-center gap-1">
+            {Array.from({ length: t.rating }).map((_, i) => (
+              <Star
+                key={i}
+                className="w-3.5 h-3.5 fill-amber-400 text-amber-400"
+              />
+            ))}
+          </div>
+          <span className="text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm">
+            {t.tag}
+          </span>
+        </div>
+
+        <p className="text-xs sm:text-sm text-white/95 leading-relaxed font-normal">
+          «{t.quote}»
+        </p>
+      </div>
+
+      <div className="pt-3 mt-3 border-t border-white/10 flex items-center gap-2.5">
+        <div className="w-8 h-8 rounded-full bg-white/20 text-white flex items-center justify-center font-bold text-xs shrink-0">
+          {t.author.slice(0, 1)}
+        </div>
+        <div className="overflow-hidden text-right">
+          <h4 className="font-bold text-white text-xs sm:text-sm truncate">
+            {t.author}
+          </h4>
+          <p className="text-[11px] text-white/70 truncate">{t.role}</p>
+        </div>
+      </div>
+    </div>
+  );
+
   return (
-    <section id="trust" className="py-20 md:py-28 bg-[#0d0751] text-white">
-      <div className="max-w-6xl mx-auto px-4 space-y-16">
-        {/* سربرگ بخش اعتماد و اثبات اجتماعی با استایل معکوس */}
-        <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.05}
-          className="text-center"
-        >
+    <section id="trust" className="py-20 md:py-28 bg-[#0d0751] text-white overflow-hidden relative">
+      <div className="max-w-6xl mx-auto px-4 space-y-12 mb-10">
+        {/* سربرگ نظرات مشتریان */}
+        <div className="text-center">
           <HeaderSections
-            icon={<ShieldCheck className="w-5 h-5" />}
-            title="ساخته شده برای کسب‌وکارهایی که خسته‌ی فایل و پیام پراکنده‌ان"
-            subtitle="فرالیست برای حل یک درد واقعی روزمره ساخته شده: صرفه‌جویی در ساعت‌ها وقت برای ارسال قیمت و کاتالوگ"
+            icon={<Quote className="w-5 h-5 text-[#0d0751]" />}
+            title="نظرات مشتریان"
+            subtitle="تجربه واقعی کسب‌وکارهایی که فرآیند فروش و اشتراک‌گذاری قیمت‌هایشان را با فرالیست متحول کردند"
             inverted
           />
-        </AnimatedContent>
+        </div>
 
-        {/* سه شاخص کلیدی اعتماد در کارت‌های شیشه‌ای */}
-        <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.06}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 text-center"
-        >
+        {/* سه شاخص کلیدی اعتماد */}
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-center">
           {highlights.map((h, i) => (
             <div
               key={i}
-              className="p-6 rounded-3xl bg-white/10 backdrop-blur-md border-none shadow-none flex flex-col items-center justify-center space-y-1"
+              className="p-5 sm:p-6 rounded-3xl bg-white/10 backdrop-blur-md border-none shadow-none flex flex-col items-center justify-center space-y-1 transition-all duration-300 hover:bg-white/15"
             >
-              <span className="text-3xl sm:text-4xl font-black text-white">
+              <span className="text-2xl sm:text-4xl font-black text-white">
                 {h.value}
               </span>
-              <span className="text-sm font-semibold text-white/80">
+              <span className="text-xs sm:text-sm font-semibold text-white/80">
                 {h.label}
               </span>
             </div>
           ))}
-        </AnimatedContent>
+        </div>
+      </div>
 
-        {/* نقل‌قول‌های صاحبان کسب‌وکار */}
-        <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.08}
-          className="grid grid-cols-1 md:grid-cols-3 gap-6 text-right"
-        >
-          {testimonials.map((t, index) => (
-            <Card
-              key={index}
-              variant="surface"
-              className="bg-white/10 backdrop-blur-md p-7 space-y-5 border-none shadow-none flex flex-col justify-between rounded-3xl transition-all duration-300 hover:bg-white/15 hover:-translate-y-1"
-            >
-              <div className="space-y-4">
-                <div className="flex items-center justify-between">
-                  <div className="w-9 h-9 rounded-xl bg-white text-[#0d0751] flex items-center justify-center">
-                    <Quote className="w-4 h-4" />
-                  </div>
-                  <span className="text-xs font-bold px-3 py-0.5 rounded-full bg-white/20 text-white backdrop-blur-sm">
-                    {t.tag}
-                  </span>
-                </div>
+      {/* نوارهای مارکی دو جهته با فاصله مناسب و محوشدگی نرم لبه‌ها */}
+      <div className="relative w-full overflow-hidden space-y-6 sm:space-y-8">
+        {/* گرادیان محوکننده سمت راست */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-36 bg-gradient-to-l from-[#0d0751] to-transparent z-10"
+        />
+        {/* گرادیان محوکننده سمت چپ */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-36 bg-gradient-to-r from-[#0d0751] to-transparent z-10"
+        />
 
-                <p className="text-sm sm:text-base text-white/90 leading-relaxed font-normal">
-                  «{t.quote}»
-                </p>
-              </div>
+        {/* ردیف اول مارکی: حرکت به سمت راست */}
+        <Marquee reverse={true} duration="34s" gap="2rem" pauseOnHover={true} repeat={4}>
+          {testimonialsRow1.map((t, idx) => renderCard(t, idx))}
+        </Marquee>
 
-              <div className="pt-2 flex items-center gap-2.5">
-                <div className="w-2 h-2 rounded-full bg-white" />
-                <div>
-                  <h4 className="font-bold text-white text-sm">{t.author}</h4>
-                  <p className="text-xs text-white/70">{t.role}</p>
-                </div>
-              </div>
-            </Card>
-          ))}
-        </AnimatedContent>
+        {/* ردیف دوم مارکی: حرکت به سمت چپ */}
+        <Marquee reverse={false} duration="36s" gap="2rem" pauseOnHover={true} repeat={4}>
+          {testimonialsRow2.map((t, idx) => renderCard(t, idx))}
+        </Marquee>
       </div>
     </section>
   );

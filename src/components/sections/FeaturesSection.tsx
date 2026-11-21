@@ -100,7 +100,7 @@ export const FeaturesSection: React.FC = () => {
     restDelta: 0.0005,
   });
 
-  // محاسبه مسیر تایم‌لاین: در موبایل خط مستقیم دقیق از وسط آیکون‌ها، در دسکتاپ مسیر مواج S شکل
+  // محاسبه مسیر مواج S شکل: عبور دقیق از مرکز تمام آیکون‌ها بر روی موج‌های متناوب در هر دو نمای موبایل و دسکتاپ
   const updateWavePath = useCallback(() => {
     const wrapper = timelineWrapperRef.current;
     if (!wrapper) return;
@@ -125,20 +125,7 @@ export const FeaturesSection: React.FC = () => {
 
     if (points.length < 2) return;
 
-    const isMobileView = window.innerWidth < 768;
-
-    if (isMobileView) {
-      // در نمای موبایل: خط کاملاً مستقیم، عمودی و یکدست که دقیقاً از مرکز تمامی آیکون‌ها می‌گذرد
-      const fixedX = points[0].x;
-      let d = `M ${fixedX} ${points[0].y}`;
-      for (let i = 1; i < points.length; i++) {
-        d += ` L ${fixedX} ${points[i].y}`;
-      }
-      setPathData(d);
-      return;
-    }
-
-    // در نمای دسکتاپ: منحنی مواج نرم S شکل بین آیکون‌های چپ و راست متناوب
+    // منحنی مواج نرم S شکل بین آیکون‌های متناوب
     let d = `M ${points[0].x} ${points[0].y}`;
     for (let i = 0; i < points.length - 1; i++) {
       const p1 = points[i];
@@ -285,7 +272,7 @@ export const FeaturesSection: React.FC = () => {
           ref={timelineWrapperRef}
           className="relative mt-16 sm:mt-24 pb-4"
         >
-          {/* لایه برداری SVG مسیر تایم‌لاین: در موبایل خط مستقیم دقیق، در دسکتاپ مسیر مواج S */}
+          {/* لایه برداری SVG مسیر تایم‌لاین: مسیر مواج S در هر دو نمای موبایل و دسکتاپ */}
           {svgSize.width > 0 && pathData && (
             <svg
               aria-hidden="true"
@@ -346,8 +333,8 @@ export const FeaturesSection: React.FC = () => {
             </svg>
           )}
 
-          {/* لیست آیتم‌ها و نقاط عطف متناوب روی موج */}
-          <div className="flex flex-col space-y-16 sm:space-y-28 relative z-10">
+          {/* لیست آیتم‌ها با فاصله بهینه برای جلوگیری از تداخل متن و موج‌ها */}
+          <div className="flex flex-col space-y-20 sm:space-y-28 md:space-y-36 relative z-10">
             {TIMELINE_FEATURES.map((item, index) => {
               const isReached = activeItems.includes(index);
               const isEven = index % 2 === 0;
@@ -358,7 +345,7 @@ export const FeaturesSection: React.FC = () => {
                   key={item.id}
                   className="relative flex items-center w-full"
                 >
-                  {/* آیکون نقطه عطف: در موبایل کاملاً در یک راستای عمودی، در دسکتاپ مواج */}
+                  {/* آیکون نقطه عطف: در دسکتاپ در مرکز متناوب چپ و راست، در موبایل روی قله‌های مواج سمت راست */}
                   <div
                     ref={(el) => {
                       iconRefs.current[index] = el;
@@ -374,38 +361,39 @@ export const FeaturesSection: React.FC = () => {
                             }))`,
                           }
                         : {
-                            right: "12px",
+                            // در موبایل قله‌های مواج S شکل متناوب بین ۱۰ پیکسل و ۴۸ پیکسل
+                            right: isEven ? "10px" : "48px",
                             left: "auto",
                             transform: "none",
                           }
                     }
-                    className={`absolute z-20 flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 rounded-2xl transition-all duration-300 select-none border-none shadow-none ${
+                    className={`absolute z-20 flex items-center justify-center w-11 h-11 sm:w-13 sm:h-13 rounded-2xl transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] select-none border-none ${
                       isReached
-                        ? "bg-[#3525cd] text-white scale-110"
-                        : "bg-[#eae9fb] text-[#3525cd]/40 scale-95"
+                        ? "bg-[#3525cd] text-white scale-110 shadow-lg shadow-[#3525cd]/25"
+                        : "bg-[#eae9fb] text-[#3525cd]/40 scale-95 shadow-none"
                     }`}
                   >
-                    <Icon className="w-5 h-5 sm:w-6 sm:h-6" />
+                    <Icon className="w-5 h-5 sm:w-6 sm:h-6 transition-transform duration-500" />
                   </div>
 
-                  {/* چیدمان متناوب متن‌ها: چپ و راست با فاصله هماهنگ با انحنای موج */}
+                  {/* چیدمان متن‌ها: در موبایل پدینگ اختصاصی برای ایجاد فاصله ایمن با موج و جلوگیری از تداخل */}
                   <div className="w-full flex flex-col md:flex-row items-center">
                     {isEven ? (
                       <>
                         {/* ستون راست (محتوای آیتم‌های زوج) */}
                         <div
-                          className={`w-full md:w-1/2 pr-20 md:pr-0 md:pl-24 lg:md:pl-28 text-right transition-all duration-300 ease-out select-none ${
+                          className={`w-full md:w-1/2 pr-28 sm:pr-32 md:pr-0 md:pl-24 lg:md:pl-28 text-right transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
                             isReached
                               ? "opacity-100 blur-0 translate-y-0"
-                              : "opacity-25 blur-[0.5px] translate-y-2 pointer-events-none"
+                              : "opacity-25 blur-[1px] translate-y-3 pointer-events-none"
                           }`}
                         >
                           <div className="space-y-3">
                             <span
-                              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-colors ${
+                              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                                 isReached
-                                  ? "bg-[#eae9fb] text-[#3525cd]"
-                                  : "bg-[#eae9fb]/60 text-[#3525cd]/40"
+                                  ? "bg-[#eae9fb] text-[#3525cd] scale-100"
+                                  : "bg-[#eae9fb]/60 text-[#3525cd]/40 scale-95"
                               }`}
                             >
                               <span>{item.step}</span>
@@ -414,16 +402,16 @@ export const FeaturesSection: React.FC = () => {
                             </span>
 
                             <h3
-                              className={`text-2xl sm:text-3xl font-black tracking-tight leading-tight transition-colors ${
-                                isReached ? "text-black" : "text-black/50"
+                              className={`text-2xl sm:text-3xl font-black tracking-tight leading-tight transition-colors duration-500 ease-out ${
+                                isReached ? "text-black" : "text-black/40"
                               }`}
                             >
                               {item.title}
                             </h3>
 
                             <p
-                              className={`text-base sm:text-lg leading-relaxed font-normal max-w-lg transition-colors ${
-                                isReached ? "text-black/75" : "text-black/35"
+                              className={`text-base sm:text-lg leading-relaxed font-normal max-w-lg transition-colors duration-500 ease-out ${
+                                isReached ? "text-black/80" : "text-black/30"
                               }`}
                             >
                               {item.description}
@@ -447,18 +435,18 @@ export const FeaturesSection: React.FC = () => {
 
                         {/* ستون چپ (محتوای آیتم‌های فرد) */}
                         <div
-                          className={`w-full md:w-1/2 pr-20 md:pr-24 lg:md:pr-28 md:pl-0 text-right md:text-left transition-all duration-300 ease-out select-none ${
+                          className={`w-full md:w-1/2 pr-28 sm:pr-32 md:pr-24 lg:md:pr-28 md:pl-0 text-right md:text-left transition-all duration-600 ease-[cubic-bezier(0.16,1,0.3,1)] select-none ${
                             isReached
                               ? "opacity-100 blur-0 translate-y-0"
-                              : "opacity-25 blur-[0.5px] translate-y-2 pointer-events-none"
+                              : "opacity-25 blur-[1px] translate-y-3 pointer-events-none"
                           }`}
                         >
                           <div className="space-y-3 flex flex-col items-start md:items-end">
                             <span
-                              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-colors ${
+                              className={`inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-bold transition-all duration-500 ease-[cubic-bezier(0.16,1,0.3,1)] ${
                                 isReached
-                                  ? "bg-[#eae9fb] text-[#3525cd]"
-                                  : "bg-[#eae9fb]/60 text-[#3525cd]/40"
+                                  ? "bg-[#eae9fb] text-[#3525cd] scale-100"
+                                  : "bg-[#eae9fb]/60 text-[#3525cd]/40 scale-95"
                               }`}
                             >
                               <span>{item.step}</span>
@@ -467,16 +455,16 @@ export const FeaturesSection: React.FC = () => {
                             </span>
 
                             <h3
-                              className={`text-2xl sm:text-3xl font-black tracking-tight leading-tight transition-colors ${
-                                isReached ? "text-black" : "text-black/50"
+                              className={`text-2xl sm:text-3xl font-black tracking-tight leading-tight transition-colors duration-500 ease-out ${
+                                isReached ? "text-black" : "text-black/40"
                               }`}
                             >
                               {item.title}
                             </h3>
 
                             <p
-                              className={`text-base sm:text-lg leading-relaxed font-normal max-w-lg transition-colors text-right md:text-left ${
-                                isReached ? "text-black/75" : "text-black/35"
+                              className={`text-base sm:text-lg leading-relaxed font-normal max-w-lg transition-colors duration-500 ease-out text-right md:text-left ${
+                                isReached ? "text-black/80" : "text-black/30"
                               }`}
                             >
                               {item.description}

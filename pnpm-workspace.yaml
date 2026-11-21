@@ -1,3 +1,4 @@
 allowBuilds:
   '@vgpu/adapter-node': true
+  esbuild: set this to true or false
   webgpu: true

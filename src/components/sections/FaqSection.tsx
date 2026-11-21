@@ -16,12 +16,10 @@ export const FaqSection: React.FC = () => {
       <div className="max-w-4xl mx-auto px-4 space-y-16">
         {/* هدر بخش سوالات متداول با استایل معکوس */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.05}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
           className="text-center"
         >
           <HeaderSections
@@ -34,12 +32,10 @@ export const FaqSection: React.FC = () => {
 
         {/* کامپوننت آکاردئون با تم معکوس و شیشه‌ای روی پس‌زمینه پرایمری */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.06}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
           className="w-full"
         >
           <Accordion multiple={false} defaultValue={[FAQ_DATA[0]?.id || 'faq-1']}>

@@ -10,6 +10,8 @@
   },
   "dependencies": {
     "@base-ui/react": "^1.9.0",
+    "@payloadcms/db-sqlite": "^3.94.0",
+    "@payloadcms/next": "^3.94.0",
     "@solar-icons/react": "^2.5.0",
     "canvas-confetti": "^1.9.4",
     "class-variance-authority": "^0.7.1",
@@ -20,6 +22,7 @@
     "lucide-react": "^1.71.0",
     "motion": "^12.43.0",
     "next": "^16.4.6",
+    "payload": "^3.94.0",
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "shadcn": "^4.23.0",

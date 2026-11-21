@@ -38,12 +38,10 @@ export const ComparisonSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* هدر بخش منطبق با بخش ۷ سند محتوا */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.05}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
           className="text-center"
         >
           <HeaderSections
@@ -54,12 +52,12 @@ export const ComparisonSection: React.FC = () => {
         </AnimatedContent>
 
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.08}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          stagger={0.06}
+          staggerFrom="start"
+          ease="power2.out"
           className="grid grid-cols-1 lg:grid-cols-2 gap-8 text-right"
         >
           {/* ستون فروشگاه‌سازهای سنتی و پیچیده */}

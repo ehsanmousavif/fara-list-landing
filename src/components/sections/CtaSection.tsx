@@ -19,12 +19,10 @@ export const CtaSection: React.FC = () => {
     <section id="cta" className="py-20 md:py-28 bg-transparent text-black">
       <div className="max-w-5xl mx-auto px-4">
         <AnimatedContent
-          distance={120}
-          blur={10}
-          wipe="none"
-          staggerFrom="end"
-          duration={0.9}
-          stagger={0.05}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
         >
           <div className="relative rounded-3xl overflow-hidden bg-[#070712] p-8 sm:p-14 md:p-20 text-center flex flex-col items-center justify-center min-h-[380px] border-none shadow-none">
             {/* ReactBits Scanner Canvas Background */}

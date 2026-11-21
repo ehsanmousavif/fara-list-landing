@@ -498,12 +498,10 @@ export const HowItWorksSection: React.FC = () => {
       <div className="max-w-6xl mx-auto px-4 space-y-12">
         {/* هدر بخش با آیکون Layers */}
         <AnimatedContent
-          distance={150}
-          blur={12}
-          wipe="none"
-          staggerFrom="end"
-          duration={1}
-          stagger={0.05}
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
           className="text-center"
         >
           <HeaderSections
@@ -516,12 +514,10 @@ export const HowItWorksSection: React.FC = () => {
         {/* ۱. نمای دسکتاپ بر پایه کامپوننت @reui/c-stepper-37 (نمایش اختصاصی در دسکتاپ lg:block) */}
         <div className="hidden lg:block">
           <AnimatedContent
-            distance={150}
-            blur={12}
-            wipe="none"
-            staggerFrom="end"
-            duration={1}
-            stagger={0.08}
+            distance={36}
+            blur={0}
+            duration={0.65}
+            ease="power2.out"
           >
             <DesktopStepper />
           </AnimatedContent>
