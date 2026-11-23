@@ -1,5 +1,5 @@
 import React from "react";
-import AnimatedContent from "@/components/AnimatedContent";
+import AnimatedContent from "@/components/effects/AnimatedContent";
 import {
   Sparkles,
   CheckCircle2,
@@ -11,24 +11,23 @@ import {
   CheckCheck,
 } from "lucide-react";
 import { Button } from "@/components/ui";
+import { HeaderSections } from "../common/header-sections";
+import { LightbulbIcon } from "@solar-icons/react/line-duotone";
 
 export const ScrollRevealSection: React.FC = () => {
   return (
     <section className="py-20 md:py-32 bg-transparent text-black relative overflow-hidden">
+      <HeaderSections icon={<LightbulbIcon />} />
       <div className="max-w-6xl mx-auto px-4">
-        {/* چیدمان افقی دسکتاپ: فریم موبایل چت در یک سمت، متن توضیحی در سمت دیگر */}
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
-          {/* ستون راست (در چیدمان راست‌چین): متن توضیحی راهکار فرالیست */}
           <div className="lg:col-span-7 space-y-6 text-right order-2 lg:order-1">
             <AnimatedContent distance={60} blur={8} wipe="none" duration={0.8}>
               <div className="space-y-5">
-                {/* نشان بالا */}
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eae9fb] text-[#3525cd] text-xs font-bold">
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>راه‌حل فرالیست: یک لینک ثابت و همیشگی</span>
                 </div>
 
-                {/* عنوان اصلی متقاعدکننده */}
                 <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black tracking-tight leading-[1.25]">
                   یک لینک ثابت، که همیشه آخرین نسخه رو نشون می‌ده
                 </h2>

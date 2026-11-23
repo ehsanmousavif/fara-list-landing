@@ -48,10 +48,12 @@ export const Marquee: React.FC<MarqueeProps> = ({
               vertical
                 ? "flex-col animate-marquee-vertical"
                 : "flex-row animate-marquee",
-              pauseOnHover && "group-hover:[animation-play-state:paused]",
-              reverse && "[animation-direction:reverse]"
+              pauseOnHover && "group-hover:[animation-play-state:paused]"
             )}
-            style={{ gap: "var(--gap)" }}
+            style={{
+              gap: "var(--gap)",
+              animationDirection: reverse ? "reverse" : "normal",
+            }}
           >
             {children}
           </div>

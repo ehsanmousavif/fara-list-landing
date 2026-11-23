@@ -24,11 +24,12 @@ import {
 } from "lucide-react";
 
 interface BlogPageProps {
+  posts?: BlogPost[];
   onBackToHome?: () => void;
   onNavigateSection?: (sectionId: string) => void;
 }
 
-export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome }) => {
+export const BlogPage: React.FC<BlogPageProps> = ({ posts = BLOG_POSTS, onBackToHome }) => {
   const router = useRouter();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [activePost, setActivePost] = useState<BlogPost | null>(null);
@@ -44,18 +45,19 @@ export const BlogPage: React.FC<BlogPageProps> = ({ onBackToHome }) => {
 
   // فیلتر مقالات بر اساس عبارت جستجو و تگ‌ها (بدون فیلترهای دسته‌بندی)
   const filteredPosts = useMemo(() => {
+    const list = posts.length > 0 ? posts : BLOG_POSTS;
     const query = searchQuery.trim().toLowerCase();
     if (!query) {
-      return BLOG_POSTS;
+      return list;
     }
-    return BLOG_POSTS.filter((post) => {
+    return list.filter((post) => {
       return (
         post.title.toLowerCase().includes(query) ||
         post.excerpt.toLowerCase().includes(query) ||
         post.tags.some((tag) => tag.toLowerCase().includes(query))
       );
     });
-  }, [searchQuery]);
+  }, [posts, searchQuery]);
 
   const handlePostClick = (post: BlogPost) => {
     setActivePost(post);

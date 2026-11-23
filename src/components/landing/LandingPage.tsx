@@ -1,87 +1,119 @@
 'use client';
 
-import React from 'react';
+import React, { lazy, Suspense } from 'react';
 import { HeroSection } from '@/components/sections/HeroSection';
+
+// سکشن‌های بالای fold رو eager بارگذاری می‌کنیم
 import { StatsSection } from '@/components/sections/StatsSection';
 import { ScrollRevealSection } from '@/components/sections/ScrollRevealSection';
-import { HowItWorksSection } from '@/components/sections/HowItWorksSection';
-import { FeaturesSection } from '@/components/sections/FeaturesSection';
-import { AudienceSection } from '@/components/sections/AudienceSection';
-import { ComparisonSection } from '@/components/sections/ComparisonSection';
-import { SocialProofSection } from '@/components/sections/SocialProofSection';
-import { LiveDemoSection } from '@/components/sections/LiveDemoSection';
-import { PricingSection } from '@/components/sections/PricingSection';
-import { FaqSection } from '@/components/sections/FaqSection';
-import { CtaSection } from '@/components/sections/CtaSection';
-import { ScratchCardSection } from '@/components/sections/ScratchCardSection';
-import Particles from '@/components/ui/Particles';
+
+// سکشن‌های پایین‌تر lazy load می‌شن — کاهش JS bundle اولیه
+const LiveDemoSection = lazy(() =>
+  import('@/components/sections/LiveDemoSection').then((m) => ({ default: m.LiveDemoSection }))
+);
+const HowItWorksSection = lazy(() =>
+  import('@/components/sections/HowItWorksSection').then((m) => ({ default: m.HowItWorksSection }))
+);
+const FeaturesSection = lazy(() =>
+  import('@/components/sections/FeaturesSection').then((m) => ({ default: m.FeaturesSection }))
+);
+const AudienceSection = lazy(() =>
+  import('@/components/sections/AudienceSection').then((m) => ({ default: m.AudienceSection }))
+);
+const ComparisonSection = lazy(() =>
+  import('@/components/sections/ComparisonSection').then((m) => ({ default: m.ComparisonSection }))
+);
+const SocialProofSection = lazy(() =>
+  import('@/components/sections/SocialProofSection').then((m) => ({ default: m.SocialProofSection }))
+);
+const PricingSection = lazy(() =>
+  import('@/components/sections/PricingSection').then((m) => ({ default: m.PricingSection }))
+);
+const FaqSection = lazy(() =>
+  import('@/components/sections/FaqSection').then((m) => ({ default: m.FaqSection }))
+);
+const CtaSection = lazy(() =>
+  import('@/components/sections/CtaSection').then((m) => ({ default: m.CtaSection }))
+);
+const ScratchCardSection = lazy(() =>
+  import('@/components/sections/ScratchCardSection').then((m) => ({ default: m.ScratchCardSection }))
+);
+const Particles = lazy(() => import('@/components/ui/Particles'));
+
+const SectionFallback = () => <div className="py-20" aria-hidden />;
 
 export const LandingPage: React.FC = () => {
   return (
     <>
-      {/* ۱. Hero: لیست قیمت و کاتالوگ با پس‌زمینه Threads */}
       <div className="relative z-20 bg-white">
         <HeroSection />
       </div>
 
-      {/* پس‌زمینه ذرات ری‌اکت‌بیتز (ReactBits Particles) */}
-      <div
-        aria-hidden="true"
-        className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
-      >
-        <Particles
-          particleColors={['#3525cd', '#6858ee', '#a498fd']}
-          particleCount={100}
-          particleSpread={12}
-          speed={0.12}
-          particleBaseSize={85}
-          sizeRandomness={0.7}
-          moveParticlesOnHover={true}
-          particleHoverFactor={0.8}
-          alphaParticles={true}
-          disableRotation={false}
-          lightMode={true}
-          opacity={0.35}
-          className="w-full h-full"
-        />
-      </div>
+      <Suspense fallback={null}>
+        <div
+          aria-hidden="true"
+          className="fixed inset-0 pointer-events-none z-0 overflow-hidden"
+        >
+          <Particles
+            particleColors={['#3525cd', '#6858ee', '#a498fd']}
+            particleCount={60}
+            particleSpread={12}
+            speed={0.08}
+            particleBaseSize={80}
+            sizeRandomness={0.7}
+            moveParticlesOnHover={false}
+            alphaParticles={true}
+            disableRotation={true}
+            lightMode={true}
+            opacity={0.3}
+            className="w-full h-full"
+          />
+        </div>
+      </Suspense>
 
       <div className="relative z-10 flex flex-col">
-        {/* ۲. بخش مشکل و آمار */}
         <StatsSection />
-
-        {/* ۳. راه‌حل: انیمیشن چت و متن متحرک */}
         <ScrollRevealSection />
 
-        {/* دموی تعاملی سرعت تغییر قیمت در فرالیست با PixelCard */}
-        <LiveDemoSection />
+        <Suspense fallback={<SectionFallback />}>
+          <LiveDemoSection />
+        </Suspense>
 
-        {/* ۴. روش کار: استپرهای تعاملی */}
-        <HowItWorksSection />
+        <Suspense fallback={<SectionFallback />}>
+          <HowItWorksSection />
+        </Suspense>
 
-        {/* ۵. امکانات و تایم‌لاین مواج */}
-        <FeaturesSection />
+        <Suspense fallback={<SectionFallback />}>
+          <FeaturesSection />
+        </Suspense>
 
-        {/* ۶. مخاطبان فرالیست */}
-        <AudienceSection />
+        <Suspense fallback={<SectionFallback />}>
+          <AudienceSection />
+        </Suspense>
 
-        {/* ۷. جدول مقایسه فرالیست با روش سنتی */}
-        <ComparisonSection />
+        <Suspense fallback={<SectionFallback />}>
+          <ComparisonSection />
+        </Suspense>
 
-        {/* ۸. اعتمادسازی و اثبات اجتماعی */}
-        <SocialProofSection />
+        <Suspense fallback={<SectionFallback />}>
+          <SocialProofSection />
+        </Suspense>
 
-        {/* ۹. تعرفه‌ها و پلن‌های فرالیست با کاروسل موبایل */}
-        <PricingSection />
+        <Suspense fallback={<SectionFallback />}>
+          <PricingSection />
+        </Suspense>
 
-        {/* ۱۰. سوالات متداول */}
-        <FaqSection />
+        <Suspense fallback={<SectionFallback />}>
+          <FaqSection />
+        </Suspense>
 
-        {/* ۱۱. CTA پایانی */}
-        <CtaSection />
+        <Suspense fallback={<SectionFallback />}>
+          <CtaSection />
+        </Suspense>
 
-        {/* کارت تخفیف ویژه */}
-        <ScratchCardSection />
+        <Suspense fallback={<SectionFallback />}>
+          <ScratchCardSection />
+        </Suspense>
       </div>
     </>
   );

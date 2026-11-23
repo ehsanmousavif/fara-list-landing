@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedContent from '@/components/AnimatedContent';
+import AnimatedContent from '@/components/effects/AnimatedContent';
 import {
   Accordion,
   AccordionItem,

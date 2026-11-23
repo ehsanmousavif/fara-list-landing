@@ -1,5 +1,5 @@
 import React, { useId, useRef, useState } from 'react';
-import AnimatedContent from '@/components/AnimatedContent';
+import AnimatedContent from '@/components/effects/AnimatedContent';
 import { HeaderSections } from '@/components/common/header-sections';
 import { Button } from '@/components/ui/Button';
 import { Frame, FramePanel } from '@/components/reui/frame';

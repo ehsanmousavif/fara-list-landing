@@ -13,11 +13,6 @@ export interface HeaderSectionsProps {
   inverted?: boolean;
 }
 
-/**
- * هدر بخش‌های صفحه با کامپوننت سه‌بعدی تخت IconStack در بالا
- * ورودی: آیکون و متن (title یا text) به همراه توضیحات اختیاری
- * بدون بوردر، بدون سایه - کاملاً مطابق با سیستم طراحی تخت Faralist
- */
 export function HeaderSections({
   icon,
   text,
@@ -38,7 +33,6 @@ export function HeaderSections({
         className,
       )}
     >
-      {/* آیکون استک در بالاترین نقطه هدر هر سکشن */}
       <div
         className={cn(
           "flex items-center justify-center mb-1",

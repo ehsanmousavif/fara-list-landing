@@ -113,7 +113,10 @@ export const SocialProofSection: React.FC = () => {
   );
 
   return (
-    <section id="trust" className="py-20 md:py-28 bg-[#0d0751] text-white overflow-hidden relative">
+    <section
+      id="trust"
+      className="py-20 md:py-28 bg-[#0d0751] text-white overflow-hidden relative"
+    >
       <div className="max-w-6xl mx-auto px-4 space-y-12 mb-10">
         {/* سربرگ نظرات مشتریان */}
         <div className="text-center">
@@ -126,21 +129,6 @@ export const SocialProofSection: React.FC = () => {
         </div>
 
         {/* سه شاخص کلیدی اعتماد */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 sm:gap-6 text-center">
-          {highlights.map((h, i) => (
-            <div
-              key={i}
-              className="p-5 sm:p-6 rounded-3xl bg-white/10 backdrop-blur-md border-none shadow-none flex flex-col items-center justify-center space-y-1 transition-all duration-300 hover:bg-white/15"
-            >
-              <span className="text-2xl sm:text-4xl font-black text-white">
-                {h.value}
-              </span>
-              <span className="text-xs sm:text-sm font-semibold text-white/80">
-                {h.label}
-              </span>
-            </div>
-          ))}
-        </div>
       </div>
 
       {/* نوارهای مارکی دو جهته با فاصله مناسب و محوشدگی نرم لبه‌ها */}
@@ -157,12 +145,24 @@ export const SocialProofSection: React.FC = () => {
         />
 
         {/* ردیف اول مارکی: حرکت به سمت راست */}
-        <Marquee reverse={true} duration="34s" gap="2rem" pauseOnHover={true} repeat={4}>
+        <Marquee
+          reverse={true}
+          duration="34s"
+          gap="2rem"
+          pauseOnHover={true}
+          repeat={4}
+        >
           {testimonialsRow1.map((t, idx) => renderCard(t, idx))}
         </Marquee>
 
         {/* ردیف دوم مارکی: حرکت به سمت چپ */}
-        <Marquee reverse={false} duration="36s" gap="2rem" pauseOnHover={true} repeat={4}>
+        <Marquee
+          reverse={false}
+          duration="36s"
+          gap="2rem"
+          pauseOnHover={true}
+          repeat={4}
+        >
           {testimonialsRow2.map((t, idx) => renderCard(t, idx))}
         </Marquee>
       </div>

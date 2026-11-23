@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import AnimatedContent from '@/components/AnimatedContent';
+import AnimatedContent from '@/components/effects/AnimatedContent';
 import { Button } from '@/components/ui';
 import Scanner from '@/components/ui/Scanner';
 import { ArrowLeft, Sparkles, CheckCircle2 } from 'lucide-react';

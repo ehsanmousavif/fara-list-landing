@@ -1,5 +1,5 @@
 import React from "react";
-import AnimatedContent from "@/components/AnimatedContent";
+import AnimatedContent from "@/components/effects/AnimatedContent";
 import { Card } from "@/components/ui";
 import { PROBLEMS_DATA } from "@/data/landingData";
 import { HeaderSections } from "@/components/common/header-sections";

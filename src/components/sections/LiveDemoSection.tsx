@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import AnimatedContent from "@/components/AnimatedContent";
+import AnimatedContent from "@/components/effects/AnimatedContent";
 import { RockerSwitch } from "@/components/ui/RockerSwitch";
 import { INITIAL_DEMO_PRODUCTS } from "@/data/landingData";
 import { ProductMock } from "@/types/landing";

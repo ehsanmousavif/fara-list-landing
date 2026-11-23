@@ -1,5 +1,5 @@
 import React from 'react';
-import AnimatedContent from '@/components/AnimatedContent';
+import AnimatedContent from '@/components/effects/AnimatedContent';
 import { Button } from '@/components/ui';
 import { HeaderSections } from '@/components/common/header-sections';
 import {
