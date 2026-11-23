@@ -211,7 +211,6 @@ export const Navbar: React.FC<NavbarProps> = ({
           </Button>
         </div>
 
-        {/* دکمه دراپ‌داون منوی موبایل (با آیکون بنفش سکشن‌ها) */}
         <div className="flex items-center gap-2 lg:hidden">
           <button
             type="button"
@@ -231,7 +230,7 @@ export const Navbar: React.FC<NavbarProps> = ({
 
       {/* منوی کشویی بازشونده موبایل */}
       {mobileMenuOpen && (
-        <div className="mt-2 w-full rounded-2xl bg-white/95 backdrop-blur-2xl px-4 py-4 border-none shadow-none space-y-2 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto lg:hidden">
+        <div className="mt-2 w-full rounded-2xl bg-black/10 backdrop-blur-2xl px-4 py-4 border-none shadow-none space-y-2 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto lg:hidden">
           <nav className="flex flex-col space-y-1">
             {navLinks.map((link) => (
               <button

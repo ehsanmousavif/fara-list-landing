@@ -13,6 +13,17 @@ export async function getPayloadClient() {
  * تبدیل داکیومنت دیتابیس پی‌لود به ساختار تایپ BlogPost فرانت‌اند
  */
 function mapDocToBlogPost(doc: any): BlogPost {
+  let imageSrc = '';
+  if (doc.image && typeof doc.image === 'object' && doc.image.url) {
+    imageSrc = doc.image.url;
+  } else if (typeof doc.image === 'string') {
+    imageSrc = doc.image;
+  } else if (doc.imageUrl) {
+    imageSrc = doc.imageUrl;
+  } else {
+    imageSrc = 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop&q=80';
+  }
+
   return {
     id: String(doc.id),
     title: doc.title,
@@ -26,12 +37,11 @@ function mapDocToBlogPost(doc: any): BlogPost {
     category: doc.category || 'آموزش',
     readingTime: doc.readingTime || '۳ دقیقه',
     publishedAt: doc.publishedAt || 'آبان ۱۴۰۳',
-    imageUrl: doc.imageUrl || (doc.media?.url ?? 'https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop&q=80'),
+    imageUrl: imageSrc,
     featured: Boolean(doc.featured),
     author: {
-      name: doc.author?.name || 'تیم فرالیست',
-      role: doc.author?.role || 'کارشناس محتوا',
-      avatar: doc.author?.avatar || 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
+      name: 'جیکات وب',
+      avatar: '/assets/images/jikot-logo.png',
     },
     tags: Array.isArray(doc.tags)
       ? doc.tags.map((t: any) => (typeof t === 'string' ? t : t.tag || ''))
@@ -131,11 +141,6 @@ async function seedBlogsIfEmpty(payload: any) {
             imageUrl: post.imageUrl,
             featured: Boolean(post.featured),
             status: 'published',
-            author: {
-              name: post.author?.name || 'تیم فرالیست',
-              role: post.author?.role || 'مشاور فرالیست',
-              avatar: post.author?.avatar || '',
-            },
             paragraphs: post.content.map((txt) => ({ text: txt })),
             tags: post.tags.map((t) => ({ tag: t })),
           },
@@ -144,7 +149,6 @@ async function seedBlogsIfEmpty(payload: any) {
       console.log('✅ Seeding completed successfully!');
     }
   } catch (seedErr) {
-    // خطا در سید مشکلی ایجاد نمی‌کند
     console.warn('[Payload Seed Error]:', seedErr);
   }
 }

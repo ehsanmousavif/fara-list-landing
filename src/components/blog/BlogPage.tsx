@@ -74,7 +74,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ posts = BLOG_POSTS, onBackTo
     <div className="w-full bg-white text-black selection:bg-[#3525cd] selection:text-white pt-24 sm:pt-28 md:pt-32 pb-16">
       {/* نمایش جزئیات مقاله در صورت انتخاب */}
       {activePost ? (
-        <div className="max-w-4xl mx-auto px-4 pb-12 w-full">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pb-12 w-full">
           {/* دکمه بازگشت به لیست مقالات */}
           <div className="flex items-center justify-between mb-8">
             <button
@@ -107,19 +107,29 @@ export const BlogPage: React.FC<BlogPageProps> = ({ posts = BLOG_POSTS, onBackTo
                 <Calendar className="w-3.5 h-3.5" />
                 <span>{activePost.publishedAt}</span>
               </span>
+              <div className="flex items-center gap-2 pr-2 border-r border-black/10">
+                <img
+                  src={activePost.author?.avatar || "/assets/images/jikot-logo.png"}
+                  alt={activePost.author?.name || "جیکات وب"}
+                  className="w-5 h-5 rounded-full object-contain"
+                />
+                <span className="text-xs font-bold text-black/80">
+                  {activePost.author?.name || "جیکات وب"}
+                </span>
+              </div>
             </div>
 
-            <h1 className="text-2xl sm:text-3xl md:text-4xl font-black text-black leading-tight tracking-tight">
+            <h1 className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black text-black leading-tight tracking-tight">
               {activePost.title}
             </h1>
 
-            <p className="text-base sm:text-lg text-black/70 leading-relaxed font-normal">
+            <p className="text-base sm:text-lg text-black/70 leading-relaxed font-normal max-w-4xl">
               {activePost.excerpt}
             </p>
           </div>
 
-          {/* کاور مقاله */}
-          <div className="rounded-3xl overflow-hidden aspect-video w-full mb-10 bg-[#f5f4fd]">
+          {/* کاور مقاله تمام‌عرض */}
+          <div className="rounded-3xl overflow-hidden aspect-[21/9] max-h-[540px] w-full mb-10 bg-[#f5f4fd]">
             <img
               src={activePost.imageUrl}
               alt={activePost.title}

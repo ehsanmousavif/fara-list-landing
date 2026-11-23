@@ -7,6 +7,7 @@ import { fileURLToPath } from 'url';
 import { Users } from './collections/Users';
 import { Media } from './collections/Media';
 import { Blogs } from './collections/Blogs';
+import { migrations } from './migrations';
 
 const filename = fileURLToPath(import.meta.url);
 const dirname = path.dirname(filename);
@@ -28,5 +29,8 @@ export default buildConfig({
     client: {
       url: process.env.DATABASE_URI || 'file:./payload.db',
     },
+    migrationDir: path.resolve(dirname, 'migrations'),
+    prodMigrations: migrations,
+    push: false,
   }),
 });

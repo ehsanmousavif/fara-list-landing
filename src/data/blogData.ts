@@ -12,9 +12,8 @@ export interface BlogPost {
     | "تجربه مشتریان";
   readingTime: string;
   publishedAt: string;
-  author?: {
+  author: {
     name: string;
-    role: string;
     avatar: string;
   };
   imageUrl: string;
@@ -48,10 +47,8 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "۴ دقیقه",
     publishedAt: "۲۵ آبان ۱۴۰۳",
     author: {
-      name: "پرهام رادمنش",
-      role: "مشاور استراتژی فروش دیجیتال",
-      avatar:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      name: "جیکات وب",
+      avatar: "/assets/images/jikot-logo.png",
     },
     imageUrl:
       "https://images.unsplash.com/photo-1460925895917-afdab827c52f?w=1000&auto=format&fit=crop&q=80",
@@ -74,10 +71,8 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "۳ دقیقه",
     publishedAt: "۲۳ آبان ۱۴۰۳",
     author: {
-      name: "سارا کاویانی",
-      role: "مدیر تجربه محصول",
-      avatar:
-        "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&auto=format&fit=crop&q=80",
+      name: "جیکات وب",
+      avatar: "/assets/images/jikot-logo.png",
     },
     imageUrl:
       "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=1000&auto=format&fit=crop&q=80",
@@ -99,10 +94,8 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "۵ دقیقه",
     publishedAt: "۲۱ آبان ۱۴۰۳",
     author: {
-      name: "امیرحسین شمس",
-      role: "تحلیل‌گر بازار کالا",
-      avatar:
-        "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&auto=format&fit=crop&q=80",
+      name: "جیکات وب",
+      avatar: "/assets/images/jikot-logo.png",
     },
     imageUrl:
       "https://images.unsplash.com/photo-1611974789855-9c2a0a7236a3?w=1000&auto=format&fit=crop&q=80",
@@ -123,10 +116,8 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "۴ دقیقه",
     publishedAt: "۱۹ آبان ۱۴۰۳",
     author: {
-      name: "مریم نوروزی",
-      role: "متخصص بازاریابی شبکه‌های اجتماعی",
-      avatar:
-        "https://images.unsplash.com/photo-1517841905240-472988babdf9?w=150&auto=format&fit=crop&q=80",
+      name: "جیکات وب",
+      avatar: "/assets/images/jikot-logo.png",
     },
     imageUrl:
       "https://images.unsplash.com/photo-1556742049-0a67c5574f73?w=1000&auto=format&fit=crop&q=80",
@@ -149,10 +140,8 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "۶ دقیقه",
     publishedAt: "۱۷ آبان ۱۴۰۳",
     author: {
-      name: "رضا صبوری",
-      role: "مدیر توسعه کسب‌وکار",
-      avatar:
-        "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=150&auto=format&fit=crop&q=80",
+      name: "جیکات وب",
+      avatar: "/assets/images/jikot-logo.png",
     },
     imageUrl:
       "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=1000&auto=format&fit=crop&q=80",
@@ -173,10 +162,8 @@ export const BLOG_POSTS: BlogPost[] = [
     readingTime: "۴ دقیقه",
     publishedAt: "۱۴ آبان ۱۴۰۳",
     author: {
-      name: "پرهام رادمنش",
-      role: "مشاور استراتژی فروش دیجیتال",
-      avatar:
-        "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80",
+      name: "جیکات وب",
+      avatar: "/assets/images/jikot-logo.png",
     },
     imageUrl:
       "https://images.unsplash.com/photo-1454165804606-c3d57bc86b40?w=1000&auto=format&fit=crop&q=80",

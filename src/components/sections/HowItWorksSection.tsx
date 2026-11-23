@@ -126,15 +126,15 @@ const DesktopStepper: React.FC = () => {
               return (
                 <StepperItem key={item.step} step={item.step} className="isolate">
                   <StepperTrigger
-                    tabIndex={allDone && item.step === STEPS.length ? 0 : undefined}
+                    tabIndex={-1}
                     render={<FramePanel />}
                     className={cn(
-                      'min-w-0 gap-3 overflow-visible rounded-2xl px-3.5 py-3.5 transition-all cursor-pointer border-none shadow-none text-right',
+                      'min-w-0 gap-3 overflow-visible rounded-2xl px-3.5 py-3.5 transition-all pointer-events-none cursor-default border-none shadow-none text-right',
                       active
                         ? 'bg-[#eae9fb] text-[#3525cd]'
                         : done
-                        ? 'bg-[#f5f4fd] text-black hover:bg-[#eae9fb]'
-                        : 'bg-[#f5f4fd] text-black/70 hover:bg-[#eae9fb]'
+                        ? 'bg-[#f5f4fd] text-black'
+                        : 'bg-[#f5f4fd] text-black/70'
                     )}
                   >
                     <IconTile
@@ -333,17 +333,17 @@ const MobileStepper: React.FC = () => {
                     className="relative isolate"
                   >
                     <StepperTrigger
-                      tabIndex={allDone && item.step === STEPS.length ? 0 : undefined}
+                      tabIndex={-1}
                       id={`${id}-tab-${item.step}`}
                       aria-controls={panelId}
                       render={<FramePanel />}
                       className={cn(
-                        'w-full gap-3 rounded-2xl px-3.5 py-3 transition-all cursor-pointer border-none shadow-none text-right',
+                        'w-full gap-3 rounded-2xl px-3.5 py-3 transition-all pointer-events-none cursor-default border-none shadow-none text-right',
                         active
                           ? 'bg-[#eae9fb] text-[#3525cd]'
                           : done
-                          ? 'bg-[#f5f4fd] text-black active:bg-[#eae9fb]'
-                          : 'bg-[#f5f4fd] text-black/70 active:bg-[#eae9fb]'
+                          ? 'bg-[#f5f4fd] text-black'
+                          : 'bg-[#f5f4fd] text-black/70'
                       )}
                     >
                       <IconTile

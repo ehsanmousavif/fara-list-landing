@@ -3,33 +3,111 @@
 import React, { useState } from "react";
 import AnimatedContent from "@/components/effects/AnimatedContent";
 import { RockerSwitch } from "@/components/ui/RockerSwitch";
-import { INITIAL_DEMO_PRODUCTS } from "@/data/landingData";
-import { ProductMock } from "@/types/landing";
 import { HeaderSections } from "@/components/common/header-sections";
 import { Zap, Clock, Sparkles } from "lucide-react";
 
+interface TordakProduct {
+  id: string;
+  name: string;
+  category: string;
+  weight: string;
+  image: string;
+  stock: string;
+  basePrice: number;
+  currentPrice: number;
+}
+
+const TORDAK_PRODUCTS: TordakProduct[] = [
+  {
+    id: "tordak-1",
+    name: "آرد برنج تردک",
+    category: "غلات و آردها",
+    weight: "بسته ۵۰۰ گرمی",
+    image: "/assets/images/tordak/rice-flour.webp",
+    stock: "موجود در انبار",
+    basePrice: 109500,
+    currentPrice: 109500,
+  },
+  {
+    id: "tordak-2",
+    name: "آرد سوخاری تردک",
+    category: "پودر و آرد سوخاری",
+    weight: "بسته ۳۰۰ گرمی",
+    image: "/assets/images/tordak/bread-crumbs.webp",
+    stock: "موجود در انبار",
+    basePrice: 64950,
+    currentPrice: 64950,
+  },
+  {
+    id: "tordak-3",
+    name: "پودر آماده فیله مرغ سوخاری",
+    category: "چاشنی و سوخاری",
+    weight: "پیاز و آویشن ۲۰۰ گرمی",
+    image: "/assets/images/tordak/fried-fillet.webp",
+    stock: "موجود در انبار",
+    basePrice: 79950,
+    currentPrice: 79950,
+  },
+  {
+    id: "tordak-4",
+    name: "آرد ذرت تردک",
+    category: "غلات و نشاسته",
+    weight: "بسته ۵۰۰ گرمی",
+    image: "/assets/images/tordak/corn-flour.webp",
+    stock: "موجود در انبار",
+    basePrice: 68950,
+    currentPrice: 68950,
+  },
+  {
+    id: "tordak-5",
+    name: "پودر سوخاری پفکی تمپورا",
+    category: "سوخاری رستورانی",
+    weight: "بسته ۲۰۰ گرمی",
+    image: "/assets/images/tordak/tempura.webp",
+    stock: "موجود در انبار",
+    basePrice: 64950,
+    currentPrice: 64950,
+  },
+  {
+    id: "tordak-6",
+    name: "آرد نخودچی اعلا تردک",
+    category: "حبوبات و غلات",
+    weight: "بسته ۵۰۰ گرمی",
+    image: "/assets/images/tordak/chickpea-flour.webp",
+    stock: "موجود در انبار",
+    basePrice: 107950,
+    currentPrice: 107950,
+  },
+];
+
 export const LiveDemoSection: React.FC = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
-  const [products, setProducts] = useState<ProductMock[]>(
-    INITIAL_DEMO_PRODUCTS,
-  );
+  const [products, setProducts] = useState<TordakProduct[]>(TORDAK_PRODUCTS);
   const [isUpdating, setIsUpdating] = useState(false);
 
   const handleToggle = (checked: boolean) => {
+    // بازخورد لرزشی (Haptic Vibration) هنگام کلیک
+    if (typeof window !== "undefined" && "vibrate" in navigator) {
+      try {
+        navigator.vibrate([30, 20, 30]);
+      } catch {
+        // نادیده گرفتن در صورت عدم پشتیبانی مرورگر
+      }
+    }
+
     setIsUpdating(true);
     setIsUpdated(checked);
 
     setTimeout(() => {
       if (checked) {
         setProducts(
-          INITIAL_DEMO_PRODUCTS.map((p) => ({
+          TORDAK_PRODUCTS.map((p) => ({
             ...p,
             currentPrice: Math.round(p.basePrice * 1.15),
-            lastUpdated: "هم‌اکنون آپدیت شد (آنلاین)",
-          })),
+          }))
         );
       } else {
-        setProducts(INITIAL_DEMO_PRODUCTS);
+        setProducts(TORDAK_PRODUCTS);
       }
       setIsUpdating(false);
     }, 180);
@@ -98,22 +176,24 @@ export const LiveDemoSection: React.FC = () => {
                 <RockerSwitch
                   checked={isUpdated}
                   onChange={handleToggle}
-                  leftLabel="افزایش ۱۵٪"
-                  rightLabel="قیمت پایه"
+                  leftLabel="تغییر"
+                  rightLabel="پایه"
                 />
               </div>
             </div>
           </div>
 
-          {/* جدول محصولات تخت در کانتینر سفید */}
+          {/* جدول محصولات دیتای واقعی تردک در کانتینر سفید */}
           <div className="bg-white overflow-hidden p-3 border-none shadow-none rounded-3xl">
             <div className="overflow-x-auto">
               <table className="w-full text-right text-sm">
                 <thead>
                   <tr className="bg-[#eae9fb] text-black/75 text-xs font-semibold">
-                    <th className="py-3.5 px-4 rounded-r-2xl">نام محصول</th>
-                    <th className="py-3.5 px-4">وضعیت انبار</th>
-                    <th className="py-3.5 px-4 rounded-l-2xl">قیمت جاری</th>
+                    <th className="py-3.5 px-4 rounded-r-2xl w-16 text-center">تصویر</th>
+                    <th className="py-3.5 px-4">نام کالا و مشخصات</th>
+                    <th className="py-3.5 px-4 hidden sm:table-cell">دسته‌بندی</th>
+                    <th className="py-3.5 px-4">وضعیت موجودی</th>
+                    <th className="py-3.5 px-4 rounded-l-2xl">قیمت مصرف‌کننده</th>
                   </tr>
                 </thead>
                 <tbody className="divide-y-0">
@@ -128,22 +208,42 @@ export const LiveDemoSection: React.FC = () => {
                           isEven ? "bg-[#f8f7ff]" : "bg-transparent"
                         } hover:bg-[#eae9fb]/50`}
                       >
-                        <td className="py-4 px-4 font-bold text-black flex items-center gap-2">
-                          <span className="w-2 h-2 rounded-full bg-[#0D0751]" />
-                          <span>{p.name}</span>
+                        {/* تصویر محصول */}
+                        <td className="py-3 px-4 text-center">
+                          <div className="w-12 h-12 mx-auto rounded-xl bg-white p-1 flex items-center justify-center overflow-hidden border border-black/5">
+                            <img
+                              src={p.image}
+                              alt={p.name}
+                              className="w-full h-full object-contain"
+                              loading="lazy"
+                            />
+                          </div>
                         </td>
-                        <td className="py-4 px-4">
-                          <span
-                            className={`text-xs px-2.5 py-1 font-medium rounded-xl ${
-                              p.stock === "موجود"
-                                ? "bg-emerald-100 text-emerald-800"
-                                : "bg-amber-100 text-amber-800"
-                            }`}
-                          >
+
+                        {/* نام و وزن */}
+                        <td className="py-3.5 px-4 font-bold text-black">
+                          <div className="flex flex-col">
+                            <span className="text-sm font-bold text-black">{p.name}</span>
+                            <span className="text-xs text-black/50 font-normal mt-0.5">{p.weight}</span>
+                          </div>
+                        </td>
+
+                        {/* دسته‌بندی */}
+                        <td className="py-3.5 px-4 text-black/70 text-xs hidden sm:table-cell">
+                          <span className="bg-black/5 px-2.5 py-1 rounded-lg">
+                            {p.category}
+                          </span>
+                        </td>
+
+                        {/* وضعیت موجودی */}
+                        <td className="py-3.5 px-4">
+                          <span className="text-xs px-2.5 py-1 font-medium rounded-xl bg-emerald-100 text-emerald-800">
                             {p.stock}
                           </span>
                         </td>
-                        <td className="py-4 px-4">
+
+                        {/* قیمت و تغییرات */}
+                        <td className="py-3.5 px-4">
                           <div className="flex flex-col">
                             {diff > 0 && (
                               <span className="text-xs text-black/40 line-through">
@@ -155,16 +255,15 @@ export const LiveDemoSection: React.FC = () => {
                                 isUpdating
                                   ? "opacity-50 scale-95"
                                   : "opacity-100 scale-100"
-                              } ${diff > 0 ? "text-[#0D0751]" : "text-black"}`}
+                              } ${diff > 0 ? "text-[#3525cd]" : "text-black"}`}
                             >
                               {p.currentPrice.toLocaleString("fa-IR")} تومان
                             </span>
                             {diff > 0 && (
-                              <span className="text-[11px] text-[#0D0751] font-semibold mt-0.5 inline-flex items-center gap-1">
+                              <span className="text-[11px] text-[#3525cd] font-semibold mt-0.5 inline-flex items-center gap-1">
                                 <Sparkles className="w-3 h-3" />
                                 <span>
-                                  +۱۵٪ ({diff.toLocaleString("fa-IR")} تومان
-                                  تغییر آنی)
+                                  +۱۵٪ ({diff.toLocaleString("fa-IR")} تومان تغییر آنی)
                                 </span>
                               </span>
                             )}
@@ -177,14 +276,20 @@ export const LiveDemoSection: React.FC = () => {
               </table>
             </div>
 
-            {/* فوتر اطلاعات لایو دمو */}
-            <div className="p-4 bg-[#f5f4fd] mt-3 flex flex-col sm:flex-row items-center justify-between text-xs text-black/70 gap-2 rounded-2xl">
-              <span>
-                💡 این جدول مستقیماً شبیه‌ساز پنل مدیریت شما در فرالیست است.
-              </span>
-              <span className="text-black font-semibold">
-                سرعت پردازش و پخش تغییرات: ~ ۰.۰۳ ثانیه
-              </span>
+            {/* فوتر اطلاعات لایو دمو با رنگ برند bg-primary (#3525cd) */}
+            <div className="p-4 bg-[#3525cd] text-white mt-3 flex flex-col sm:flex-row items-center justify-between text-xs gap-3 rounded-2xl shadow-none">
+              <div className="flex items-center gap-2.5">
+                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
+                <span className="font-semibold text-white">
+                  کاتالوگ آنلاین صنایع غذایی تردک (faralist.com/tordak)
+                </span>
+              </div>
+              <div className="flex items-center gap-2">
+                <span className="text-white/80">سرعت پردازش و پخش تغییرات:</span>
+                <span className="text-white font-bold bg-white/20 px-2.5 py-1 rounded-xl">
+                  ~ ۰.۰۳ ثانیه
+                </span>
+              </div>
             </div>
           </div>
         </AnimatedContent>

@@ -7,6 +7,7 @@ export const Blogs: CollectionConfig = {
     plural: 'مقالات وبلاگ',
   },
   admin: {
+    group: 'وبلاگ',
     useAsTitle: 'title',
     defaultColumns: ['title', 'category', 'publishedAt', 'featured', 'status'],
   },
@@ -24,6 +25,20 @@ export const Blogs: CollectionConfig = {
       required: true,
       unique: true,
       index: true,
+    },
+    {
+      name: 'image',
+      type: 'upload',
+      relationTo: 'media',
+      label: 'تصویر شاخص مقاله (آپلود مستقیم عکس)',
+      admin: {
+        description: 'تصویر شاخص مقاله را مستقیماً از اینجا آپلود یا انتخاب کنید',
+      },
+    },
+    {
+      name: 'imageUrl',
+      type: 'text',
+      label: 'یا لینک اینترنتی تصویر (در صورت عدم آپلود)',
     },
     {
       name: 'excerpt',
@@ -58,41 +73,10 @@ export const Blogs: CollectionConfig = {
       defaultValue: 'آبان ۱۴۰۳',
     },
     {
-      name: 'imageUrl',
-      type: 'text',
-      label: 'آدرس تصویر شاخص (URL)',
-      required: true,
-    },
-    {
       name: 'featured',
       type: 'checkbox',
       label: 'مقاله ویژه (Featured)',
       defaultValue: false,
-    },
-    {
-      name: 'author',
-      type: 'group',
-      label: 'نویسنده',
-      fields: [
-        {
-          name: 'name',
-          type: 'text',
-          label: 'نام نویسنده',
-          defaultValue: 'تیم فرالیست',
-        },
-        {
-          name: 'role',
-          type: 'text',
-          label: 'سمت نویسنده',
-          defaultValue: 'کارشناس محتوا',
-        },
-        {
-          name: 'avatar',
-          type: 'text',
-          label: 'لینک تصویر آواتار نویسنده',
-          defaultValue: 'https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&auto=format&fit=crop&q=80',
-        },
-      ],
     },
     {
       name: 'paragraphs',

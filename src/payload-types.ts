@@ -175,17 +175,16 @@ export interface Blog {
   id: number;
   title: string;
   slug: string;
+  /**
+   * تصویر شاخص مقاله را مستقیماً از اینجا آپلود یا انتخاب کنید
+   */
+  image?: (number | null) | Media;
+  imageUrl?: string | null;
   excerpt: string;
   category: 'آموزش' | 'کاتالوگ آنلاین' | 'به‌روزرسانی قیمت' | 'راهنمای فروش' | 'تجربه مشتریان';
   readingTime?: string | null;
   publishedAt?: string | null;
-  imageUrl: string;
   featured?: boolean | null;
-  author?: {
-    name?: string | null;
-    role?: string | null;
-    avatar?: string | null;
-  };
   paragraphs?:
     | {
         text: string;
@@ -330,19 +329,13 @@ export interface MediaSelect<T extends boolean = true> {
 export interface BlogsSelect<T extends boolean = true> {
   title?: T;
   slug?: T;
+  image?: T;
+  imageUrl?: T;
   excerpt?: T;
   category?: T;
   readingTime?: T;
   publishedAt?: T;
-  imageUrl?: T;
   featured?: T;
-  author?:
-    | T
-    | {
-        name?: T;
-        role?: T;
-        avatar?: T;
-      };
   paragraphs?:
     | T
     | {

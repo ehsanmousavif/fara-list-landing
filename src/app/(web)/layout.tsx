@@ -1,7 +1,11 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Navbar } from '@/components/layout/Navbar';
 import { Footer } from '@/components/layout/Footer';
 import '@/index.css';
+
+export const viewport: Viewport = {
+  themeColor: '#191458',
+};
 
 export const metadata: Metadata = {
   title: 'فرالیست | ساخت کاتالوگ آنلاین و لیست قیمت لحظه‌ای',

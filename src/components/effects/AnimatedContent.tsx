@@ -1,16 +1,6 @@
 "use client";
 
-import {
-  useEffect,
-  useRef,
-  type CSSProperties,
-  type HTMLAttributes,
-  type ReactNode,
-} from "react";
-import { gsap } from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
-
-gsap.registerPlugin(ScrollTrigger);
+import React, { useEffect, useRef, useState, type CSSProperties, type HTMLAttributes, type ReactNode } from "react";
 
 export interface AnimatedContentProps
   extends Omit<HTMLAttributes<HTMLDivElement>, "onAnimationStart"> {
@@ -23,9 +13,7 @@ export interface AnimatedContentProps
   initialOpacity?: number;
   animateOpacity?: boolean;
   scale?: number;
-  /** پذیرفته می‌شه ولی اعمال نمی‌شه — از CSS transition استفاده کن */
   blur?: number;
-  /** پذیرفته می‌شه ولی اعمال نمی‌شه */
   wipe?: string;
   threshold?: number;
   delay?: number;
@@ -36,88 +24,73 @@ export interface AnimatedContentProps
   style?: CSSProperties;
 }
 
-const AnimatedContent = ({
+export const AnimatedContent: React.FC<AnimatedContentProps> = ({
   children,
-  distance = 32,
+  distance = 24,
   direction = "vertical",
   reverse = false,
-  duration = 0.6,
-  ease = "power2.out",
+  duration = 0.5,
   initialOpacity = 0,
   animateOpacity = true,
-  scale = 1,
-  threshold = 0.15,
+  threshold = 0.1,
   delay = 0,
-  stagger = 0,
   once = true,
-  // ignored props kept for api compatibility
-  blur: _blur,
-  wipe: _wipe,
-  staggerFrom: _staggerFrom,
   className = "",
   style,
   ...props
-}: AnimatedContentProps) => {
+}) => {
   const ref = useRef<HTMLDivElement>(null);
+  const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
 
-    const reduced =
-      window.matchMedia?.("(prefers-reduced-motion: reduce)").matches ?? false;
-
-    if (reduced) {
-      el.style.visibility = "visible";
+    if (typeof window !== "undefined" && window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      setIsVisible(true);
       return;
     }
 
-    const targets =
-      stagger > 0 && el.children.length ? Array.from(el.children) : [el];
-    const axis = direction === "horizontal" ? "x" : "y";
-    const sign = reverse ? -1 : 1;
+    const observer = new IntersectionObserver(
+      (entries) => {
+        const [entry] = entries;
+        if (entry.isIntersecting) {
+          setIsVisible(true);
+          if (once) observer.disconnect();
+        } else if (!once) {
+          setIsVisible(false);
+        }
+      },
+      {
+        threshold,
+        rootMargin: "0px 0px -40px 0px",
+      }
+    );
 
-    gsap.set(el, { visibility: "visible" });
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [threshold, once]);
 
-    const from: gsap.TweenVars = {
-      [axis]: distance * sign,
-      scale,
-      opacity: animateOpacity ? initialOpacity : 1,
-    };
-
-    const to: gsap.TweenVars = {
-      [axis]: 0,
-      scale: 1,
-      opacity: 1,
-      duration,
-      ease,
-      clearProps: "transform,opacity",
-      ...(stagger > 0 ? { stagger: { each: stagger } } : {}),
-    };
-
-    const tl = gsap.timeline({ paused: true, delay: Math.max(delay, 0) });
-    tl.fromTo(targets, from, to);
-
-    const trigger = ScrollTrigger.create({
-      trigger: el,
-      start: `top ${(1 - threshold) * 100}%`,
-      once,
-      onEnter: () => tl.play(),
-    });
-
-    return () => {
-      tl.kill();
-      trigger.kill();
-    };
-    // dependencies ثابتن، effect فقط یک بار mount باید اجرا بشه
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  const sign = reverse ? -1 : 1;
+  const isHorizontal = direction === "horizontal";
+  const transformFrom = isHorizontal
+    ? `translate3d(${distance * sign}px, 0, 0)`
+    : `translate3d(0, ${distance * sign}px, 0)`;
 
   return (
     <div
       ref={ref}
-      className={["invisible", className].filter(Boolean).join(" ")}
-      style={style}
+      className={className}
+      style={{
+        ...style,
+        opacity: isVisible ? 1 : animateOpacity ? initialOpacity : 1,
+        transform: isVisible ? "translate3d(0, 0, 0)" : transformFrom,
+        transitionProperty: "opacity, transform",
+        transitionDuration: `${duration}s`,
+        transitionTimingFunction: "cubic-bezier(0.16, 1, 0.3, 1)",
+        transitionDelay: `${delay}s`,
+        willChange: isVisible ? "auto" : "opacity, transform",
+      }}
       {...props}
     >
       {children}
