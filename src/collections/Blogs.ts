@@ -122,5 +122,57 @@ export const Blogs: CollectionConfig = {
         { label: 'پیش‌نویس', value: 'draft' },
       ],
     },
+    {
+      name: 'author',
+      type: 'text',
+      label: 'نویسنده مقاله',
+      defaultValue: 'تیم تحریریه فرالیست',
+    },
+    {
+      name: 'reviewer',
+      type: 'text',
+      label: 'بازبینی‌شده توسط (متخصص/سردبیر)',
+    },
+    {
+      name: 'relatedPosts',
+      type: 'relationship',
+      relationTo: 'blogs',
+      hasMany: true,
+      label: 'مقالات مرتبط (Internal Linking)',
+    },
+    // فیلدهای اختصاصی سئو و بهینه‌سازی موتورهای جستجو
+    {
+      name: 'metaTitle',
+      type: 'text',
+      label: 'عنوان سئو (Meta Title)',
+      admin: {
+        description: 'عنوان بهینه برای نمایش در نتایج جستجوی گوگل (حداکثر ۶۰ کاراکتر)',
+      },
+    },
+    {
+      name: 'metaDescription',
+      type: 'textarea',
+      label: 'توضیحات متا (Meta Description)',
+      admin: {
+        description: 'توضیحات خلاصه و جذاب برای ترغیب کلیک در گوگل (۱۲۰ تا ۱۶۰ کاراکتر)',
+      },
+    },
+    {
+      name: 'canonicalURL',
+      type: 'text',
+      label: 'آدرس کانونیکال اختصاصی (Canonical URL)',
+      admin: {
+        description: 'در صورت خالی بودن، به صورت خودکار آدرس رسمی مقاله درج می‌شود',
+      },
+    },
+    {
+      name: 'noIndex',
+      type: 'checkbox',
+      label: 'عدم ایندکس در موتورهای جستجو (noindex)',
+      defaultValue: false,
+      admin: {
+        description: 'فعال‌سازی این گزینه مانع از ایندکس شدن صفحه در گوگل می‌شود',
+      },
+    },
   ],
 };

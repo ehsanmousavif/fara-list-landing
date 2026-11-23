@@ -60,8 +60,7 @@ export const BlogPage: React.FC<BlogPageProps> = ({ posts = BLOG_POSTS, onBackTo
   }, [posts, searchQuery]);
 
   const handlePostClick = (post: BlogPost) => {
-    setActivePost(post);
-    window.scrollTo({ top: 0, behavior: "smooth" });
+    router.push(`/blog/${post.slug}`);
   };
 
   const handleTagClick = (tag: string) => {

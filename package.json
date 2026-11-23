@@ -4,11 +4,10 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite",
-    "dev:next": "next dev",
+    "dev": "next dev",
     "build": "next build",
-    "build:vite": "vite build",
-    "preview": "vite preview",
+    "preview": "next start",
+    "seed:blogs": "node scripts/seed-blogs.mjs",
     "start": "next start"
   },
   "dependencies": {

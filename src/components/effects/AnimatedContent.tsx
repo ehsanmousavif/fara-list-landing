@@ -37,6 +37,12 @@ export const AnimatedContent: React.FC<AnimatedContentProps> = ({
   once = true,
   className = "",
   style,
+  stagger,
+  staggerFrom,
+  scale,
+  blur,
+  wipe,
+  ease,
   ...props
 }) => {
   const ref = useRef<HTMLDivElement>(null);

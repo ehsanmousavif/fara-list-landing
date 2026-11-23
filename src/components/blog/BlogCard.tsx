@@ -1,11 +1,12 @@
 import React from "react";
+import Link from "next/link";
 import { Card } from "@/components/ui/Card";
 import { BlogPost } from "@/data/blogData";
 import { Clock, ArrowLeft } from "lucide-react";
 
 interface BlogCardProps {
   post: BlogPost;
-  onClick: (post: BlogPost) => void;
+  onClick?: (post: BlogPost) => void;
   className?: string;
   isFeatured?: boolean;
 }
@@ -17,12 +18,13 @@ export const BlogCard: React.FC<BlogCardProps> = ({
   isFeatured = false,
 }) => {
   return (
-    <Card
-      onClick={() => onClick(post)}
-      className={`group/card relative w-full overflow-hidden border-none shadow-none rounded-2xl cursor-pointer bg-black/90 select-none ${
-        isFeatured ? "h-[440px] md:h-[480px]" : "h-[420px] sm:h-[440px]"
-      } ${className}`}
-    >
+    <Link href={`/blog/${post.slug}`} className="block w-full group/link focus:outline-none">
+      <Card
+        onClick={() => onClick && onClick(post)}
+        className={`group/card relative w-full overflow-hidden border-none shadow-none rounded-2xl cursor-pointer bg-black/90 select-none ${
+          isFeatured ? "h-[440px] md:h-[480px]" : "h-[420px] sm:h-[440px]"
+        } ${className}`}
+      >
       <img
         src={post.imageUrl}
         alt={post.title}
@@ -104,5 +106,6 @@ export const BlogCard: React.FC<BlogCardProps> = ({
         </div>
       </div>
     </Card>
+  </Link>
   );
 };

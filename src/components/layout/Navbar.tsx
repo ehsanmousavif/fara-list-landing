@@ -5,7 +5,7 @@ import Link from "next/link";
 import { usePathname, useRouter } from "next/navigation";
 import { FaralistLogo } from "@/components/logo";
 import { Button } from "@/components/ui";
-import { Menu, X, PlayCircle, BookOpen, ChevronDown } from "lucide-react";
+import { Menu, X, PlayCircle, BookOpen, ChevronDown, ArrowLeft } from "lucide-react";
 
 interface NavbarProps {
   onTriggerLoading?: () => void;
@@ -27,6 +27,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   const router = useRouter();
 
   const isBlogPage = propIsBlogPage ?? pathname.startsWith("/blog");
+
+  // قفل اسکرول صفحه هنگام باز بودن سایدبار موبایل
+  useEffect(() => {
+    if (mobileMenuOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "";
+    }
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [mobileMenuOpen]);
 
   // بستن دراپ‌داون دسکتاپ هنگام کلیک در خارج از آن
   useEffect(() => {
@@ -228,67 +240,113 @@ export const Navbar: React.FC<NavbarProps> = ({
         </div>
       </div>
 
-      {/* منوی کشویی بازشونده موبایل */}
-      {mobileMenuOpen && (
-        <div className="mt-2 w-full rounded-2xl bg-black/10 backdrop-blur-2xl px-4 py-4 border-none shadow-none space-y-2 pointer-events-auto max-h-[calc(100vh-100px)] overflow-y-auto lg:hidden">
-          <nav className="flex flex-col space-y-1">
-            {navLinks.map((link) => (
-              <button
-                key={link.id}
-                type="button"
-                onClick={() => handleLinkClick(link.id)}
-                className="text-sm font-medium px-4 py-3 rounded-xl text-black hover:text-[#0D0751] bg-[#f5f4fd] active:bg-[#eae9fb] transition-colors text-right border-none cursor-pointer"
-              >
-                {link.label}
-              </button>
-            ))}
+      {/* پس‌زمینه تاریک پشت سایدبار موبایل */}
+      <div
+        aria-hidden="true"
+        onClick={() => setMobileMenuOpen(false)}
+        className={`fixed inset-0 bg-black/60 backdrop-blur-sm z-[100] transition-opacity duration-300 lg:hidden pointer-events-auto ${
+          mobileMenuOpen ? "opacity-100" : "opacity-0 pointer-events-none"
+        }`}
+      />
 
-            {/* لینک وبلاگ درون دراپ‌داون منوی موبایل */}
-            <button
-              type="button"
-              onClick={handleBlogClick}
-              className="text-sm font-bold px-4 py-3 rounded-xl bg-[#eae9fb] text-[#0D0751] active:bg-[#dedcf9] transition-colors text-right border-none cursor-pointer flex items-center justify-between"
-            >
-              <div className="flex items-center gap-2">
-                <BookOpen className="w-4 h-4 text-[#0D0751]" />
-                <span>وبلاگ و دانستنی‌های فرالیست</span>
-              </div>
-              <span className="text-[10px] bg-[#0D0751] text-white px-2 py-0.5 rounded-full font-bold">
-                جدید
+      {/* سایدبار کشویی ناوبری موبایل (Slide-over Sidebar Drawer) */}
+      <aside
+        aria-label="منوی ناوبری موبایل"
+        className={`fixed top-0 right-0 bottom-0 w-[290px] sm:w-[320px] max-w-[85vw] bg-[#191458] text-white z-[101] flex flex-col justify-between shadow-2xl transition-transform duration-300 ease-out lg:hidden pointer-events-auto ${
+          mobileMenuOpen ? "translate-x-0" : "translate-x-full"
+        }`}
+        style={{
+          paddingTop: "max(1.25rem, env(safe-area-inset-top, 0px))",
+          paddingBottom: "max(1.25rem, env(safe-area-inset-bottom, 0px))",
+        }}
+      >
+        {/* سربرگ سایدبار موبایل */}
+        <div className="px-5 pb-4 border-b border-white/10 flex items-center justify-between">
+          <div className="flex items-center gap-2.5">
+            <div className="w-9 h-9 flex items-center justify-center bg-[#f5f4fd] rounded-xl overflow-hidden shrink-0">
+              <FaralistLogo size={28} animate={false} />
+            </div>
+            <div className="flex flex-col text-right">
+              <span className="text-base font-bold text-white leading-tight">
+                فرالیست
               </span>
+              <span className="text-[10px] text-white/50 tracking-wider uppercase font-semibold">
+                Fara List
+              </span>
+            </div>
+          </div>
+
+          <button
+            type="button"
+            onClick={() => setMobileMenuOpen(false)}
+            className="w-9 h-9 flex items-center justify-center rounded-xl bg-white/10 hover:bg-white/20 active:scale-95 text-white transition-colors cursor-pointer border-none"
+            aria-label="بستن سایدبار"
+          >
+            <X className="w-5 h-5 text-white" />
+          </button>
+        </div>
+
+        {/* لینک‌های منو در بدنه سایدبار */}
+        <div className="flex-1 px-4 py-5 space-y-1.5 overflow-y-auto text-right">
+          {navLinks.map((link) => (
+            <button
+              key={link.id}
+              type="button"
+              onClick={() => handleLinkClick(link.id)}
+              className="w-full text-right text-sm font-semibold px-4 py-3 rounded-2xl text-white/80 hover:text-white hover:bg-white/10 active:bg-white/15 transition-colors border-none bg-transparent cursor-pointer flex items-center justify-between"
+            >
+              <span>{link.label}</span>
+              <ArrowLeft className="w-4 h-4 text-white/40" />
             </button>
-          </nav>
+          ))}
 
-          <div className="pt-2 flex flex-col gap-2">
-            {onTriggerLoading && (
-              <Button
-                variant="surface"
-                size="md"
-                onClick={() => {
-                  setMobileMenuOpen(false);
-                  onTriggerLoading();
-                }}
-                className="w-full text-black bg-[#f5f4fd]"
-              >
-                <PlayCircle className="w-4 h-4 text-[#3525cd] ml-1.5" />
-                <span>مشاهده انیمیشن لود لوگو</span>
-              </Button>
-            )}
+          {/* لینک وبلاگ در سایدبار */}
+          <button
+            type="button"
+            onClick={handleBlogClick}
+            className="w-full text-right text-sm font-bold px-4 py-3 rounded-2xl bg-white/10 hover:bg-white/15 active:bg-white/20 text-white transition-colors border-none cursor-pointer flex items-center justify-between mt-3"
+          >
+            <div className="flex items-center gap-2.5">
+              <BookOpen className="w-4 h-4 text-emerald-400" />
+              <span>وبلاگ فرالیست</span>
+            </div>
+            <span className="text-[10px] bg-emerald-500 text-white px-2 py-0.5 rounded-full font-bold">
+              جدید
+            </span>
+          </button>
+        </div>
 
+        {/* دکمه‌های اقدام انتهای سایدبار */}
+        <div className="px-5 pt-4 border-t border-white/10 space-y-2.5">
+          {onTriggerLoading && (
             <Button
-              variant="primary"
+              variant="surface"
               size="md"
-              className="w-full"
               onClick={() => {
                 setMobileMenuOpen(false);
-                handleLinkClick("cta");
+                onTriggerLoading();
               }}
+              className="w-full text-white bg-white/10 hover:bg-white/15 border-none"
             >
-              شروع رایگان فرالیست
+              <PlayCircle className="w-4 h-4 text-white/80 ml-1.5" />
+              <span>تست لودینگ</span>
             </Button>
-          </div>
+          )}
+
+          <Button
+            variant="white"
+            size="md"
+            className="w-full text-[#191458] bg-white hover:bg-white/90 font-bold"
+            onClick={() => {
+              setMobileMenuOpen(false);
+              handleLinkClick("cta");
+            }}
+          >
+            <span>شروع رایگان فرالیست</span>
+            <ArrowLeft className="w-4 h-4 mr-1.5" />
+          </Button>
         </div>
-      )}
+      </aside>
     </header>
   );
 };

@@ -1,9 +1,9 @@
-import React, { useId, useRef, useState } from 'react';
-import AnimatedContent from '@/components/effects/AnimatedContent';
-import { HeaderSections } from '@/components/common/header-sections';
-import { Button } from '@/components/ui/Button';
-import { Frame, FramePanel } from '@/components/reui/frame';
-import { IconTile } from '@/components/reui/icon-tile';
+import React, { useId, useRef, useState } from "react";
+import AnimatedContent from "@/components/effects/AnimatedContent";
+import { HeaderSections } from "@/components/common/header-sections";
+import { Button } from "@/components/ui/Button";
+import { Frame, FramePanel } from "@/components/reui/frame";
+import { IconTile } from "@/components/reui/icon-tile";
 import {
   Stepper,
   StepperContent,
@@ -14,9 +14,9 @@ import {
   StepperPanel,
   StepperTitle,
   StepperTrigger,
-} from '@/components/reui/stepper';
-import { Separator } from '@/components/ui/separator';
-import { cn } from '@/lib/utils';
+} from "@/components/reui/stepper";
+import { Separator } from "@/components/ui/separator";
+import { cn } from "@/lib/utils";
 import {
   PackagePlus,
   LayoutGrid,
@@ -29,7 +29,7 @@ import {
   ArrowLeft,
   ArrowRight,
   RotateCcw,
-} from 'lucide-react';
+} from "lucide-react";
 
 interface StepData {
   step: number;
@@ -45,51 +45,53 @@ interface StepData {
 const STEPS: StepData[] = [
   {
     step: 1,
-    stepLabel: 'قدم اول',
-    title: 'محصولاتت رو وارد کن',
-    shortDetail: 'عکس، قیمت، موجودی و دسته‌بندی کالاها را ثبت کن',
+    stepLabel: "قدم اول",
+    title: "محصولاتت رو وارد کن",
+    shortDetail: "عکس، قیمت، موجودی و دسته‌بندی کالاها را ثبت کن",
     fullDesc:
-      'می‌توانید تمام محصولات خود را به صورت تکی یا از طریق فایل اکسل تنها با یک کلیک وارد پنل فرالیست کنید. نام کالا، تصویر باکیفیت، قیمت و وضعیت موجودی به صورت خودکار دسته‌بندی و مرتب می‌شوند.',
+      "می‌توانید تمام محصولات خود را به صورت تکی یا از طریق فایل اکسل تنها با یک کلیک وارد پنل فرالیست کنید. نام کالا، تصویر باکیفیت، قیمت و وضعیت موجودی به صورت خودکار دسته‌بندی و مرتب می‌شوند.",
     icon: <PackagePlus className="w-4 h-4" />,
-    badge: 'ورود سریع کالا',
-    highlight: 'پشتیبانی کامل از فایل اکسل و فرم سریع موبایل',
+    badge: "ورود سریع کالا",
+    highlight: "پشتیبانی کامل از فایل اکسل و فرم سریع موبایل",
   },
   {
     step: 2,
-    stepLabel: 'قدم دوم',
-    title: 'کاتالوگ بساز',
-    shortDetail: 'قالب نمایش دلخواهت رو انتخاب و کالاها رو بچین',
+    stepLabel: "قدم دوم",
+    title: "کاتالوگ بساز",
+    shortDetail: "قالب نمایش دلخواهت رو انتخاب و کالاها رو بچین",
     fullDesc:
-      'کالاهای مورد نظرتان را انتخاب کنید و قالب اختصاصی فروشگاه خود را برگزینید. همچنین می‌توانید برای خریداران عادی و همکاران تجاری، کاتالوگ‌های مجزا با سطوح دسترسی و قیمت‌های متفاوت تعریف کنید.',
+      "کالاهای مورد نظرتان را انتخاب کنید و قالب اختصاصی فروشگاه خود را برگزینید. همچنین می‌توانید برای خریداران عادی و همکاران تجاری، کاتالوگ‌های مجزا با سطوح دسترسی و قیمت‌های متفاوت تعریف کنید.",
     icon: <LayoutGrid className="w-4 h-4" />,
-    badge: 'طراحی خودکار',
-    highlight: 'بدون نیاز به طراح گرافیک و نرم‌افزارهای سنگین',
+    badge: "طراحی خودکار",
+    highlight: "بدون نیاز به طراح گرافیک و نرم‌افزارهای سنگین",
   },
   {
     step: 3,
-    stepLabel: 'قدم سوم',
-    title: 'لینک رو بفرست',
-    shortDetail: 'توی واتساپ، تلگرام، اینستاگرام یا QR Code پخش کن',
+    stepLabel: "قدم سوم",
+    title: "لینک رو بفرست",
+    shortDetail: "توی واتساپ، تلگرام، اینستاگرام یا QR Code پخش کن",
     fullDesc:
-      'فرالیست یک پیوند هوشمند و کد QR اختصاصی به شما می‌دهد. مشتریان بدون نیاز به دانلود هیچ فایل سنگینی یا نصب اپلیکیشن، کاتالوگ زنده شما را مستقیماً در مرورگر موبایل خود ورق می‌زنند.',
+      "فرالیست یک پیوند هوشمند و کد QR اختصاصی به شما می‌دهد. مشتریان بدون نیاز به دانلود هیچ فایل سنگینی یا نصب اپلیکیشن، کاتالوگ زنده شما را مستقیماً در مرورگر موبایل خود ورق می‌زنند.",
     icon: <Share2 className="w-4 h-4" />,
-    badge: 'یک پیوند همیشگی',
-    highlight: 'مناسب برای بیو اینستاگرام، کانال تلگرام و پیام‌رسان‌ها',
+    badge: "یک پیوند همیشگی",
+    highlight: "مناسب برای بیو اینستاگرام، کانال تلگرام و پیام‌رسان‌ها",
   },
   {
     step: 4,
-    stepLabel: 'قدم چهارم',
-    title: 'هر وقت خواستی، ویرایش کن',
-    shortDetail: 'همون لینک قبلی خودکار بروز می‌شه؛ بدون ارسال دوباره فایل',
+    stepLabel: "قدم چهارم",
+    title: "هر وقت خواستی، ویرایش کن",
+    shortDetail: "همون لینک قبلی خودکار بروز می‌شه؛ بدون ارسال دوباره فایل",
     fullDesc:
-      'با نوسان بازار، هر زمان قیمت یا موجودی تغییر کرد، فقط کافیست در پنل تغییرات را اعمال کنید یا با یک کلیک درصدی بالا و پایین ببرید. لینک دست مشتریان در همان لحظه به‌روز می‌شود؛ بدون هیچ فایل سوخته‌ای!',
+      "با نوسان بازار، هر زمان قیمت یا موجودی تغییر کرد، فقط کافیست در پنل تغییرات را اعمال کنید یا با یک کلیک درصدی بالا و پایین ببرید. لینک دست مشتریان در همان لحظه به‌روز می‌شود؛ بدون هیچ فایل سوخته‌ای!",
     icon: <RefreshCw className="w-4 h-4" />,
-    badge: 'به‌روزرسانی آنی',
-    highlight: 'خداحافظی دائمی با فایل‌های منقضی و PDFهای سنگین',
+    badge: "به‌روزرسانی آنی",
+    highlight: "خداحافظی دائمی با فایل‌های منقضی و PDFهای سنگین",
   },
 ];
 
-const completedIcon = <Check className="w-2.5 h-2.5 stroke-[3]" aria-hidden="true" />;
+const completedIcon = (
+  <Check className="w-2.5 h-2.5 stroke-[3]" aria-hidden="true" />
+);
 
 /**
  * ۱. استپر دسکتاپ بر پایه کامپوننت @reui/c-stepper-37
@@ -117,36 +119,43 @@ const DesktopStepper: React.FC = () => {
         aria-label="مراحل ساخت کاتالوگ در فرالیست"
       >
         {/* نوار ۴ گانه کارتی c-stepper-37 */}
-        <Frame spacing="xs" className="border-none bg-transparent p-0 shadow-none">
+        <Frame
+          spacing="xs"
+          className="border-none bg-transparent p-0 shadow-none"
+        >
           <StepperNav className="grid grid-cols-4 gap-3">
             {STEPS.map((item) => {
               const done = item.step < current;
               const active = item.step === current;
 
               return (
-                <StepperItem key={item.step} step={item.step} className="isolate">
+                <StepperItem
+                  key={item.step}
+                  step={item.step}
+                  className="isolate"
+                >
                   <StepperTrigger
                     tabIndex={-1}
                     render={<FramePanel />}
                     className={cn(
-                      'min-w-0 gap-3 overflow-visible rounded-2xl px-3.5 py-3.5 transition-all pointer-events-none cursor-default border-none shadow-none text-right',
+                      "min-w-0 gap-3 overflow-visible rounded-2xl px-3.5 py-3.5 transition-all pointer-events-none cursor-default border-none shadow-none text-right",
                       active
-                        ? 'bg-[#eae9fb] text-[#3525cd]'
+                        ? "bg-[#eae9fb] text-[#3525cd]"
                         : done
-                        ? 'bg-[#f5f4fd] text-black'
-                        : 'bg-[#f5f4fd] text-black/70'
+                          ? "bg-[#f5f4fd] text-black"
+                          : "bg-[#f5f4fd] text-black/70",
                     )}
                   >
                     <IconTile
-                      variant={done ? 'solid' : 'outline'}
+                      variant={done ? "solid" : "outline"}
                       size="sm"
                       className={cn(
-                        'shrink-0 rounded-xl border-none shadow-none',
+                        "shrink-0 rounded-xl border-none shadow-none",
                         done
-                          ? 'bg-[#3525cd] text-white'
+                          ? "bg-[#3525cd] text-white"
                           : active
-                          ? 'bg-[#3525cd]/15 text-[#3525cd]'
-                          : 'bg-black/5 text-black/60'
+                            ? "bg-[#3525cd]/15 text-[#3525cd]"
+                            : "bg-black/5 text-black/60",
                       )}
                       aria-hidden="true"
                     >
@@ -156,8 +165,8 @@ const DesktopStepper: React.FC = () => {
                     <div className="flex min-w-0 flex-col">
                       <StepperTitle
                         className={cn(
-                          'truncate text-sm font-bold leading-5',
-                          active ? 'text-[#3525cd]' : 'text-black'
+                          "truncate text-sm font-bold leading-5",
+                          active ? "text-[#3525cd]" : "text-black",
                         )}
                       >
                         {item.title}
@@ -196,9 +205,7 @@ const DesktopStepper: React.FC = () => {
                   </span>
                 </div>
 
-                <h3 className="text-2xl font-black text-black">
-                  {item.title}
-                </h3>
+                <h3 className="text-2xl font-black text-black">{item.title}</h3>
 
                 <p className="text-black/80 text-base leading-relaxed font-normal max-w-3xl">
                   {item.fullDesc}
@@ -222,7 +229,8 @@ const DesktopStepper: React.FC = () => {
                 کاتالوگ دیجیتال شما در ۳ دقیقه آماده است!
               </h3>
               <p className="text-black/70 text-sm max-w-md mx-auto leading-relaxed">
-                تمام مراحل با موفقیت به پایان رسید. اکنون می‌توانید لیست قیمت خود را با یک لمس منتشر کنید.
+                تمام مراحل با موفقیت به پایان رسید. اکنون می‌توانید لیست قیمت
+                خود را با یک لمس منتشر کنید.
               </p>
             </div>
           </StepperContent>
@@ -258,8 +266,8 @@ const DesktopStepper: React.FC = () => {
                   variant="primary"
                   size="md"
                   onClick={() => {
-                    const el = document.getElementById('demo');
-                    el?.scrollIntoView({ behavior: 'smooth' });
+                    const el = document.getElementById("demo");
+                    el?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="gap-2"
                 >
@@ -276,7 +284,6 @@ const DesktopStepper: React.FC = () => {
                 className="text-xs font-semibold text-black/60 hover:text-black flex items-center gap-1.5 border-none bg-transparent cursor-pointer"
               >
                 <RotateCcw className="w-3.5 h-3.5" />
-                <span>شروع مجدد از قدم اول</span>
               </button>
             )}
           </div>
@@ -286,11 +293,7 @@ const DesktopStepper: React.FC = () => {
   );
 };
 
-/**
- * ۲. استپر اختصاصی موبایل بر پایه کامپوننت @reui/c-stepper-39
- * طراحی عمودی (orientation="vertical") کاملاً منطبق بر c-stepper-39
- * دارای کارت‌های عمودی در بالا، سپریتور مجزا و پنل توضیحات گام در زیر
- */
+
 const MobileStepper: React.FC = () => {
   const id = useId();
   const panelId = `${id}-panel`;
@@ -338,24 +341,24 @@ const MobileStepper: React.FC = () => {
                       aria-controls={panelId}
                       render={<FramePanel />}
                       className={cn(
-                        'w-full gap-3 rounded-2xl px-3.5 py-3 transition-all pointer-events-none cursor-default border-none shadow-none text-right',
+                        "w-full gap-3 rounded-2xl px-3.5 py-3 transition-all pointer-events-none cursor-default border-none shadow-none text-right",
                         active
-                          ? 'bg-[#eae9fb] text-[#3525cd]'
+                          ? "bg-[#eae9fb] text-[#3525cd]"
                           : done
-                          ? 'bg-[#f5f4fd] text-black'
-                          : 'bg-[#f5f4fd] text-black/70'
+                            ? "bg-[#f5f4fd] text-black"
+                            : "bg-[#f5f4fd] text-black/70",
                       )}
                     >
                       <IconTile
-                        variant={done ? 'solid' : 'outline'}
+                        variant={done ? "solid" : "outline"}
                         size="xs"
                         className={cn(
-                          'shrink-0 rounded-xl border-none shadow-none',
+                          "shrink-0 rounded-xl border-none shadow-none",
                           done
-                            ? 'bg-[#3525cd] text-white'
+                            ? "bg-[#3525cd] text-white"
                             : active
-                            ? 'bg-[#3525cd]/15 text-[#3525cd]'
-                            : 'bg-black/5 text-black/60'
+                              ? "bg-[#3525cd]/15 text-[#3525cd]"
+                              : "bg-black/5 text-black/60",
                         )}
                         aria-hidden="true"
                       >
@@ -366,8 +369,8 @@ const MobileStepper: React.FC = () => {
                         <div className="flex items-center justify-between">
                           <StepperTitle
                             className={cn(
-                              'truncate text-sm font-bold leading-5',
-                              active ? 'text-[#3525cd]' : 'text-black'
+                              "truncate text-sm font-bold leading-5",
+                              active ? "text-[#3525cd]" : "text-black",
                             )}
                           >
                             {item.title}
@@ -392,7 +395,10 @@ const MobileStepper: React.FC = () => {
           </Frame>
 
           {/* خط جداکننده (Separator) دقیقاً طبق c-stepper-39 */}
-          <Separator aria-hidden="true" className="sm:hidden my-1 bg-black/10 border-none h-px" />
+          <Separator
+            aria-hidden="true"
+            className="sm:hidden my-1 bg-black/10 border-none h-px"
+          />
           <Separator
             aria-hidden="true"
             orientation="vertical"
@@ -439,7 +445,8 @@ const MobileStepper: React.FC = () => {
                     کاتالوگ شما در ۳ دقیقه آماده است!
                   </h4>
                   <p className="text-xs text-black/70 leading-relaxed">
-                    همه مراحل انجام شد. اکنون می‌توانید اولین لیست قیمت خود را منتشر کنید.
+                    همه مراحل انجام شد. اکنون می‌توانید اولین لیست قیمت خود را
+                    منتشر کنید.
                   </p>
                 </div>
               </StepperContent>
@@ -475,8 +482,8 @@ const MobileStepper: React.FC = () => {
                   variant="primary"
                   size="sm"
                   onClick={() => {
-                    const el = document.getElementById('demo');
-                    el?.scrollIntoView({ behavior: 'smooth' });
+                    const el = document.getElementById("demo");
+                    el?.scrollIntoView({ behavior: "smooth" });
                   }}
                   className="text-xs h-9"
                 >
@@ -494,7 +501,10 @@ const MobileStepper: React.FC = () => {
 
 export const HowItWorksSection: React.FC = () => {
   return (
-    <section id="how-it-works" className="py-20 md:py-28 bg-transparent text-black">
+    <section
+      id="how-it-works"
+      className="py-20 md:py-28 bg-transparent text-black"
+    >
       <div className="max-w-6xl mx-auto px-4 space-y-12">
         {/* هدر بخش با آیکون Layers */}
         <AnimatedContent

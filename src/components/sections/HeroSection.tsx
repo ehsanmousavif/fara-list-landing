@@ -11,27 +11,15 @@ import {
 
 export const HeroSection: React.FC = () => {
   return (
-    <section className="w-full min-h-[92vh] lg:min-h-screen relative overflow-hidden flex items-center select-none pt-[calc(env(safe-area-inset-top,0px)+6.5rem)] pb-16 lg:py-24 bg-gradient-to-b from-[#191458] via-[#1c1664] to-white">
-      {/* هاله نوری محو در پس‌زمینه برای عمق ملایم */}
-      <div
-        aria-hidden="true"
-        className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[#6c5af9]/20 blur-[140px] rounded-full pointer-events-none z-0"
-      />
-
+    <section className="w-full min-h-[92vh] lg:min-h-screen relative overflow-hidden flex items-center select-none pt-[calc(env(safe-area-inset-top,0px)+6.5rem)] pb-16 lg:py-24 bg-[#191458] border-none shadow-none">
       {/* کانتینر اصلی */}
       <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full z-20">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-6 items-center">
           {/* ستون راست: عنوان فرالیست، زیرعنوان، دکمه‌های اقدام */}
           <div className="lg:col-span-4 flex flex-col items-center lg:items-start text-center lg:text-right space-y-6 order-2 lg:order-1">
-            <div className="space-y-3">
-              <span className="inline-flex items-center gap-1.5 px-3.5 py-1.5 rounded-full bg-white/15 backdrop-blur-md text-white text-xs font-bold tracking-wide">
-                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                لیست قیمت و فروش آنلاین
-              </span>
-              <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-white tracking-tighter leading-none drop-shadow-sm">
-                فرالیست
-              </h1>
-            </div>
+            <h1 className="text-6xl sm:text-7xl md:text-8xl font-black text-white tracking-tighter leading-none drop-shadow-sm">
+              فرالیست
+            </h1>
 
             {/* زیرعنوان محوری */}
             <p className="text-white text-lg sm:text-2xl leading-relaxed font-bold max-w-md">
@@ -110,7 +98,8 @@ export const HeroSection: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-[11px] sm:text-xs md:text-sm text-white/90 leading-relaxed font-normal">
-                  هربار قیمت یا موجودی تغییر کنه، لیست قیمت همه مشتری‌هات در لحظه به‌روز میشه؛ بدون ارسال دوباره فایل.
+                  هربار قیمت یا موجودی تغییر کنه، لیست قیمت همه مشتری‌هات در
+                  لحظه به‌روز میشه؛ بدون ارسال دوباره فایل.
                 </p>
               </div>
             </div>
@@ -132,7 +121,8 @@ export const HeroSection: React.FC = () => {
                   </span>
                 </div>
                 <p className="text-[11px] sm:text-xs md:text-sm text-white/90 leading-relaxed font-normal">
-                  مشتری با یک لمس لینک اختصاصی یا اسکن QR، محصولات رو بدون دانلود هیچ برنامه‌ای آنی باز می‌کنه.
+                  مشتری با یک لمس لینک اختصاصی یا اسکن QR، محصولات رو بدون
+                  دانلود هیچ برنامه‌ای آنی باز می‌کنه.
                 </p>
               </div>
             </div>
@@ -153,7 +143,8 @@ export const HeroSection: React.FC = () => {
                 </span>
               </div>
               <p className="text-xs sm:text-sm text-white/90 leading-relaxed font-normal">
-                خریدار کالاهای مورد نظرش رو انتخاب می‌کنه و فاکتور آماده مستقیماً در واتساپ یا تلگرام برات ارسال میشه.
+                خریدار کالاهای مورد نظرش رو انتخاب می‌کنه و فاکتور آماده
+                مستقیماً در واتساپ یا تلگرام برات ارسال میشه.
               </p>
             </div>
           </div>

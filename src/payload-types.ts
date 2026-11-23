@@ -198,6 +198,25 @@ export interface Blog {
       }[]
     | null;
   status?: ('published' | 'draft') | null;
+  author?: string | null;
+  reviewer?: string | null;
+  relatedPosts?: (number | Blog)[] | null;
+  /**
+   * عنوان بهینه برای نمایش در نتایج جستجوی گوگل (حداکثر ۶۰ کاراکتر)
+   */
+  metaTitle?: string | null;
+  /**
+   * توضیحات خلاصه و جذاب برای ترغیب کلیک در گوگل (۱۲۰ تا ۱۶۰ کاراکتر)
+   */
+  metaDescription?: string | null;
+  /**
+   * در صورت خالی بودن، به صورت خودکار آدرس رسمی مقاله درج می‌شود
+   */
+  canonicalURL?: string | null;
+  /**
+   * فعال‌سازی این گزینه مانع از ایندکس شدن صفحه در گوگل می‌شود
+   */
+  noIndex?: boolean | null;
   updatedAt: string;
   createdAt: string;
 }
@@ -349,6 +368,13 @@ export interface BlogsSelect<T extends boolean = true> {
         id?: T;
       };
   status?: T;
+  author?: T;
+  reviewer?: T;
+  relatedPosts?: T;
+  metaTitle?: T;
+  metaDescription?: T;
+  canonicalURL?: T;
+  noIndex?: T;
   updatedAt?: T;
   createdAt?: T;
 }

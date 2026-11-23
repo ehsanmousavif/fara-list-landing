@@ -14,7 +14,6 @@ interface TordakProduct {
   image: string;
   stock: string;
   basePrice: number;
-  currentPrice: number;
 }
 
 const TORDAK_PRODUCTS: TordakProduct[] = [
@@ -24,9 +23,8 @@ const TORDAK_PRODUCTS: TordakProduct[] = [
     category: "غلات و آردها",
     weight: "بسته ۵۰۰ گرمی",
     image: "/assets/images/tordak/rice-flour.webp",
-    stock: "موجود در انبار",
+    stock: "موجود",
     basePrice: 109500,
-    currentPrice: 109500,
   },
   {
     id: "tordak-2",
@@ -34,19 +32,17 @@ const TORDAK_PRODUCTS: TordakProduct[] = [
     category: "پودر و آرد سوخاری",
     weight: "بسته ۳۰۰ گرمی",
     image: "/assets/images/tordak/bread-crumbs.webp",
-    stock: "موجود در انبار",
+    stock: "موجود",
     basePrice: 64950,
-    currentPrice: 64950,
   },
   {
     id: "tordak-3",
-    name: "پودر آماده فیله مرغ سوخاری",
+    name: "پودر فیله مرغ سوخاری",
     category: "چاشنی و سوخاری",
     weight: "پیاز و آویشن ۲۰۰ گرمی",
     image: "/assets/images/tordak/fried-fillet.webp",
-    stock: "موجود در انبار",
+    stock: "موجود",
     basePrice: 79950,
-    currentPrice: 79950,
   },
   {
     id: "tordak-4",
@@ -54,9 +50,8 @@ const TORDAK_PRODUCTS: TordakProduct[] = [
     category: "غلات و نشاسته",
     weight: "بسته ۵۰۰ گرمی",
     image: "/assets/images/tordak/corn-flour.webp",
-    stock: "موجود در انبار",
+    stock: "موجود",
     basePrice: 68950,
-    currentPrice: 68950,
   },
   {
     id: "tordak-5",
@@ -64,9 +59,8 @@ const TORDAK_PRODUCTS: TordakProduct[] = [
     category: "سوخاری رستورانی",
     weight: "بسته ۲۰۰ گرمی",
     image: "/assets/images/tordak/tempura.webp",
-    stock: "موجود در انبار",
+    stock: "موجود",
     basePrice: 64950,
-    currentPrice: 64950,
   },
   {
     id: "tordak-6",
@@ -74,16 +68,13 @@ const TORDAK_PRODUCTS: TordakProduct[] = [
     category: "حبوبات و غلات",
     weight: "بسته ۵۰۰ گرمی",
     image: "/assets/images/tordak/chickpea-flour.webp",
-    stock: "موجود در انبار",
+    stock: "موجود",
     basePrice: 107950,
-    currentPrice: 107950,
   },
 ];
 
 export const LiveDemoSection: React.FC = () => {
   const [isUpdated, setIsUpdated] = useState<boolean>(false);
-  const [products, setProducts] = useState<TordakProduct[]>(TORDAK_PRODUCTS);
-  const [isUpdating, setIsUpdating] = useState(false);
 
   const handleToggle = (checked: boolean) => {
     // بازخورد لرزشی (Haptic Vibration) هنگام کلیک
@@ -95,30 +86,16 @@ export const LiveDemoSection: React.FC = () => {
       }
     }
 
-    setIsUpdating(true);
+    // تغییر وضعیت فوری بدون تعویض جدول یا ایجاد لگ
     setIsUpdated(checked);
-
-    setTimeout(() => {
-      if (checked) {
-        setProducts(
-          TORDAK_PRODUCTS.map((p) => ({
-            ...p,
-            currentPrice: Math.round(p.basePrice * 1.15),
-          }))
-        );
-      } else {
-        setProducts(TORDAK_PRODUCTS);
-      }
-      setIsUpdating(false);
-    }, 180);
   };
 
   return (
     <section
       id="demo"
-      className="py-20 md:py-28 bg-[#0D0751] text-white relative overflow-hidden"
+      className="py-16 md:py-28 bg-[#0D0751] text-white relative overflow-hidden"
     >
-      <div className="max-w-6xl mx-auto px-4 space-y-12">
+      <div className="max-w-6xl mx-auto px-3 sm:px-4 space-y-8 sm:space-y-12">
         {/* هدر سکشن با استایل اینورت‌شده روی پس‌زمینه بنفش فرالیست */}
         <AnimatedContent
           distance={36}
@@ -142,64 +119,70 @@ export const LiveDemoSection: React.FC = () => {
           duration={0.65}
           ease="power2.out"
           delay={0.05}
-          className="space-y-6"
+          className="space-y-4 sm:space-y-6"
         >
-          {/* باکس تعاملی کلید سه‌بعدی راکر در کارد سفید تخت */}
-          <div className="bg-white p-6 sm:p-8 flex flex-col md:flex-row items-center justify-between gap-6 border-none shadow-none rounded-3xl">
-            {/* توضیحات و وضعیت کلید */}
-            <div className="flex items-center gap-4 text-right">
+          {/* باکس تعاملی کلید راکر در کارد سفید تخت و کامپکت */}
+          <div className="bg-white p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6 border-none shadow-none rounded-2xl sm:rounded-3xl">
+            {/* توضیحات و وضعیت کلید با تایتل وسط‌چین */}
+            <div className="flex flex-col sm:flex-row items-center justify-center text-center gap-3 sm:gap-4 w-full md:w-auto">
               <div
-                className={`w-12 h-12 rounded-2xl flex items-center justify-center transition-all duration-300 ${
+                className={`w-11 h-11 sm:w-12 sm:h-12 rounded-xl sm:rounded-2xl flex items-center justify-center transition-all duration-300 shrink-0 ${
                   isUpdated
                     ? "bg-[#0D0751] text-white scale-105"
                     : "bg-[#eae9fb] text-[#0D0751]"
                 }`}
               >
-                <Clock className="w-6 h-6" />
+                <Clock className="w-5 h-5 sm:w-6 sm:h-6" />
               </div>
 
-              <div>
-                <div className="flex items-center gap-2">
-                  <h3 className="text-lg sm:text-xl font-bold text-black">
-                    آپدیت محصولات با یک کلیک!
-                  </h3>
-                </div>
-                <p className="text-xs sm:text-sm text-black/60 mt-1">
+              <div className="text-center">
+                <h3 className="text-base sm:text-lg md:text-xl font-bold text-black leading-tight text-center">
+                  آپدیت محصولات با یک کلیک!
+                </h3>
+                <p className="text-xs sm:text-sm text-black/60 mt-1 text-center">
                   در کمترین زمان و نمایش به صورت لیستی زنده
                 </p>
               </div>
             </div>
 
             {/* کامپوننت کلید سه‌بعدی راکر */}
-            <div className="flex items-center gap-5 shrink-0">
-              <div className="flex flex-col items-center gap-4">
-                <RockerSwitch
-                  checked={isUpdated}
-                  onChange={handleToggle}
-                  leftLabel="تغییر"
-                  rightLabel="پایه"
-                />
-              </div>
+            <div className="flex items-center justify-center shrink-0">
+              <RockerSwitch
+                checked={isUpdated}
+                onChange={handleToggle}
+                leftLabel="تغییر"
+                rightLabel="پایه"
+              />
             </div>
           </div>
 
-          {/* جدول محصولات دیتای واقعی تردک در کانتینر سفید */}
-          <div className="bg-white overflow-hidden p-3 border-none shadow-none rounded-3xl">
-            <div className="overflow-x-auto">
-              <table className="w-full text-right text-sm">
+          {/* جدول ثابت محصولات دیتای واقعی تردک در کانتینر سفید */}
+          <div className="bg-white p-2 sm:p-4 border-none shadow-none rounded-2xl sm:rounded-3xl">
+            <div className="w-full">
+              <table className="w-full text-right text-xs sm:text-sm table-fixed sm:table-auto">
                 <thead>
-                  <tr className="bg-[#eae9fb] text-black/75 text-xs font-semibold">
-                    <th className="py-3.5 px-4 rounded-r-2xl w-16 text-center">تصویر</th>
-                    <th className="py-3.5 px-4">نام کالا و مشخصات</th>
-                    <th className="py-3.5 px-4 hidden sm:table-cell">دسته‌بندی</th>
-                    <th className="py-3.5 px-4">وضعیت موجودی</th>
-                    <th className="py-3.5 px-4 rounded-l-2xl">قیمت مصرف‌کننده</th>
+                  <tr className="bg-[#eae9fb] text-black/75 text-[11px] sm:text-xs font-semibold">
+                    <th className="py-2.5 px-1.5 sm:px-3 rounded-r-xl sm:rounded-r-2xl w-11 sm:w-16 text-center">
+                      تصویر
+                    </th>
+                    <th className="py-2.5 px-2 sm:px-3 text-center sm:text-right">
+                      نام کالا
+                    </th>
+                    <th className="py-2.5 px-3 hidden md:table-cell text-center">
+                      دسته‌بندی
+                    </th>
+                    <th className="py-2.5 px-1.5 sm:px-3 w-16 sm:w-24 text-center">
+                      وضعیت
+                    </th>
+                    <th className="py-2.5 px-2 sm:px-3 rounded-l-xl sm:rounded-l-2xl w-28 sm:w-40 text-center sm:text-right">
+                      قیمت (تومان)
+                    </th>
                   </tr>
                 </thead>
                 <tbody className="divide-y-0">
-                  {products.map((p, idx) => {
-                    const diff = p.currentPrice - p.basePrice;
+                  {TORDAK_PRODUCTS.map((p, idx) => {
                     const isEven = idx % 2 === 0;
+                    const newPrice = Math.round(p.basePrice * 1.15);
 
                     return (
                       <tr
@@ -209,8 +192,8 @@ export const LiveDemoSection: React.FC = () => {
                         } hover:bg-[#eae9fb]/50`}
                       >
                         {/* تصویر محصول */}
-                        <td className="py-3 px-4 text-center">
-                          <div className="w-12 h-12 mx-auto rounded-xl bg-white p-1 flex items-center justify-center overflow-hidden border border-black/5">
+                        <td className="py-2 px-1.5 sm:px-3 text-center align-middle">
+                          <div className="w-8 h-8 sm:w-11 sm:h-11 mx-auto rounded-lg sm:rounded-xl bg-white p-0.5 sm:p-1 flex items-center justify-center overflow-hidden border border-black/5">
                             <img
                               src={p.image}
                               alt={p.name}
@@ -220,51 +203,57 @@ export const LiveDemoSection: React.FC = () => {
                           </div>
                         </td>
 
-                        {/* نام و وزن */}
-                        <td className="py-3.5 px-4 font-bold text-black">
-                          <div className="flex flex-col">
-                            <span className="text-sm font-bold text-black">{p.name}</span>
-                            <span className="text-xs text-black/50 font-normal mt-0.5">{p.weight}</span>
+                        {/* نام و وزن کالا */}
+                        <td className="py-2 px-2 sm:px-3 align-middle min-w-0">
+                          <div className="flex flex-col min-w-0">
+                            <span className="text-[11px] sm:text-sm font-bold text-black truncate leading-tight">
+                              {p.name}
+                            </span>
+                            <span className="text-[10px] sm:text-xs text-black/50 font-normal truncate mt-0.5 leading-tight">
+                              {p.weight}
+                            </span>
                           </div>
                         </td>
 
-                        {/* دسته‌بندی */}
-                        <td className="py-3.5 px-4 text-black/70 text-xs hidden sm:table-cell">
+                        {/* دسته‌بندی در نمایش‌های بزرگتر */}
+                        <td className="py-2 px-3 text-black/70 text-xs hidden md:table-cell align-middle">
                           <span className="bg-black/5 px-2.5 py-1 rounded-lg">
                             {p.category}
                           </span>
                         </td>
 
                         {/* وضعیت موجودی */}
-                        <td className="py-3.5 px-4">
-                          <span className="text-xs px-2.5 py-1 font-medium rounded-xl bg-emerald-100 text-emerald-800">
+                        <td className="py-2 px-1.5 sm:px-3 text-center align-middle whitespace-nowrap">
+                          <span className="text-[10px] sm:text-xs px-2 py-0.5 font-bold rounded-lg bg-emerald-100 text-emerald-800 whitespace-nowrap inline-block">
                             {p.stock}
                           </span>
                         </td>
 
-                        {/* قیمت و تغییرات */}
-                        <td className="py-3.5 px-4">
-                          <div className="flex flex-col">
-                            {diff > 0 && (
-                              <span className="text-xs text-black/40 line-through">
-                                {p.basePrice.toLocaleString("fa-IR")} تومان
-                              </span>
-                            )}
-                            <span
-                              className={`text-base font-black transition-all ${
-                                isUpdating
-                                  ? "opacity-50 scale-95"
-                                  : "opacity-100 scale-100"
-                              } ${diff > 0 ? "text-[#3525cd]" : "text-black"}`}
-                            >
-                              {p.currentPrice.toLocaleString("fa-IR")} تومان
-                            </span>
-                            {diff > 0 && (
-                              <span className="text-[11px] text-[#3525cd] font-semibold mt-0.5 inline-flex items-center gap-1">
-                                <Sparkles className="w-3 h-3" />
-                                <span>
-                                  +۱۵٪ ({diff.toLocaleString("fa-IR")} تومان تغییر آنی)
+                        {/* قیمت: خط خوردن قیمت قبلی و آمدن قیمت جدید در زیر آن بدون لود جدول جدید */}
+                        <td className="py-2 px-2 sm:px-3 align-middle text-left sm:text-right whitespace-nowrap">
+                          <div className="flex flex-col items-end sm:items-start whitespace-nowrap leading-tight">
+                            {isUpdated ? (
+                              <>
+                                {/* ۱. قیمت قبلی با خط رویش */}
+                                <span className="text-[10px] sm:text-xs text-black/45 line-through decoration-red-500 font-semibold transition-all duration-200">
+                                  {p.basePrice.toLocaleString("fa-IR")} تومان
                                 </span>
+                                {/* ۲. قیمت جدید در زیر آن */}
+                                <span className="text-xs sm:text-sm md:text-base font-black text-[#3525cd] transition-all duration-200 mt-0.5">
+                                  {newPrice.toLocaleString("fa-IR")}{" "}
+                                  <span className="text-[10px] sm:text-xs font-normal text-[#3525cd]/80">تومان</span>
+                                </span>
+                                {/* ۳. نشانگر افزایش درصدی */}
+                                <span className="text-[9px] sm:text-[10px] text-emerald-600 font-bold mt-0.5 inline-flex items-center gap-0.5">
+                                  <Sparkles className="w-2.5 h-2.5" />
+                                  <span>+۱۵٪ جدید</span>
+                                </span>
+                              </>
+                            ) : (
+                              /* حالت پیش‌فرض پایه */
+                              <span className="text-xs sm:text-sm md:text-base font-black text-black transition-all duration-200">
+                                {p.basePrice.toLocaleString("fa-IR")}{" "}
+                                <span className="text-[10px] sm:text-xs font-normal text-black/60">تومان</span>
                               </span>
                             )}
                           </div>
@@ -277,16 +266,16 @@ export const LiveDemoSection: React.FC = () => {
             </div>
 
             {/* فوتر اطلاعات لایو دمو با رنگ برند bg-primary (#3525cd) */}
-            <div className="p-4 bg-[#3525cd] text-white mt-3 flex flex-col sm:flex-row items-center justify-between text-xs gap-3 rounded-2xl shadow-none">
-              <div className="flex items-center gap-2.5">
-                <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="font-semibold text-white">
+            <div className="p-3 sm:p-4 bg-[#3525cd] text-white mt-2.5 sm:mt-3 flex flex-col sm:flex-row items-center justify-between text-[11px] sm:text-xs gap-2 rounded-xl sm:rounded-2xl shadow-none">
+              <div className="flex items-center gap-2">
+                <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse shrink-0" />
+                <span className="font-semibold text-white truncate">
                   کاتالوگ آنلاین صنایع غذایی تردک (faralist.com/tordak)
                 </span>
               </div>
-              <div className="flex items-center gap-2">
-                <span className="text-white/80">سرعت پردازش و پخش تغییرات:</span>
-                <span className="text-white font-bold bg-white/20 px-2.5 py-1 rounded-xl">
+              <div className="flex items-center gap-1.5 shrink-0">
+                <span className="text-white/80">سرعت آپدیت:</span>
+                <span className="text-white font-bold bg-white/20 px-2 py-0.5 rounded-lg">
                   ~ ۰.۰۳ ثانیه
                 </span>
               </div>
