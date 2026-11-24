@@ -7,114 +7,47 @@ on:
   workflow_dispatch:
 
 jobs:
-  # ----------------------------------------------------
-  # مرحله اول: اعتبارسنجی بیلد پروژه در محیط ایزوله گیت‌هاب
-  # ----------------------------------------------------
-  build-and-validate:
+  # مرحله اول: تست و بیلد پروژه
+  build:
     name: Build & Validate
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
 
-      - name: Install pnpm
-        uses: pnpm/action-setup@v4
+      - uses: pnpm/action-setup@v4
         with:
           version: 9
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           cache: 'pnpm'
 
-      - name: Install Dependencies
-        run: pnpm install --frozen-lockfile
+      - run: pnpm install --frozen-lockfile
 
-      - name: Validate Next.js Build
+      - run: pnpm build
         env:
           NODE_ENV: production
           NEXT_TELEMETRY_DISABLED: 1
-          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET || 'dummy-secret-key-for-ci-build-validation-32' }}
+          PAYLOAD_SECRET: ${{ secrets.PAYLOAD_SECRET || 'dummy-secret-for-build' }}
           DATABASE_URI: file:./payload.db
-        run: pnpm build
 
-  # ----------------------------------------------------
-  # مرحله دوم: اتصال به سرور از طریق SSH و اجرای داکر کامپوز
-  # ----------------------------------------------------
-  deploy-to-server:
-    name: Deploy to Server via SSH
-    needs: build-and-validate
+  #
+  deploy:
+    name: Deploy to Server
+    needs: build
     runs-on: ubuntu-latest
     steps:
-      - name: Validate Secrets Availability
-        run: |
-          MISSING=""
-          if [ -z "${{ secrets.SERVER_HOST || secrets.HOST || secrets.SSH_HOST }}" ]; then
-            MISSING="$MISSING SERVER_HOST"
-          fi
-          if [ -z "${{ secrets.SERVER_USER || secrets.SSH_USER || secrets.USERNAME }}" ]; then
-            MISSING="$MISSING SERVER_USER"
-          fi
-          if [ -z "${{ secrets.SERVER_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}" ] && [ -z "${{ secrets.SERVER_PASSWORD || secrets.SSH_PASSWORD || secrets.PASSWORD }}" ]; then
-            MISSING="$MISSING (SERVER_SSH_KEY or SERVER_PASSWORD)"
-          fi
-          if [ -z "${{ secrets.SERVER_PATH || secrets.PROJECT_PATH }}" ]; then
-            MISSING="$MISSING SERVER_PATH"
-          fi
-
-          if [ -n "$MISSING" ]; then
-            echo "::error::سکرت‌های مورد نیاز برای اتصال به سرور در گیت‌هاب یافت نشدند:$MISSING"
-            echo "❌ ==================================================================="
-            echo "❌ خطای سکرت‌های گیت‌هاب: سکرت‌های زیر در تنظیمات ریپازیتوری تعریف نشده‌اند:"
-            for item in $MISSING; do
-              echo "   👉 $item"
-            done
-            echo ""
-            echo "لطفاً در مخزن گیت‌هاب به مسیر زیر بروید و آن‌ها را اضافه کنید:"
-            echo "GitHub Repo -> Settings -> Secrets and variables -> Actions -> New repository secret"
-            echo "❌ ==================================================================="
-            exit 1
-          fi
-
-      - name: Execute Deployment Commands on Remote Server
+      - name: Deploy via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SERVER_HOST || secrets.HOST || secrets.SSH_HOST }}
-          username: ${{ secrets.SERVER_USER || secrets.SSH_USER || secrets.USERNAME || 'root' }}
-          key: ${{ secrets.SERVER_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}
-          password: ${{ secrets.SERVER_PASSWORD || secrets.SSH_PASSWORD || secrets.PASSWORD }}
-          port: ${{ secrets.SERVER_PORT || secrets.SSH_PORT || 22 }}
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SERVER_SSH_KEY }}
+          port: ${{ secrets.SERVER_PORT || 22 }}
           script_stop: true
           script: |
-            set -e
-            echo "🚀 Starting Faralist deployment on server..."
-            
-            # انتقال به مسیر پروژه در سرور
-            cd ${{ secrets.SERVER_PATH || secrets.PROJECT_PATH || '/var/www/faralist' }}
-            
-            # دریافت آخرین تغییرات از برنچ main
-            echo "📥 Pulling latest code..."
-            git fetch --all
-            git reset --hard origin/main
-            
-            # اطمینان از وجود فایل .env و پوشه‌های مورد نیاز
-            if [ ! -f .env ]; then
-              echo "⚠️ .env not found, copying from .env.example..."
-              cp .env.example .env
-            fi
-            
-            mkdir -p public/uploads
-            if [ ! -f payload.db ]; then
-              touch payload.db
-            fi
-            
-            # بیلد و راه‌اندازی مجدد کانتینر داکر
-            echo "🐳 Building and starting Docker container..."
-            docker compose up -d --build --remove-orphans
-            
-            # پاکسازی ایمیج‌های بی‌استفاده برای جلوگیری از پر شدن دیسک سرور
-            echo "🧹 Cleaning up old dangling images..."
+            cd ${{ secrets.SERVER_PATH }}
+            git pull origin main
+            docker compose up -d --build
             docker image prune -f
-            
-            echo "✅ Deployment completed successfully!"
