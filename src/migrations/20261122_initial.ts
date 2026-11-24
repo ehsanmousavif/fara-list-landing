@@ -169,6 +169,17 @@ export async function up({ db }: MigrateUpArgs): Promise<void> {
   await db.run(sql`CREATE INDEX IF NOT EXISTS payload_preferences_rels_order_idx ON payload_preferences_rels (_order);`);
   await db.run(sql`CREATE INDEX IF NOT EXISTS payload_preferences_rels_parent_idx ON payload_preferences_rels (parent_id);`);
   await db.run(sql`CREATE INDEX IF NOT EXISTS payload_preferences_rels_path_idx ON payload_preferences_rels (path);`);
+
+  await db.run(sql`
+    CREATE TABLE IF NOT EXISTS payload_migrations (
+      id integer PRIMARY KEY AUTOINCREMENT NOT NULL,
+      name text NOT NULL,
+      batch numeric NOT NULL,
+      updated_at text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL,
+      created_at text DEFAULT (strftime('%Y-%m-%dT%H:%M:%fZ', 'now')) NOT NULL
+    );
+  `);
+  await db.run(sql`CREATE INDEX IF NOT EXISTS payload_migrations_created_at_idx ON payload_migrations (created_at);`);
 }
 
 export async function down({ db }: MigrateDownArgs): Promise<void> {
