@@ -2,6 +2,7 @@ services:
   faralist-web:
     container_name: faralist-landing
     restart: unless-stopped
+    image: ${IMAGE_NAME:-faralist-landing:latest}
     build:
       context: .
       dockerfile: Dockerfile
@@ -17,16 +18,11 @@ services:
       - DATABASE_URI=${DATABASE_URI:-file:./payload.db}
     volumes:
       # نگهداری پایگاه‌داده اس‌کیوالایت برای ماندگاری اطلاعات بین دیپلوی‌ها
-      - ./payload.db:/app/data/payload.db
+      - ./payload.db:/app/payload.db
       # نگهداری فایل‌های آپلود شده (مدیا) در سرور
       - ./public/uploads:/app/public/uploads
-
     healthcheck:
-      test:
-        [
-          "CMD-SHELL",
-          "wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/api/health || exit 1",
-        ]
+      test: ["CMD-SHELL", "wget --no-verbose --tries=1 --spider http://127.0.0.1:3000/api/health || exit 1"]
       interval: 30s
       timeout: 5s
       retries: 3
@@ -36,5 +32,3 @@ services:
       options:
         max-size: "10m"
         max-file: "3"
-volumes:
-  payload_data:
