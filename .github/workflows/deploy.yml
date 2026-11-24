@@ -47,20 +47,51 @@ jobs:
     needs: build-and-validate
     runs-on: ubuntu-latest
     steps:
+      - name: Validate Secrets Availability
+        run: |
+          MISSING=""
+          if [ -z "${{ secrets.SERVER_HOST || secrets.HOST || secrets.SSH_HOST }}" ]; then
+            MISSING="$MISSING SERVER_HOST"
+          fi
+          if [ -z "${{ secrets.SERVER_USER || secrets.SSH_USER || secrets.USERNAME }}" ]; then
+            MISSING="$MISSING SERVER_USER"
+          fi
+          if [ -z "${{ secrets.SERVER_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}" ] && [ -z "${{ secrets.SERVER_PASSWORD || secrets.SSH_PASSWORD || secrets.PASSWORD }}" ]; then
+            MISSING="$MISSING (SERVER_SSH_KEY or SERVER_PASSWORD)"
+          fi
+          if [ -z "${{ secrets.SERVER_PATH || secrets.PROJECT_PATH }}" ]; then
+            MISSING="$MISSING SERVER_PATH"
+          fi
+
+          if [ -n "$MISSING" ]; then
+            echo "::error::سکرت‌های مورد نیاز برای اتصال به سرور در گیت‌هاب یافت نشدند:$MISSING"
+            echo "❌ ==================================================================="
+            echo "❌ خطای سکرت‌های گیت‌هاب: سکرت‌های زیر در تنظیمات ریپازیتوری تعریف نشده‌اند:"
+            for item in $MISSING; do
+              echo "   👉 $item"
+            done
+            echo ""
+            echo "لطفاً در مخزن گیت‌هاب به مسیر زیر بروید و آن‌ها را اضافه کنید:"
+            echo "GitHub Repo -> Settings -> Secrets and variables -> Actions -> New repository secret"
+            echo "❌ ==================================================================="
+            exit 1
+          fi
+
       - name: Execute Deployment Commands on Remote Server
         uses: appleboy/ssh-action@v1.0.3
         with:
-          host: ${{ secrets.SERVER_HOST }}
-          username: ${{ secrets.SERVER_USER }}
-          key: ${{ secrets.SERVER_SSH_KEY }}
-          port: ${{ secrets.SERVER_PORT || 22 }}
+          host: ${{ secrets.SERVER_HOST || secrets.HOST || secrets.SSH_HOST }}
+          username: ${{ secrets.SERVER_USER || secrets.SSH_USER || secrets.USERNAME || 'root' }}
+          key: ${{ secrets.SERVER_SSH_KEY || secrets.SSH_KEY || secrets.SSH_PRIVATE_KEY }}
+          password: ${{ secrets.SERVER_PASSWORD || secrets.SSH_PASSWORD || secrets.PASSWORD }}
+          port: ${{ secrets.SERVER_PORT || secrets.SSH_PORT || 22 }}
           script_stop: true
           script: |
             set -e
             echo "🚀 Starting Faralist deployment on server..."
             
             # انتقال به مسیر پروژه در سرور
-            cd ${{ secrets.SERVER_PATH }}
+            cd ${{ secrets.SERVER_PATH || secrets.PROJECT_PATH || '/var/www/faralist' }}
             
             # دریافت آخرین تغییرات از برنچ main
             echo "📥 Pulling latest code..."
