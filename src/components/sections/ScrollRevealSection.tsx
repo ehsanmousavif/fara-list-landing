@@ -16,24 +16,24 @@ import { LightbulbIcon } from "@solar-icons/react/line-duotone";
 
 export const ScrollRevealSection: React.FC = () => {
   return (
-    <section className="py-20 md:py-32 bg-transparent text-black relative overflow-hidden">
-      <HeaderSections icon={<LightbulbIcon />} />
+    <section className="py-20 md:py-32 bg-[#191458] text-white relative overflow-hidden">
+      <HeaderSections icon={<LightbulbIcon />} inverted />
       <div className="max-w-6xl mx-auto px-4">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-7 space-y-6 text-right order-2 lg:order-1">
             <AnimatedContent distance={60} blur={8} wipe="none" duration={0.8}>
               <div className="space-y-5">
-                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eae9fb] text-[#3525cd] text-xs font-bold">
+                <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold">
                   <MessageSquare className="w-3.5 h-3.5" />
                   <span>راه‌حل فرالیست: یک لینک ثابت و همیشگی</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-black tracking-tight leading-[1.25]">
+                <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.25]">
                   یک لینک ثابت، که همیشه آخرین نسخه رو نشون می‌ده
                 </h2>
 
                 {/* متن پاراگراف منطبق با بخش ۳ سند محتوا */}
-                <p className="text-black/75 text-base sm:text-lg leading-relaxed font-normal">
+                <p className="text-white/80 text-base sm:text-lg leading-relaxed font-normal">
                   با فرالیست، محصولات، قیمت، موجودی و دسته‌بندی‌هات رو یک‌بار
                   وارد می‌کنی و از روی همون اطلاعات، یک یا چند کاتالوگ آنلاین
                   می‌سازی. هر کاتالوگ یک لینک مخصوص خودش داره که می‌تونی توی
@@ -41,7 +41,7 @@ export const ScrollRevealSection: React.FC = () => {
                   بذاریش.
                 </p>
 
-                <p className="text-black/75 text-base sm:text-lg leading-relaxed font-normal">
+                <p className="text-white/80 text-base sm:text-lg leading-relaxed font-normal">
                   از اون به بعد، هر تغییری که توی فرالیست بدی — قیمت، موجودی،
                   عکس، محصول جدید — همون لحظه روی همون لینک قبلی هم دیده می‌شه.
                   مشتری هیچ‌وقت فایل کهنه دستش نمی‌مونه.
@@ -49,20 +49,20 @@ export const ScrollRevealSection: React.FC = () => {
 
                 {/* مزایای برجسته */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-3.5 pt-2">
-                  <div className="p-4 rounded-2xl bg-[#f5f4fd] flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#3525cd] text-white flex items-center justify-center shrink-0">
+                  <div className="p-4 rounded-2xl bg-white/10 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-white text-[#191458] flex items-center justify-center shrink-0">
                       <Sparkles className="w-4 h-4" />
                     </div>
-                    <div className="text-xs sm:text-sm font-bold text-black">
+                    <div className="text-xs sm:text-sm font-bold text-white">
                       آپدیت محصولات در کمترین زمان !{" "}
                     </div>
                   </div>
 
-                  <div className="p-4 rounded-2xl bg-[#f5f4fd] flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-xl bg-[#eae9fb] text-[#3525cd] flex items-center justify-center shrink-0">
+                  <div className="p-4 rounded-2xl bg-white/10 flex items-center gap-3">
+                    <div className="w-9 h-9 rounded-xl bg-white text-[#191458] flex items-center justify-center shrink-0">
                       <CheckCircle2 className="w-5 h-5" />
                     </div>
-                    <div className="text-xs sm:text-sm font-bold text-black">
+                    <div className="text-xs sm:text-sm font-bold text-white">
                       بدون نیاز به به انجام عملیات های تکراری
                     </div>
                   </div>
@@ -71,9 +71,9 @@ export const ScrollRevealSection: React.FC = () => {
                 {/* دکمه اقدام */}
                 <div className="pt-3 flex flex-col sm:flex-row items-center gap-4">
                   <Button
-                    variant="primary"
+                    variant="white"
                     size="md"
-                    className="w-full sm:w-auto px-7 h-12"
+                    className="w-full sm:w-auto px-7 h-12 bg-white text-[#191458] hover:bg-white/90 font-bold"
                     onClick={() => {
                       const el = document.getElementById("cta");
                       el?.scrollIntoView({ behavior: "smooth" });
@@ -82,7 +82,7 @@ export const ScrollRevealSection: React.FC = () => {
                     <span>ساخت کاتالوگ من</span>
                     <ArrowLeft className="w-4 h-4 mr-1.5" />
                   </Button>
-                  <span className="text-xs text-black/60 font-medium">
+                  <span className="text-xs text-white/70 font-medium">
                     ✓ لینک مشتری‌ها خودکار به‌روزرسانی می‌شود
                   </span>
                 </div>

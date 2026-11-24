@@ -93,10 +93,10 @@ export const LiveDemoSection: React.FC = () => {
   return (
     <section
       id="demo"
-      className="py-16 md:py-28 bg-[#0D0751] text-white relative overflow-hidden"
+      className="py-16 md:py-28 bg-white text-black relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-3 sm:px-4 space-y-8 sm:space-y-12">
-        {/* هدر سکشن با استایل اینورت‌شده روی پس‌زمینه بنفش فرالیست */}
+        {/* هدر سکشن */}
         <AnimatedContent
           distance={36}
           blur={0}
@@ -105,10 +105,9 @@ export const LiveDemoSection: React.FC = () => {
           className="text-center"
         >
           <HeaderSections
-            icon={<Zap className="w-5 h-5 text-[#0D0751]" />}
+            icon={<Zap className="w-5 h-5 text-[#3525cd]" />}
             title="آپدیت کلی قیمت‌ها فقط با کلیک روی یک دکمه"
             subtitle="با تغییر وضعیت کلید زیر، تمام قیمت‌های کاتالوگ فروشگاه به صورت آنی و خودکار تغییر می‌کنند."
-            inverted
           />
         </AnimatedContent>
 
@@ -121,8 +120,8 @@ export const LiveDemoSection: React.FC = () => {
           delay={0.05}
           className="space-y-4 sm:space-y-6"
         >
-          {/* باکس تعاملی کلید راکر در کارد سفید تخت و کامپکت */}
-          <div className="bg-white p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6 border-none shadow-none rounded-2xl sm:rounded-3xl">
+          {/* باکس تعاملی کلید راکر در کارد تخت و کامپکت */}
+          <div className="bg-[#f5f4fd] p-5 sm:p-6 md:p-8 flex flex-col md:flex-row items-center justify-between gap-5 md:gap-6 border-none shadow-none rounded-2xl sm:rounded-3xl">
             {/* توضیحات و وضعیت کلید با تایتل وسط‌چین */}
             <div className="flex flex-col sm:flex-row items-center justify-center text-center gap-3 sm:gap-4 w-full md:w-auto">
               <div

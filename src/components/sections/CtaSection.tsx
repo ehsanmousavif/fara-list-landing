@@ -16,7 +16,7 @@ export const CtaSection: React.FC = () => {
   };
 
   return (
-    <section id="cta" className="py-20 md:py-28 bg-transparent text-black">
+    <section id="cta" className="py-20 md:py-28 bg-white text-black">
       <div className="max-w-5xl mx-auto px-4">
         <AnimatedContent
           distance={36}

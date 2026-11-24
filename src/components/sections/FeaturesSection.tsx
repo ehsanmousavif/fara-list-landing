@@ -257,7 +257,7 @@ export const FeaturesSection: React.FC = () => {
     <section
       id="features"
       ref={containerRef}
-      className="py-24 md:py-36 bg-transparent text-black relative overflow-hidden"
+      className="py-24 md:py-36 bg-white text-black relative overflow-hidden"
     >
       <div className="max-w-6xl mx-auto px-4">
         {/* سربرگ بخش امکانات با IconStack */}

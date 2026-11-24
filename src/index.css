@@ -32,9 +32,11 @@
 
 @layer base {
   :root {
-    --primary: #3525cd;
-    --primary-dark: #2719a0;
+    --primary: #191458;
+    --primary-foreground: #ffffff;
+    --primary-dark: #120e42;
     --secondary: #eae9fb;
+    --secondary-foreground: #191458;
     --background: #ffffff;
     --foreground: #000000;
     --font-sans:

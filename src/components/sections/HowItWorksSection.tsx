@@ -503,7 +503,7 @@ export const HowItWorksSection: React.FC = () => {
   return (
     <section
       id="how-it-works"
-      className="py-20 md:py-28 bg-transparent text-black"
+      className="py-20 md:py-28 bg-[#191458] text-white"
     >
       <div className="max-w-6xl mx-auto px-4 space-y-12">
         {/* هدر بخش با آیکون Layers */}
@@ -518,6 +518,7 @@ export const HowItWorksSection: React.FC = () => {
             icon={<Layers className="w-5 h-5" />}
             title="ساختنش سه دقیقه طول می‌کشه"
             subtitle="فرآیند ۴ قدمی ساده بدون پیچیدگی فنی؛ از تعریف اولین کالا تا تحویل لینک زنده به مشتریان"
+            inverted
           />
         </AnimatedContent>
 

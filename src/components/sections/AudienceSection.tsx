@@ -14,7 +14,7 @@ const AUDIENCE_ICONS: Record<string, React.ElementType> = {
 
 export const AudienceSection: React.FC = () => {
   return (
-    <section id="audience" className="py-20 md:py-28 bg-[#0d0751] text-white">
+    <section id="audience" className="py-20 md:py-28 bg-[#191458] text-white">
       <div className="max-w-6xl mx-auto px-4 space-y-16">
         {/* سربرگ بخش مخاطبان با استایل معکوس سفید روی پرایمری */}
         <AnimatedContent

@@ -115,13 +115,13 @@ export const SocialProofSection: React.FC = () => {
   return (
     <section
       id="trust"
-      className="py-20 md:py-28 bg-[#0d0751] text-white overflow-hidden relative"
+      className="py-20 md:py-28 bg-[#191458] text-white overflow-hidden relative"
     >
       <div className="max-w-6xl mx-auto px-4 space-y-12 mb-10">
         {/* سربرگ نظرات مشتریان */}
         <div className="text-center">
           <HeaderSections
-            icon={<Quote className="w-5 h-5 text-[#0d0751]" />}
+            icon={<Quote className="w-5 h-5 text-[#191458]" />}
             title="نظرات مشتریان"
             subtitle="تجربه واقعی کسب‌وکارهایی که فرآیند فروش و اشتراک‌گذاری قیمت‌هایشان را با فرالیست متحول کردند"
             inverted
@@ -136,12 +136,12 @@ export const SocialProofSection: React.FC = () => {
         {/* گرادیان محوکننده سمت راست */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-36 bg-gradient-to-l from-[#0d0751] to-transparent z-10"
+          className="pointer-events-none absolute inset-y-0 right-0 w-16 sm:w-36 bg-gradient-to-l from-[#191458] to-transparent z-10"
         />
         {/* گرادیان محوکننده سمت چپ */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-36 bg-gradient-to-r from-[#0d0751] to-transparent z-10"
+          className="pointer-events-none absolute inset-y-0 left-0 w-16 sm:w-36 bg-gradient-to-r from-[#191458] to-transparent z-10"
         />
 
         {/* ردیف اول مارکی: حرکت به سمت راست */}

@@ -65,16 +65,23 @@ export const HeroSection: React.FC = () => {
             </div>
           </div>
 
-          {/* ستون میانی: موکاپ موبایل */}
+          {/* ستون میانی: موکاپ سه‌بعدی موبایل روی استند با کاتالوگ آنلاین فرالیست */}
           <div className="lg:col-span-4 flex flex-col items-center justify-center relative order-1 lg:order-2 py-2 lg:py-0">
-            <div className="relative w-full max-w-[270px] sm:max-w-[320px] lg:max-w-[360px] flex flex-col items-center">
+            {/* هاله ملایم نوری پشت استند */}
+            <div
+              aria-hidden="true"
+              className="absolute w-72 h-96 bg-white/10 blur-[100px] rounded-full pointer-events-none -z-10"
+            />
+
+            <div className="relative w-full max-w-[280px] sm:max-w-[320px] lg:max-w-[360px] flex flex-col items-center select-none transition-transform duration-500 hover:scale-[1.02]">
               <img
                 src="/assets/images/hero-phone-stand-3d.png"
-                alt="نمای هوشمند فرالیست روی موبایل"
-                className="w-full h-auto object-contain pointer-events-none drop-shadow-xl transition-transform duration-500 hover:scale-[1.02]"
-                width={546}
-                height={850}
+                alt="نمای هوشمند کاتالوگ آنلاین فرالیست روی استند موبایل"
+                className="w-full h-auto object-contain pointer-events-none drop-shadow-[0_20px_40px_rgba(0,0,0,0.4)]"
+                width={528}
+                height={832}
                 loading="eager"
+                fetchPriority="high"
               />
             </div>
           </div>

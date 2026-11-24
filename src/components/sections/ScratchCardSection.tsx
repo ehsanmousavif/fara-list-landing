@@ -23,55 +23,55 @@ export const ScratchCardSection: React.FC = () => {
   return (
     <section
       id="discount"
-      className="w-full py-12 md:py-20 bg-transparent text-black"
+      className="w-full py-16 md:py-24 bg-[#191458] text-white"
     >
       <div className="max-w-6xl mx-auto px-4">
         {/* کانتینر اصلی بخش تخفیف با چیدمان چپ و راستی و طراحی تخت */}
-        <div className="relative rounded-3xl bg-[#f5f4fd] p-8 sm:p-12 lg:p-16 border-none shadow-none overflow-hidden">
+        <div className="relative rounded-3xl bg-white/10 p-8 sm:p-12 lg:p-16 border-none shadow-none overflow-hidden">
           {/* هاله پس‌زمینه ملایم برند */}
           <div
             aria-hidden="true"
-            className="absolute top-0 right-0 w-80 h-80 bg-[#3525cd]/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2"
+            className="absolute top-0 right-0 w-80 h-80 bg-white/5 rounded-full blur-3xl pointer-events-none -translate-y-1/2 translate-x-1/2"
           />
 
           <div className="relative z-10 grid grid-cols-1 lg:grid-cols-12 gap-8 lg:gap-12 items-center">
             {/* ستون متن و توضیحات در سمت راست */}
             <div className="lg:col-span-7 flex flex-col items-start text-right space-y-4 sm:space-y-5">
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-[#eae9fb] text-[#3525cd] text-xs font-bold">
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/20 text-white text-xs font-bold">
                 <Sparkles className="h-4 w-4" />
                 <span>هدیه ویژه شروع کسب‌وکار</span>
               </div>
 
-              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-neutral-900 tracking-tight leading-tight">
+              <h2 className="text-2xl sm:text-3xl lg:text-4xl font-black text-white tracking-tight leading-tight">
                 کاتالوگ آنلاینت رو با ۱۰٪ تخفیف اختصاصی بساز
               </h2>
 
-              <p className="text-sm sm:text-base text-neutral-600 leading-relaxed max-w-xl">
+              <p className="text-sm sm:text-base text-white/80 leading-relaxed max-w-xl">
                 برای همراهی در مسیر مدرن‌سازی و دیجیتال‌کردن لیست قیمت و محصولاتت، این کارت تخفیف اختصاصی برای شما آماده شده است. با کشیدن ماوس یا لمس دست روی کارت مقابل، کد تخفیف را آشکار کنید و موقع فعال‌سازی پلن از آن بهره‌مند شوید.
               </p>
 
               {/* ویژگی‌های کلیدی کد تخفیف */}
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 w-full pt-2">
-                <div className="flex items-center gap-2.5 text-sm text-neutral-700 font-medium">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#3525cd]/10 text-[#3525cd]">
+                <div className="flex items-center gap-2.5 text-sm text-white/90 font-medium">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white">
                     <Check className="h-3.5 w-3.5" />
                   </span>
                   <span>قابل استفاده در تمام پلن‌ها</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-sm text-neutral-700 font-medium">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#3525cd]/10 text-[#3525cd]">
+                <div className="flex items-center gap-2.5 text-sm text-white/90 font-medium">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white">
                     <Check className="h-3.5 w-3.5" />
                   </span>
                   <span>فعال‌سازی آنی پس از ثبت‌نام</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-sm text-neutral-700 font-medium">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#3525cd]/10 text-[#3525cd]">
+                <div className="flex items-center gap-2.5 text-sm text-white/90 font-medium">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white">
                     <Check className="h-3.5 w-3.5" />
                   </span>
                   <span>بدون محدودیت تعداد محصولات</span>
                 </div>
-                <div className="flex items-center gap-2.5 text-sm text-neutral-700 font-medium">
-                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-[#3525cd]/10 text-[#3525cd]">
+                <div className="flex items-center gap-2.5 text-sm text-white/90 font-medium">
+                  <span className="flex h-5 w-5 shrink-0 items-center justify-center rounded-full bg-white/20 text-white">
                     <Check className="h-3.5 w-3.5" />
                   </span>
                   <span>فرصت محدود برای ۱۰۰ کاربر اول</span>
@@ -79,8 +79,8 @@ export const ScratchCardSection: React.FC = () => {
               </div>
 
               {/* راهنما و وضعیت تعاملی */}
-              <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-neutral-500">
-                <Gift className="h-4 w-4 text-[#3525cd] shrink-0" />
+              <div className="pt-2 flex items-center gap-2 text-xs sm:text-sm font-medium text-white/70">
+                <Gift className="h-4 w-4 text-white shrink-0" />
                 <span>
                   {isRevealed
                     ? "کد تخفیف شما آماده است؛ با کلیک روی دکمه آن را کپی کنید."

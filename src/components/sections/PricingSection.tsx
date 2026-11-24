@@ -226,7 +226,7 @@ export const PricingSection: React.FC = () => {
   };
 
   return (
-    <section id="pricing" className="py-20 md:py-28 bg-transparent text-black">
+    <section id="pricing" className="py-20 md:py-28 bg-white text-black">
       <div className="max-w-6xl mx-auto px-4 space-y-12">
         {/* هدر بخش تعرفه‌ها: پلن مناسب خودتو بساز */}
         <AnimatedContent
