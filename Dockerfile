@@ -52,19 +52,17 @@ ENV HOSTNAME="0.0.0.0"
 RUN addgroup --system --gid 1001 nodejs && \
     adduser --system --uid 1001 nextjs
 
-# Create required directories for persistent storage
-RUN mkdir -p /app/public/uploads /app/data
+# Create persistent storage directories and touch initial db file
+RUN mkdir -p /app/public/uploads /app/data && \
+    touch /app/data/payload.db
 
 # Copy static assets and standalone server
 COPY --from=builder --chown=nextjs:nodejs /app/public ./public
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-# Copy payload.db if it exists in the build context (wildcard prevents build failure if absent)
-COPY --from=builder --chown=nextjs:nodejs /app/payload.db* ./
-
-# Ensure write permissions for non-root user on database and uploads
-RUN touch ./payload.db && chown -R nextjs:nodejs /app
+# Ensure write permissions for non-root user
+RUN chown -R nextjs:nodejs /app
 
 USER nextjs
 
