@@ -237,7 +237,7 @@ export const PricingSection: React.FC = () => {
           className="text-center"
         >
           <HeaderSections
-            icon={<CreditCard className="w-5 h-5 text-[#3525cd]" />}
+            icon={<CreditCard className="w-5 h-5" />}
             title="پلن مناسب خودتو بساز"
             subtitle="بدون هزینه مخفی؛ با پلن رایگان شروع کن و هر زمان نیاز داشتی ارتقا بده"
           />

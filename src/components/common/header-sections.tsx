@@ -29,16 +29,11 @@ export function HeaderSections({
   return (
     <div
       className={cn(
-        "flex flex-col items-center justify-center text-center space-y-4 max-w-3xl mx-auto mb-10 select-none",
+        "flex flex-col items-center justify-center text-center max-w-3xl mx-auto mb-10 select-none",
         className,
       )}
     >
-      <div
-        className={cn(
-          "flex items-center justify-center mb-1",
-          inverted ? "bg-transparent" : "bg-white",
-        )}
-      >
+      <div className="flex items-center justify-center mb-2 bg-transparent">
         <IconStack
           aria-hidden="true"
           className={cn(
@@ -49,7 +44,9 @@ export function HeaderSections({
           <div
             className={cn(
               "flex size-8 items-center justify-center rounded-xl border-none shadow-none",
-              inverted ? "bg-white text-[#0d0751]" : "bg-[#3525cd] text-white",
+              inverted
+                ? "bg-white text-[#191458] [&>svg]:text-[#191458] [&>svg]:stroke-[#191458]"
+                : "bg-[#3525cd] text-white [&>svg]:text-white [&>svg]:stroke-white",
             )}
           >
             {icon}
@@ -61,8 +58,8 @@ export function HeaderSections({
       {mainTitle && (
         <h2
           className={cn(
-            "text-3xl sm:text-4xl md:text-5xl font-black tracking-tight leading-tight",
-            inverted ? "text-white" : "text-black",
+            "text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-black tracking-tight leading-tight mb-3",
+            inverted ? "text-white" : "text-[#191458]",
           )}
         >
           {mainTitle}
@@ -74,7 +71,7 @@ export function HeaderSections({
         <p
           className={cn(
             "text-base md:text-lg max-w-2xl mx-auto leading-relaxed font-normal",
-            inverted ? "text-white/85" : "text-black/70",
+            inverted ? "text-white/85" : "text-slate-600",
           )}
         >
           {mainDescription}

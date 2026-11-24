@@ -12,7 +12,7 @@ const SPEED_SECONDS: Record<LogoSpeed, number> = {
 };
 
 /**
- * کامپوننت کامل لوگوی فارالیست مرکب از ۴ جزء مستقل
+ * کامپوننت کامل لوگوی فرالیست مرکب از ۴ جزء مستقل
  * با پشتیبانی از حالت استاتیک یا انیمیشن مرحله‌ای متوالی
  */
 export const FaralistLogo: React.FC<FaralistLogoProps> = ({

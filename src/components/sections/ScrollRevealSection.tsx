@@ -9,28 +9,43 @@ import {
   MoreVertical,
   Send,
   CheckCheck,
+  Lightbulb,
 } from "lucide-react";
 import { Button } from "@/components/ui";
 import { HeaderSections } from "../common/header-sections";
-import { LightbulbIcon } from "@solar-icons/react/line-duotone";
 
 export const ScrollRevealSection: React.FC = () => {
   return (
     <section className="py-20 md:py-32 bg-[#191458] text-white relative overflow-hidden">
-      <HeaderSections icon={<LightbulbIcon />} inverted />
       <div className="max-w-6xl mx-auto px-4">
+        {/* سربرگ استاندارد سکشن راهکار فرالیست */}
+        <AnimatedContent
+          distance={36}
+          blur={0}
+          duration={0.65}
+          ease="power2.out"
+          className="text-center"
+        >
+          <HeaderSections
+            icon={<Lightbulb className="w-5 h-5" />}
+            title="یک لینک ثابت، که همیشه آخرین نسخه رو نشون می‌ده"
+            subtitle="راه‌حل فرالیست برای خداحافظی همیشگی با فایل‌های کهنه و فرآیندهای تکراری؛ با هر آپدیت، کاتالوگ تمام مشتری‌ها آنی به‌روز می‌شود"
+            inverted
+          />
+        </AnimatedContent>
+
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
           <div className="lg:col-span-7 space-y-6 text-right order-2 lg:order-1">
             <AnimatedContent distance={60} blur={8} wipe="none" duration={0.8}>
               <div className="space-y-5">
                 <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/10 text-white text-xs font-bold">
                   <MessageSquare className="w-3.5 h-3.5" />
-                  <span>راه‌حل فرالیست: یک لینک ثابت و همیشگی</span>
+                  <span>راه‌حل فرالیست: یک لینک سبک و همیشگی</span>
                 </div>
 
-                <h2 className="text-2xl sm:text-4xl md:text-5xl font-black text-white tracking-tight leading-[1.25]">
-                  یک لینک ثابت، که همیشه آخرین نسخه رو نشون می‌ده
-                </h2>
+                <h3 className="text-xl sm:text-2xl md:text-3xl font-black text-white tracking-tight leading-[1.3]">
+                  تغییر قیمت یا موجودی در چند ثانیه، بدون ارسال مجدد فایل
+                </h3>
 
                 {/* متن پاراگراف منطبق با بخش ۳ سند محتوا */}
                 <p className="text-white/80 text-base sm:text-lg leading-relaxed font-normal">

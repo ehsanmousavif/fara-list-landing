@@ -2,7 +2,7 @@ import React from 'react';
 import { FaralistPartProps } from './types';
 
 /**
- * بخش دوم لوگوی فارالیست: خط اول (بالا)
+ * بخش دوم لوگوی فرالیست: خط اول (بالا)
  * Part 2: Top Line
  */
 export const FaralistLine1: React.FC<FaralistPartProps> = ({

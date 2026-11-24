@@ -2,7 +2,7 @@ import React from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { FaralistLogo } from "@/components/logo";
-import { ExternalLink, Sparkles, MessageCircle, Mail } from "lucide-react";
+import { ExternalLink, MessageCircle, Mail } from "lucide-react";
 
 export const Footer: React.FC = () => {
   return (
@@ -156,12 +156,12 @@ export const Footer: React.FC = () => {
             </p>
 
             <a
-              href="https://jikot.ir"
+              href="https://gecut.ir"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-flex items-center gap-1.5 text-xs text-white/90 hover:text-white font-medium group mt-1"
             >
-              <span>مشاهده وب‌سایت جیکات</span>
+              <span>مشاهده وب‌سایت gecut.ir</span>
               <ExternalLink
                 size={13}
                 className="group-hover:-translate-x-0.5 transition-transform"
@@ -176,12 +176,12 @@ export const Footer: React.FC = () => {
           <div className="flex items-center gap-2">
             <span>طراحی و اجرا:</span>
             <a
-              href="https://jikot.ir"
+              href="https://gecut.ir"
               target="_blank"
               rel="noopener noreferrer"
               className="text-white/80 hover:text-white font-medium transition-colors"
             >
-              استودیو جیکات (Jikot Web)
+              استودیو جیکات (GECUT WEB)
             </a>
           </div>
         </div>

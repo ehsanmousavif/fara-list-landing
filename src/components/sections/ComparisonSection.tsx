@@ -11,7 +11,7 @@ export const ComparisonSection: React.FC = () => {
         {/* هدر بخش مقایسه */}
         <AnimatedContent distance={24} duration={0.5} className="text-center">
           <HeaderSections
-            icon={<FileSpreadsheet className="w-5 h-5 text-[#3525cd]" />}
+            icon={<FileSpreadsheet className="w-5 h-5" />}
             title="فرالیست جای فروشگاه نیست، جای فایل‌های قیمت است"
             subtitle="فرالیست سیستم پیچیده فروشگاه‌سازی با سبد خرید و درگاه بانکی نیست؛ جایگزین سریع، مدرن و همیشه‌بروز فایل‌های سنگین PDF و اکسل‌های شلوغ است."
           />

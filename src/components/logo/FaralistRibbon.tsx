@@ -2,7 +2,7 @@ import React from 'react';
 import { FaralistPartProps } from './types';
 
 /**
- * بخش اول لوگوی فارالیست: تیک / روبان بنفش تاخورده
+ * بخش اول لوگوی فرالیست: تیک / روبان بنفش تاخورده
  * Part 1: The stylized folded purple ribbon ('F' mark)
  */
 export const FaralistRibbon: React.FC<FaralistPartProps> = ({

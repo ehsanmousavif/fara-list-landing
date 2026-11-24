@@ -121,7 +121,7 @@ export const SocialProofSection: React.FC = () => {
         {/* سربرگ نظرات مشتریان */}
         <div className="text-center">
           <HeaderSections
-            icon={<Quote className="w-5 h-5 text-[#191458]" />}
+            icon={<Quote className="w-5 h-5" />}
             title="نظرات مشتریان"
             subtitle="تجربه واقعی کسب‌وکارهایی که فرآیند فروش و اشتراک‌گذاری قیمت‌هایشان را با فرالیست متحول کردند"
             inverted

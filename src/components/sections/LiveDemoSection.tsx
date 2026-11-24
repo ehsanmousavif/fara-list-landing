@@ -105,7 +105,7 @@ export const LiveDemoSection: React.FC = () => {
           className="text-center"
         >
           <HeaderSections
-            icon={<Zap className="w-5 h-5 text-[#3525cd]" />}
+            icon={<Zap className="w-5 h-5" />}
             title="آپدیت کلی قیمت‌ها فقط با کلیک روی یک دکمه"
             subtitle="با تغییر وضعیت کلید زیر، تمام قیمت‌های کاتالوگ فروشگاه به صورت آنی و خودکار تغییر می‌کنند."
           />

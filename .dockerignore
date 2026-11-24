@@ -1,0 +1,38 @@
+# Dependencies
+node_modules
+.pnp
+.pnp.js
+
+# Next.js build output & cache
+.next
+out
+build
+dist
+
+# Git & GitHub
+.git
+.github
+.agents
+.aider-desk
+
+# Debug & logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Environment files (secrets should be passed via docker-compose / env)
+.env*.local
+
+# Vercel & IDE
+.vercel
+.vscode
+.idea
+*.tsbuildinfo
+next-env.d.ts
+
+# Documentation & Assets
+docs
+*.md
+.DS_Store
+Thumbs.db

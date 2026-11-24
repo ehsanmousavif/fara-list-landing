@@ -2,7 +2,7 @@ import React from 'react';
 import { FaralistPartProps } from './types';
 
 /**
- * بخش چهارم لوگوی فارالیست: خط سوم (نقطه + خط افقی پایین)
+ * بخش چهارم لوگوی فرالیست: خط سوم (نقطه + خط افقی پایین)
  * Part 4: Bottom Line (Dot + Bar)
  */
 export const FaralistLine3: React.FC<FaralistPartProps> = ({

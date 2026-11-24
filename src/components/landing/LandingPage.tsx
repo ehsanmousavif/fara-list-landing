@@ -16,6 +16,7 @@ import { SocialProofSection } from "@/components/sections/SocialProofSection"; /
 import { PricingSection } from "@/components/sections/PricingSection"; // بسیار مهم برای Conversion
 import { FaqSection } from "@/components/sections/FaqSection"; // محتوای مهم و پاسخ به سؤالات
 import { CtaSection } from "@/components/sections/CtaSection"; // افزایش Conversion
+import { JikotWebSection } from "@/components/sections/GecutWebSection"; // معرفی استودیو خلاق جیکات وب
 
 // ==========================================
 // سکشن‌های Dynamic (بارگذاری پویا برای بخش‌های تعاملی و سنگین)
@@ -55,7 +56,7 @@ export const LandingPage: React.FC = () => {
         {/* ۱. Stats (سفید - Eager) */}
         <StatsSection />
 
-        {/* ۲. ScrollReveal (آبی - Eager) */}
+        {/* ۲. ScrollReveal (بنفش/سرمه‌ای - Eager) */}
         <ScrollRevealSection />
 
         {/* ۳. LiveDemo (سفید - Dynamic) */}
@@ -63,34 +64,37 @@ export const LandingPage: React.FC = () => {
           <LiveDemoSection />
         </Suspense>
 
-        {/* ۴. HowItWorks (آبی - Eager) */}
+        {/* ۴. HowItWorks (بنفش/سرمه‌ای - Eager) */}
         <HowItWorksSection />
 
         {/* ۵. Features (سفید - Eager) */}
         <FeaturesSection />
 
-        {/* ۶. Audience (آبی - Eager) */}
+        {/* ۶. Audience (بنفش/سرمه‌ای - Eager) */}
         <AudienceSection />
 
         {/* ۷. Comparison (سفید - Eager) */}
         <ComparisonSection />
 
-        {/* ۸. SocialProof (آبی - Eager) */}
+        {/* ۸. SocialProof (بنفش/سرمه‌ای - Eager) */}
         <SocialProofSection />
 
         {/* ۹. Pricing (سفید - Eager) */}
         <PricingSection />
 
-        {/* ۱۰. FAQ (آبی - Eager) */}
+        {/* ۱۰. FAQ (بنفش/سرمه‌ای - Eager) */}
         <FaqSection />
 
-        {/* ۱۱. CTA (سفید - Eager) */}
-        <CtaSection />
-
-        {/* ۱۲. ScratchCard (آبی - Dynamic) */}
+        {/* ۱۱. ScratchCard (کد تخفیف: سفید - Dynamic) */}
         <Suspense fallback={<SectionFallback />}>
           <ScratchCardSection />
         </Suspense>
+
+        {/* ۱۲. CTA (بنفش/سرمه‌ای - Eager) */}
+        <CtaSection />
+
+        {/* ۱۳. JikotWeb (سفید - معرفی جیکات وب و ارجاع به gecut.ir) */}
+        <JikotWebSection />
       </div>
     </>
   );
